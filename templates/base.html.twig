@@ -17,12 +17,11 @@
 			<link rel="stylesheet" href="{{ asset('assets/css/sticky-footer-navbar.css') }}">
 			<link rel="stylesheet" href="{{ asset('assets/css/carousel.css')}}">
 		{% endblock %}
+		{% include "layout/style.html.twig" %}
 		{% block javascripts %}
 			{#{{ encore_entry_script_tags('app') }}#}
-			<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 			<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
 		{% endblock %}
-		{% include "layout/style.html.twig" %}
 
 	</head>
 	<body>

@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	Discussion{{ parent() }}
+{% endblock %}
+{% block body %}
+	{% if blogDiscussions is defined %}
+		{% for blogDiscussion in blogDiscussions %}
+			<div class="row alert alert-info">
+				<div class="col-4">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">Créé le
+							{{ blogDiscussion.datecreation|date('d/m/Y à G:i:s', 'Europe/Paris') }}
+							par
+							{{ blogDiscussion.auteur }}</li>
+					</ul>
+				</div>
+				<div class="col-8">
+					<p>{{ blogDiscussion.contenu }}</p>
+					<a href="">
+						<button class="btn btn-secondary">Répondre</button>
+					</a>
+				</div>
+			</div>
+			<hr>
+		{% endfor %}
+	{% else %}
+		{% for blogBillet in blogBillets %}
+			<div class="row alert alert-info">
+				<div class="col-4">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">Sujet :
+							{{ blogBillet.titre }}</li>
+						<li class="list-group-item">Créé le
+							{{ blogBillet.datecreation|date('d/m/Y à G:i:s', 'Europe/Paris') }}
+							par
+							{{ blogBillet.auteur }}</li>
+					</ul>
+				</div>
+				<div class="col-8">
+					<p>{{ blogBillet.contenu }}</p>
+					<a href="{{ path('discussion_display',{"billetId":blogBillet.Id}) }}">
+						<button class="btn btn-secondary">Accéder</button>
+					</a>
+				</div>
+			</div>
+			<hr>
+		{% endfor %}
+	{% endif %}
+{% endblock %}
