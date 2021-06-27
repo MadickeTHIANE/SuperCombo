@@ -1,19 +1,37 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
+<html lang="fr" class="h-100">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<title>
+			{% block title %}
+				- SuperCombo
+			{% endblock %}
+		</title>
+		{#* Ajouter le logo dans l'onglet #}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-</html>
+		{% block stylesheets %}
+			{#{{ encore_entry_link_tags('app') }}#}
+			<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('assets/css/sticky-footer-navbar.css') }}">
+			<link rel="stylesheet" href="{{ asset('assets/css/carousel.css')}}">
+		{% endblock %}
+		{% block javascripts %}
+			{#{{ encore_entry_script_tags('app') }}#}
+			<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+			<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+		{% endblock %}
+		{% include "layout/style.html.twig" %}
+
+	</head>
+	<body>
+		{% include "layout/header.html.twig" %}
+		<main class="flex-shrink-0">
+			<div class="container"> {% block body %}{% endblock %}
+				</div>
+			</main>
+			{% include "layout/footer.html.twig" %}
+
+		</body>
+	</html>
