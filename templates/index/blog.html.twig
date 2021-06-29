@@ -3,27 +3,53 @@
 	Discussion{{ parent() }}
 {% endblock %}
 {% block body %}
+	{# Affichage des discussions relatives à un billet #}
 	{% if blogDiscussions is defined %}
-		{% for blogDiscussion in blogDiscussions %}
-			<div class="row alert alert-info">
-				<div class="col-4">
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">Créé le
-							{{ blogDiscussion.datecreation|date('d/m/Y à G:i:s', 'Europe/Paris') }}
-							par
-							{{ blogDiscussion.auteur }}</li>
-					</ul>
-				</div>
-				<div class="col-8">
-					<p>{{ blogDiscussion.contenu }}</p>
-					<a href="">
-						<button class="btn btn-secondary">Répondre</button>
-					</a>
-				</div>
+		<div class="row alert alert-info">
+			<div class="col-4">
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">Sujet :
+						{{ blogBillet.titre }}</li>
+					<li class="list-group-item">Créé le
+						{{ blogBillet.datecreation|date('d/m/Y à G:i:s', 'Europe/Paris') }}
+						par
+						{{ blogBillet.auteur }}</li>
+				</ul>
 			</div>
-			<hr>
-		{% endfor %}
+			<div class="col-8">
+				<p>{{ blogBillet.contenu }}</p>
+			</div>
+		</div>
+		<hr>
+		<div class="container w-75">
+
+			{% for blogDiscussion in blogDiscussions %}
+
+				<div class="row alert alert-info">
+					<div class="col-4">
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">Créé le
+								{{ blogDiscussion.datecreation|date('d/m/Y à G:i:s', 'Europe/Paris') }}
+								par
+								{{ blogDiscussion.auteur }}</li>
+						</ul>
+					</div>
+					<div class="col-8">
+						<p>{{ blogDiscussion.contenu }}</p>
+						<a href="">
+							<button class="btn btn-secondary">Répondre</button>
+						</a>
+					</div>
+				</div>
+				<hr>
+			{% endfor %}
+			{# Création d'un nouveau commentaire #}
+			<a href="{{ path('create_discussion',{"billetId":blogBillet.id}) }}">
+				<button class="btn btn-success m-4">Ecrire un commentaire</button>
+			</a>
+		</div>
 	{% else %}
+		{# Affichage des billets #}
 		{% for blogBillet in blogBillets %}
 			<div class="row alert alert-info">
 				<div class="col-4">
@@ -38,12 +64,16 @@
 				</div>
 				<div class="col-8">
 					<p>{{ blogBillet.contenu }}</p>
-					<a href="{{ path('discussion_display',{"billetId":blogBillet.Id}) }}">
+					<a href="{{ path('discussion_index',{"billetId":blogBillet.Id}) }}">
 						<button class="btn btn-secondary">Accéder</button>
 					</a>
 				</div>
 			</div>
 			<hr>
 		{% endfor %}
+		{# Création d'un nouveau billet #}
+		<a href="{{ path('create_billet') }}">
+			<button class="btn btn-success">Créer un nouveau sujet</button>
+		</a>
 	{% endif %}
 {% endblock %}

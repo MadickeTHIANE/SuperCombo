@@ -41,6 +41,7 @@ class BlogBillet
 
     /**
      * @ORM\OneToMany(targetEntity=BlogDiscussion::class, mappedBy="billet")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $blogDiscussions;
 
