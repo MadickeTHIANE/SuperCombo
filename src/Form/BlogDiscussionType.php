@@ -19,13 +19,13 @@ class BlogDiscussionType extends AbstractType
                 "label" => "Pseudo"
             ])
             ->add('contenu', TextareaType::class, [
-                'lable' => "contenu"
+                'label' => "contenu"
             ])
             ->add('valider', SubmitType::class, [
                 "label" => "Valider",
                 "attr" => [
                     'style' => 'margin-top : 5px',
-                    'class' => 'btn btn-success'
+                    'class' => 'btn btn-success',
                 ],
             ]);
     }

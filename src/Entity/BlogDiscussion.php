@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\BlogDiscussionRepository;
+use App\Entity\BlogBillet;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BlogDiscussionRepository;
 
 /**
  * @ORM\Entity(repositoryClass=BlogDiscussionRepository::class)
@@ -38,10 +39,10 @@ class BlogDiscussion
      */
     private $date_creation;
 
-    public function __construct(int $billetId)
+    public function __construct(BlogBillet $billet)
     {
         $this->date_creation = new \DateTime("now");
-        $this->billet = $billetId;
+        $this->billet = $billet;
     }
 
     public function getId(): ?int

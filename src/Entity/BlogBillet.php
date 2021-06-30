@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\BlogBilletRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\BlogDiscussion;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BlogBilletRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=BlogBilletRepository::class)
