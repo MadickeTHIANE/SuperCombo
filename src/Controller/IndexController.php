@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Video;
+use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Entity\BlogBillet;
 use App\Form\BlogBilletType;
 use App\Entity\BlogDiscussion;
@@ -27,6 +29,23 @@ class IndexController extends AbstractController
 
         return $this->render('index/index.html.twig', [
             "videos" => $videos
+        ]);
+    }
+
+    //*ok
+    /**
+     *@Route("/article",name="article_index") 
+     */
+    public function articleIndex()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $articleRepository = $entityManager->getRepository(Article::class);
+        $articles = $articleRepository->findAll();
+        if (!$articles) {
+            return $this->redirect($this->generateUrl('create_article'));
+        }
+        return $this->render('index/article.html.twig', [
+            "articles" => $articles
         ]);
     }
 
@@ -70,6 +89,29 @@ class IndexController extends AbstractController
         return $this->render('index/blog.html.twig', [
             "blogDiscussions" => $blogDiscussions,
             "blogBillet" => $blogBillet,
+        ]);
+    }
+
+
+    //*ok
+    /**
+     * @Route("/article/create",name="create_article")
+     */
+    public function createArticle(Request $request)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $article = new Article;
+        $articleForm = $this->createForm(ArticleType::class, $article);
+        $articleForm->handleRequest($request);
+        if ($request->isMethod('post') && $articleForm->isValid()) {
+            $entityManager->persist($article);
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('article_index'));
+        }
+        return $this->render('index/dataform.html.twig', [
+            "dataForm" => $articleForm->createView(),
+            "formName" => "Création d'un article"
         ]);
     }
 
@@ -119,6 +161,48 @@ class IndexController extends AbstractController
         return $this->render('index/dataform.html.twig', [
             "dataForm" => $discussionForm->createView(),
             "formName" => "Création d'un nouveau commentaire",
+        ]);
+    }
+
+    /**
+     * @Route("/show/article/{articleId}",name="show_article")
+     */
+    public function showArticle(Request $request, $articleId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $articleRepository = $entityManager->getRepository(Article::class);
+        $article = $articleRepository->find($articleId);
+        if (!$article) {
+            return $this->redirect($this->generateUrl('article_index'));
+        }
+        $articles = [$article];
+        return $this->render('index/article.html.twig', [
+            "articles" => $articles
+        ]);
+    }
+
+    //*ok
+    /**
+     * @Route("article/edit/{articleId}",name="edit_article")
+     */
+    public function editArticle(Request $request, $articleId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $articleRepository = $entityManager->getRepository(Article::class);
+        $article = $articleRepository->find($articleId);
+        if (!$article) {
+            return $this->redirect($this->generateUrl('article_index'));
+        }
+        $articleForm = $this->createForm(ArticleType::class, $article);
+        $articleForm->handleRequest($request);
+        if ($request->isMethod('post') && $articleForm->isValid()) {
+            $entityManager->persist($article);
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('article_index'));
+        }
+        return $this->render('index/dataform.html.twig', [
+            "dataForm" => $articleForm->createView(),
+            "formName" => "Modification de l'article"
         ]);
     }
 
@@ -177,6 +261,23 @@ class IndexController extends AbstractController
 
     //*ok
     /**
+     * @Route("/article/delete/{articleId}",name="delete_article")
+     */
+    public function deleteArticle(Request $request, $articleId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $articleRepository = $entityManager->getRepository(Article::class);
+        $article = $articleRepository->find($articleId);
+        if (!$article) {
+            return $this->redirect($this->generateUrl('article_index'));
+        }
+        $entityManager->remove($article);
+        $entityManager->flush();
+        return $this->redirect($this->generateUrl('article_index'));
+    }
+
+    //*ok
+    /**
      * @Route("/blog/billet/delete/{billetId}",name="delete_billet")
      */
     public function deleteBillet(Request $request, $billetId)
@@ -218,9 +319,9 @@ class IndexController extends AbstractController
 
     //*ok
     /**
-     * @Route("/view/video/{videoId}",name="view_video")
+     * @Route("/show/video/{videoId}",name="show_video")
      */
-    public function viewVideo(Request $request, $videoId)
+    public function showVideo(Request $request, $videoId)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $videoRepository = $entityManager->getRepository(Video::class);
