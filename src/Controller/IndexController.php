@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Video;
 use App\Entity\BlogBillet;
 use App\Form\BlogBilletType;
 use App\Entity\BlogDiscussion;
@@ -18,7 +19,14 @@ class IndexController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('index/index.html.twig', []);
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $videoRepository = $entityManager->getRepository(Video::class);
+        $videos = $videoRepository->findAll();
+
+        return $this->render('index/index.html.twig', [
+            "videos" => $videos
+        ]);
     }
 
     /**
