@@ -113,4 +113,18 @@ class IndexController extends AbstractController
             // "billetId"=>$billetId
         ]);
     }
+
+    /**
+     * @Route("/view/video/{videoId}",name="view_video")
+     */
+    public function viewVideo(Request $request, $videoId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $videoRepository = $entityManager->getRepository(Video::class);
+        $video = $videoRepository->find($videoId);
+        $videos = [$video];
+        return $this->render('index/index.html.twig', [
+            "videos" => $videos
+        ]);
+    }
 }

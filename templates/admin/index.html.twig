@@ -1,20 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Accueil{{parent()}}
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	{# Vidéos #}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/SuperCombo/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/SuperCombo/templates/admin/index.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
-    </ul>
-</div>
+	<div class="album py-5 bg-light">
+		<div class="container">
+
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+				{% for video in videos %}
+					<div class="col">
+						<div class="card shadow-sm">
+							<iframe width="100%" height="315" src="https://www.youtube.com/embed/{{ video.iframe }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+							<div class="card-body">
+								<p class="card-text">{{ video.extrait }}</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group">
+										<a href={{ path('admin_edit_video',{"videoId":video.id} ) }}>
+											<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+										</a>
+										<a href={{ path('admin_delete_video',{"videoId":video.id} ) }}>
+											<button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
+										</a>
+									</div>
+									<small class="text-muted">9 mins</small>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			<a href={{ path('admin_add_video') }} class="row">
+				<button type="button" class="btn btn-sm btn-outline-secondary btn-success text-white">Add</button>
+			</a>
+		</div>
+	</div>
+	{# Fin des Vidéos #}
 {% endblock %}
