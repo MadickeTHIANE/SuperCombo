@@ -11,12 +11,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
- *@Route("/admin", name="admin") 
+ *@Route("/admin") 
  */
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/", name="_index")
+     * @Route("/", name="admin_index")
      */
     public function index(): Response
     {
@@ -31,7 +31,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/add/video", name = "_add_video")
+     * @Route("/add/video", name = "add_video")
      */
     public function addVideo(Request $request)
     {
@@ -53,7 +53,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/edit/video/{videoId}", name = "_edit_video")
+     * @Route("/edit/video/{videoId}", name = "edit_video")
      */
     public function editVideo(Request $request, $videoId)
     {
@@ -76,7 +76,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/delete/video/{videoId}", name="_delete_video")
+     * @Route("/delete/video/{videoId}", name="delete_video")
      */
     public function deleteVideo(Request $request, $videoId)
     {

@@ -21,10 +21,10 @@
 								<p class="card-text">{{ video.extrait }}</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
-										<a href={{ path('admin_edit_video',{"videoId":video.id} ) }}>
+										<a href={{ path('edit_video',{"videoId":video.id} ) }}>
 											<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
 										</a>
-										<a href={{ path('admin_delete_video',{"videoId":video.id} ) }}>
+										<a href={{ path('delete_video',{"videoId":video.id} ) }}>
 											<button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
 										</a>
 									</div>
@@ -35,8 +35,8 @@
 					</div>
 				{% endfor %}
 			</div>
-			<a href={{ path('admin_add_video') }} class="row">
-				<button type="button" class="btn btn-sm btn-outline-secondary btn-success text-white">Add</button>
+			<a href={{ path('add_video') }} class="row">
+				<button type="button" class="btn btn-sm btn-outline-secondary btn-success text-white">Ajouter une vidéo</button>
 			</a>
 		</div>
 	</div>

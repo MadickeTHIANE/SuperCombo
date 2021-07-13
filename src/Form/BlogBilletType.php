@@ -22,7 +22,7 @@ class BlogBilletType extends AbstractType
                 "label" => "Sujet"
             ])
             ->add('contenu', TextareaType::class, [
-                'lable' => "contenu"
+                'label' => "contenu"
             ])
             ->add('valider', SubmitType::class, [
                 "label" => "Valider",

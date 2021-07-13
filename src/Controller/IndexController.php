@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class IndexController extends AbstractController
 {
+    //*ok
     /**
      * @Route("/", name="index")
      */
@@ -29,6 +30,7 @@ class IndexController extends AbstractController
         ]);
     }
 
+    //*ok
     /**
      * @Route("/blog",name="blog_index")
      */
@@ -48,6 +50,7 @@ class IndexController extends AbstractController
         ]);
     }
 
+    //*ok
     /**
      * @Route("/blog/billet/{billetId}",name="discussion_index")
      */
@@ -63,12 +66,14 @@ class IndexController extends AbstractController
         }
         $blogDiscussions = $blogBillet->getBlogDiscussions();
 
+        //Renvoie des discussions et de leur billet
         return $this->render('index/blog.html.twig', [
             "blogDiscussions" => $blogDiscussions,
             "blogBillet" => $blogBillet,
         ]);
     }
 
+    //! redirige vers blog_index au lieu du formulaire
     /**
      * @Route("/blog/billet/create",name="create_billet")
      */
@@ -90,6 +95,7 @@ class IndexController extends AbstractController
         ]);
     }
 
+    //*ok
     /**
      * @Route("/blog/discussion/create/{billetId}",name="create_discussion")
      */
@@ -103,17 +109,114 @@ class IndexController extends AbstractController
         $discussionForm = $this->createForm(BlogDiscussionType::class, $discussion);
         $discussionForm->handleRequest($request);
         if ($request->isMethod('post') && $discussionForm->isValid()) {
+            $discussion->setBillet($billet);
             $entityManager->persist($discussion);
             $entityManager->flush();
-            return $this->redirect($this->generateUrl('blog_index'));
+            return $this->redirect($this->generateUrl('discussion_index', [
+                "billetId" => $billetId
+            ]));
         }
         return $this->render('index/dataform.html.twig', [
             "dataForm" => $discussionForm->createView(),
             "formName" => "Création d'un nouveau commentaire",
-            // "billetId"=>$billetId
         ]);
     }
 
+    //*ok
+    /**
+     * @Route("/blog/billet/edit/{billetId}",name="edit_billet")
+     */
+    public function editBillet(Request $request, $billetId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $billetRepository = $entityManager->getRepository(BlogBillet::class);
+        $billet = $billetRepository->find($billetId);
+        if (!$billet) {
+            return $this->redirect($this->generateUrl('blog_index'));
+        }
+        $billetForm = $this->createForm(BlogBilletType::class, $billet);
+        $billetForm->handleRequest($request);
+        if ($request->isMethod('post') && $billetForm->isValid()) {
+            $entityManager->persist($billet);
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('blog_index'));
+        }
+        return $this->render('index/dataform.html.twig', [
+            "dataForm" => $billetForm->createView(),
+            "formName" => "Modification du billet"
+        ]);
+    }
+
+    //*ok
+    /**
+     * @Route("/blog/discussion/edit/{discussionId}",name="edit_discussion")
+     */
+    public function editDiscussion(Request $request, $discussionId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $discussionRepository = $entityManager->getRepository(BlogDiscussion::class);
+        $discussion = $discussionRepository->find($discussionId);
+        if (!$discussion) {
+            return $this->redirect($this->generateUrl('blog_index'));
+        }
+        $billetId = $discussion->getBillet()->getId();
+        $discussionForm = $this->createForm(BlogDiscussionType::class, $discussion);
+        $discussionForm->handleRequest($request);
+        if ($request->isMethod('post') && $discussionForm->isValid()) {
+            $entityManager->persist($discussion);
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('discussion_index', [
+                "billetId" => $billetId
+            ]));
+        }
+        return $this->render('index/dataform.html.twig', [
+            "dataForm" => $discussionForm->createView(),
+            "formName" => "Modification du commentaire"
+        ]);
+    }
+
+    //*ok
+    /**
+     * @Route("/blog/billet/delete/{billetId}",name="delete_billet")
+     */
+    public function deleteBillet(Request $request, $billetId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $blogBilletRepository = $entityManager->getRepository(BlogBillet::class);
+        $billet = $blogBilletRepository->find($billetId);
+        if (!$billet) {
+            return $this->redirect($this->generateUrl('index'));
+        }
+        $billetDiscussions = $billet->getBlogDiscussions();
+        foreach ($billetDiscussions as $billetDiscussion) {
+            $entityManager->remove($billetDiscussion);
+        }
+        $entityManager->remove($billet);
+        $entityManager->flush();
+        return $this->redirect($this->generateUrl('blog_index'));
+    }
+
+    //*ok
+    /**
+     * @Route("/blog/discussion/delete/{discussionId}",name="delete_discussion")
+     */
+    public function deleteDiscussion(Request $request, $discussionId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $discussionRepository = $entityManager->getRepository(BlogDiscussion::class);
+        $discussion = $discussionRepository->find($discussionId);
+        if (!$discussion) {
+            return $this->redirect($this->generateUrl('index'));
+        }
+        $billetId = $discussion->getBillet()->getId();
+        $entityManager->remove($discussion);
+        $entityManager->flush();
+        return $this->redirect($this->generateUrl('discussion_index', [
+            "billetId" => $billetId
+        ]));
+    }
+
+    //*ok
     /**
      * @Route("/view/video/{videoId}",name="view_video")
      */

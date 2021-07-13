@@ -36,13 +36,17 @@
 					</div>
 					<div class="col-8">
 						<p>{{ blogDiscussion.contenu }}</p>
-						<a href="">
-							<button class="btn btn-secondary">Répondre</button>
+						<a href={{ path('edit_discussion',{"discussionId":blogDiscussion.id} ) }}>
+							<button class="btn btn-warning">Modifier le commentaire</button>
+						</a>
+						<a href={{ path('delete_discussion',{"discussionId":blogDiscussion.id} ) }}>
+							<button class="btn btn-danger">Supprimer le commentaire</button>
 						</a>
 					</div>
 				</div>
-				<hr>
 			{% endfor %}
+
+			<hr>
 			{# Création d'un nouveau commentaire #}
 			<a href="{{ path('create_discussion',{"billetId":blogBillet.id}) }}">
 				<button class="btn btn-success m-4">Ecrire un commentaire</button>
@@ -67,12 +71,18 @@
 					<a href="{{ path('discussion_index',{"billetId":blogBillet.Id}) }}">
 						<button class="btn btn-secondary">Accéder</button>
 					</a>
+					<a href={{ path('edit_billet',{"billetId":blogBillet.Id} ) }}>
+						<button class="btn btn-warning">Modifier le billet</button>
+					</a>
+					<a href={{ path('delete_billet',{"billetId":blogBillet.Id} ) }}>
+						<button class="btn btn-danger">Supprimer le billet</button>
+					</a>
 				</div>
 			</div>
+
 			<hr>
 		{% endfor %}
 		{# Création d'un nouveau billet #}
-		{#! Ne fonctionne pas #}
 		<a href="{{ path('create_billet') }}">
 			<button class="btn btn-success m-4">Créer un nouveau sujet</button>
 		</a>

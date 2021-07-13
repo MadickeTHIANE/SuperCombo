@@ -39,10 +39,9 @@ class BlogDiscussion
      */
     private $date_creation;
 
-    public function __construct(?BlogBillet $billet)
+    public function __construct()
     {
         $this->date_creation = new \DateTime("now");
-        $this->billet = $billet;
     }
 
     public function getId(): ?int
