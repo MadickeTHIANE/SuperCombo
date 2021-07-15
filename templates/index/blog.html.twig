@@ -36,12 +36,14 @@
 					</div>
 					<div class="col-8">
 						<p>{{ blogDiscussion.contenu }}</p>
-						<a href={{ path('edit_discussion',{"discussionId":blogDiscussion.id} ) }}>
-							<button class="btn btn-warning">Modifier le commentaire</button>
-						</a>
-						<a href={{ path('delete_discussion',{"discussionId":blogDiscussion.id} ) }}>
-							<button class="btn btn-danger">Supprimer le commentaire</button>
-						</a>
+						<div class="btn-group">
+							<a href={{ path('edit_discussion',{"discussionId":blogDiscussion.id} ) }}>
+								<button class="btn btn-warning">Modifier le commentaire</button>
+							</a>
+							<a href={{ path('delete_discussion',{"discussionId":blogDiscussion.id} ) }}>
+								<button class="btn btn-danger">Supprimer le commentaire</button>
+							</a>
+						</div>
 					</div>
 				</div>
 			{% endfor %}
@@ -68,15 +70,17 @@
 				</div>
 				<div class="col-8">
 					<p>{{ blogBillet.contenu }}</p>
-					<a href="{{ path('discussion_index',{"billetId":blogBillet.Id}) }}">
-						<button class="btn btn-secondary">Accéder</button>
-					</a>
-					<a href={{ path('edit_billet',{"billetId":blogBillet.Id} ) }}>
-						<button class="btn btn-warning">Modifier le billet</button>
-					</a>
-					<a href={{ path('delete_billet',{"billetId":blogBillet.Id} ) }}>
-						<button class="btn btn-danger">Supprimer le billet</button>
-					</a>
+					<div class="btn-group">
+						<a href="{{ path('discussion_index',{"billetId":blogBillet.Id}) }}">
+							<button class="btn btn-secondary">Accéder</button>
+						</a>
+						<a href={{ path('edit_billet',{"billetId":blogBillet.Id} ) }}>
+							<button class="btn btn-warning">Modifier le billet</button>
+						</a>
+						<a href={{ path('delete_billet',{"billetId":blogBillet.Id} ) }}>
+							<button class="btn btn-danger">Supprimer le billet</button>
+						</a>
+					</div>
 				</div>
 			</div>
 

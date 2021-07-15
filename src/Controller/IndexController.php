@@ -49,7 +49,7 @@ class IndexController extends AbstractController
         ]);
     }
 
-    //*ok
+    //! ne fonctionne pas dans le cas ou il n'y a pas de billet
     /**
      * @Route("/blog",name="blog_index")
      */
@@ -164,6 +164,7 @@ class IndexController extends AbstractController
         ]);
     }
 
+    //*ok
     /**
      * @Route("/show/article/{articleId}",name="show_article")
      */
