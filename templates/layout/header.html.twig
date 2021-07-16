@@ -16,19 +16,22 @@
 						<a class="nav-link active" aria-current="page" href="{{ path('article_index') }}">Articles</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" href={{ path('admin_index') }}>Admin</a>
+						<a class="nav-link active" href={{ path('user_register') }}>Inscription</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href={{ path('app_login') }}>Connexion</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href={{ path('app_logout') }}>Déconnexion</a>
 					</li>
 					<li class="nav-item dropdown">
-						<a class="nav-link active dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Catégories</a>
+						<a class="nav-link active dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
 						<ul class="dropdown-menu" aria-labelledby="category">
 							<li>
-								<a class="dropdown-item" href="#">General</a>
+								<a class="dropdown-item" href={{ path('admin_index') }}>Tableau d'administration</a>
 							</li>
 							<li>
-								<a class="dropdown-item" href="#">Urgent</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href="#">Divers</a>
+								<a class="dropdown-item" href={{ path('admin_register') }}>Inscription d'un admin</a>
 							</li>
 						</ul>
 					</li>

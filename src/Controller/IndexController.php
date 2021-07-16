@@ -49,7 +49,7 @@ class IndexController extends AbstractController
         ]);
     }
 
-    //! ne fonctionne pas dans le cas ou il n'y a pas de billet
+    //*ok
     /**
      * @Route("/blog",name="blog_index")
      */
@@ -71,7 +71,7 @@ class IndexController extends AbstractController
 
     //*ok
     /**
-     * @Route("/blog/billet/{billetId}",name="discussion_index")
+     * @Route("/blog/billet/display/{billetId}",name="discussion_index")
      */
     public function billetDiscussionIndex(Request $request, $billetId)
     {
