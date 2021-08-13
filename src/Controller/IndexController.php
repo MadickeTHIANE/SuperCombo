@@ -115,7 +115,7 @@ class IndexController extends AbstractController
         ]);
     }
 
-    //! redirige vers blog_index au lieu du formulaire
+    //*ok
     /**
      * @Route("/blog/billet/create",name="create_billet")
      */

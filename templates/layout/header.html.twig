@@ -2,8 +2,8 @@
 	<!-- Fixed navbar -->
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 		<div class="container-fluid">
-			<img src={{ asset('assets/img/logo.png') }} alt="logo" width="50px" class="img img-thumbnail figure-img">
-			<a class="navbar-brand mx-2" href="{{ path('index') }}">SuperCombo</a>
+			<a class="navbar-brand mx-2" href="{{ path('index') }}"><img src={{ asset('assets/img/logo.png') }} alt="logo" width="50px" class="img img-thumbnail figure-img">
+				SuperCombo</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -24,17 +24,19 @@
 					<li class="nav-item">
 						<a class="nav-link active" href={{ path('app_logout') }}>Déconnexion</a>
 					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link active dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
-						<ul class="dropdown-menu" aria-labelledby="category">
-							<li>
-								<a class="dropdown-item" href={{ path('admin_index') }}>Tableau d'administration</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href={{ path('admin_register') }}>Inscription d'un admin</a>
-							</li>
-						</ul>
-					</li>
+					{% if is_granted('ROLE_ADMIN') %}
+						<li class="nav-item dropdown">
+							<a class="nav-link active dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+							<ul class="dropdown-menu" aria-labelledby="category">
+								<li>
+									<a class="dropdown-item" href={{ path('admin_index') }}>Tableau d'administration</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href={{ path('admin_register') }}>Inscription d'un admin</a>
+								</li>
+							</ul>
+						</li>
+					{% endif %}
 				</ul>
 			</div>
 		</div>
