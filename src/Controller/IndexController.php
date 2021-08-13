@@ -64,7 +64,8 @@ class IndexController extends AbstractController
         }
 
         return $this->render('index/blog.html.twig', [
-            "blogBillets" => $blogBillets
+            "blogBillets" => $blogBillets,
+            "userName" => $this->getUser()->getUsername()
         ]);
     }
 
@@ -88,6 +89,7 @@ class IndexController extends AbstractController
         return $this->render('index/blog.html.twig', [
             "blogDiscussions" => $blogDiscussions,
             "blogBillet" => $blogBillet,
+            "userName" => $this->getUser()->getUsername()
         ]);
     }
 
