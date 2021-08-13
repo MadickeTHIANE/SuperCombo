@@ -18,7 +18,7 @@
 			</div>
 			<div class="col-8">
 				<p>{{ blogBillet.contenu }}</p>
-				{% if userName == blogBillet.auteur %}
+				{% if userName is not null and userName == blogBillet.auteur %}
 					<a href={{ path('edit_billet',{"billetId":blogBillet.Id} ) }}>
 						<button class="btn btn-warning">Modifier le billet</button>
 					</a>
@@ -41,7 +41,7 @@
 					</div>
 					<div class="col-8">
 						<p>{{ blogDiscussion.contenu }}</p>
-						{% if userName == blogDiscussion.auteur %}
+						{% if userName is not null and userName == blogDiscussion.auteur %}
 							<div class="btn-group">
 								<a href={{ path('edit_discussion',{"discussionId":blogDiscussion.id} ) }}>
 									<button class="btn btn-warning">Modifier le commentaire</button>
@@ -57,9 +57,15 @@
 
 			<hr>
 			{# Création d'un nouveau commentaire #}
-			<a href="{{ path('create_discussion',{"billetId":blogBillet.id}) }}">
-				<button class="btn btn-success m-4">Ecrire un commentaire</button>
-			</a>
+			{% if userName is not null %}
+				<a href="{{ path('create_discussion',{"billetId":blogBillet.id}) }}">
+					<button class="btn btn-success m-4">Ecrire un commentaire</button>
+				</a>
+			{% else %}
+				<div class="alert alert-warning">
+					<a class="text-decoration-none text-danger" href="{{ path('user_register') }}">Veuillez vous connecter ou vous inscrire pour ajouter un commentaire</a>
+				</div>
+			{% endif %}
 		</div>
 	{% else %}
 		{# Affichage des billets #}
@@ -81,7 +87,7 @@
 						<a href="{{ path('discussion_index',{"billetId":blogBillet.Id}) }}">
 							<button class="btn btn-secondary">Accéder</button>
 						</a>
-						{% if userName == blogBillet.auteur %}
+						{% if userName is not null and userName == blogBillet.auteur %}
 							<a href={{ path('edit_billet',{"billetId":blogBillet.Id} ) }}>
 								<button class="btn btn-warning">Modifier le billet
 								</button>
@@ -94,8 +100,14 @@
 			<hr>
 		{% endfor %}
 		{# Création d'un nouveau billet #}
-		<a href="{{ path('create_billet') }}">
-			<button class="btn btn-success m-4">Créer un nouveau sujet</button>
-		</a>
+		{% if userName is not null %}
+			<a href="{{ path('create_billet') }}">
+				<button class="btn btn-success m-4">Créer un nouveau sujet</button>
+			</a>
+		{% else %}
+			<div class="alert alert-warning">
+				<a class="text-decoration-none text-danger" href="{{ path('user_register') }}">Veuillez vous connecter ou vous inscrire pour ajouter un billet</a>
+			</div>
+		{% endif %}
 	{% endif %}
 {% endblock %}
