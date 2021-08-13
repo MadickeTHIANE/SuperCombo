@@ -15,9 +15,6 @@ class BlogBilletType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('auteur', TextType::class, [
-                "label" => "Pseudo"
-            ])
             ->add('titre', TextType::class, [
                 "label" => "Sujet"
             ])

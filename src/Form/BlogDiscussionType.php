@@ -15,9 +15,6 @@ class BlogDiscussionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('auteur', TextType::class, [
-                "label" => "Pseudo"
-            ])
             ->add('contenu', TextareaType::class, [
                 'label' => "contenu"
             ])

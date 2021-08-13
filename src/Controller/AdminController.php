@@ -124,6 +124,7 @@ class AdminController extends AbstractController
         $billetForm = $this->createForm(BlogBilletType::class, $billet);
         $billetForm->handleRequest($request);
         if ($request->isMethod('post') && $billetForm->isValid()) {
+            $billet->setAuteur($this->getUser()->getUsername());
             $entityManager->persist($billet);
             $entityManager->flush();
             return $this->redirect($this->generateUrl('admin_blog_index'));
@@ -147,6 +148,7 @@ class AdminController extends AbstractController
         $discussionForm = $this->createForm(BlogDiscussionType::class, $discussion);
         $discussionForm->handleRequest($request);
         if ($request->isMethod('post') && $discussionForm->isValid()) {
+            $discussion->setAuteur($this->getUser()->getUsername());
             $discussion->setBillet($billet);
             $entityManager->persist($discussion);
             $entityManager->flush();
