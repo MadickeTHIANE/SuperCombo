@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Video;
 use App\Entity\Article;
-use App\Form\ArticleType;
 use App\Entity\BlogBillet;
 use App\Form\BlogBilletType;
 use App\Entity\BlogDiscussion;
@@ -93,27 +92,27 @@ class IndexController extends AbstractController
     }
 
 
-    //*ok
-    /**
-     * @Route("/article/create",name="create_article")
-     */
-    public function createArticle(Request $request)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
+    // //*ok
+    // /**
+    //  * @Route("/article/create",name="create_article")
+    //  */
+    // public function createArticle(Request $request)
+    // {
+    //     $entityManager = $this->getDoctrine()->getManager();
 
-        $article = new Article;
-        $articleForm = $this->createForm(ArticleType::class, $article);
-        $articleForm->handleRequest($request);
-        if ($request->isMethod('post') && $articleForm->isValid()) {
-            $entityManager->persist($article);
-            $entityManager->flush();
-            return $this->redirect($this->generateUrl('article_index'));
-        }
-        return $this->render('index/dataform.html.twig', [
-            "dataForm" => $articleForm->createView(),
-            "formName" => "Création d'un article"
-        ]);
-    }
+    //     $article = new Article;
+    //     $articleForm = $this->createForm(ArticleType::class, $article);
+    //     $articleForm->handleRequest($request);
+    //     if ($request->isMethod('post') && $articleForm->isValid()) {
+    //         $entityManager->persist($article);
+    //         $entityManager->flush();
+    //         return $this->redirect($this->generateUrl('article_index'));
+    //     }
+    //     return $this->render('index/dataform.html.twig', [
+    //         "dataForm" => $articleForm->createView(),
+    //         "formName" => "Création d'un article"
+    //     ]);
+    // }
 
     //*ok
     /**
@@ -182,30 +181,30 @@ class IndexController extends AbstractController
         ]);
     }
 
-    //*ok
-    /**
-     * @Route("article/edit/{articleId}",name="edit_article")
-     */
-    public function editArticle(Request $request, $articleId)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $articleRepository = $entityManager->getRepository(Article::class);
-        $article = $articleRepository->find($articleId);
-        if (!$article) {
-            return $this->redirect($this->generateUrl('article_index'));
-        }
-        $articleForm = $this->createForm(ArticleType::class, $article);
-        $articleForm->handleRequest($request);
-        if ($request->isMethod('post') && $articleForm->isValid()) {
-            $entityManager->persist($article);
-            $entityManager->flush();
-            return $this->redirect($this->generateUrl('article_index'));
-        }
-        return $this->render('index/dataform.html.twig', [
-            "dataForm" => $articleForm->createView(),
-            "formName" => "Modification de l'article"
-        ]);
-    }
+    // //*ok
+    // /**
+    //  * @Route("article/edit/{articleId}",name="edit_article")
+    //  */
+    // public function editArticle(Request $request, $articleId)
+    // {
+    //     $entityManager = $this->getDoctrine()->getManager();
+    //     $articleRepository = $entityManager->getRepository(Article::class);
+    //     $article = $articleRepository->find($articleId);
+    //     if (!$article) {
+    //         return $this->redirect($this->generateUrl('article_index'));
+    //     }
+    //     $articleForm = $this->createForm(ArticleType::class, $article);
+    //     $articleForm->handleRequest($request);
+    //     if ($request->isMethod('post') && $articleForm->isValid()) {
+    //         $entityManager->persist($article);
+    //         $entityManager->flush();
+    //         return $this->redirect($this->generateUrl('article_index'));
+    //     }
+    //     return $this->render('index/dataform.html.twig', [
+    //         "dataForm" => $articleForm->createView(),
+    //         "formName" => "Modification de l'article"
+    //     ]);
+    // }
 
     //*ok
     /**
@@ -260,22 +259,22 @@ class IndexController extends AbstractController
         ]);
     }
 
-    //*ok
-    /**
-     * @Route("/article/delete/{articleId}",name="delete_article")
-     */
-    public function deleteArticle(Request $request, $articleId)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $articleRepository = $entityManager->getRepository(Article::class);
-        $article = $articleRepository->find($articleId);
-        if (!$article) {
-            return $this->redirect($this->generateUrl('article_index'));
-        }
-        $entityManager->remove($article);
-        $entityManager->flush();
-        return $this->redirect($this->generateUrl('article_index'));
-    }
+    // //*ok
+    // /**
+    //  * @Route("/article/delete/{articleId}",name="delete_article")
+    //  */
+    // public function deleteArticle(Request $request, $articleId)
+    // {
+    //     $entityManager = $this->getDoctrine()->getManager();
+    //     $articleRepository = $entityManager->getRepository(Article::class);
+    //     $article = $articleRepository->find($articleId);
+    //     if (!$article) {
+    //         return $this->redirect($this->generateUrl('article_index'));
+    //     }
+    //     $entityManager->remove($article);
+    //     $entityManager->flush();
+    //     return $this->redirect($this->generateUrl('article_index'));
+    // }
 
     //*ok
     /**
