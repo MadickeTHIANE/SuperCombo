@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	Article{{ parent() }}
+{% endblock %}
+{% block body %}
+	{% if articles|length == 1 %}
+		{% for article in articles %}
+			<h1>{{ article.titre }}</h1>
+			<div>{{ article.contenu }}</div>
+			<div class="btn-group">
+				<a href={{ path('admin_edit_article',{"articleId":article.id} ) }}>
+					<button class="btn btn-warning mt-3">Modifier l'article</button>
+				</a>
+				<a href={{ path('admin_delete_article',{"articleId":article.id} ) }}>
+					<button class="btn btn-danger mt-3">Supprimer l'article</button>
+				</a>
+			</div>
+		{% endfor %}
+	{% else %}
+		<div class="container">
+			<div class="list-group list-group-flush">
+				{% for article in articles %}
+					<div class="list-group-item">
+						<div class="d-flex w-100 justify-content-between">
+							<a href={{ path('admin_show_article',{"articleId":article.id} ) }} class="text-decoration-none">
+								<h1>{{ article.titre }}</h1>
+							</a>
+							<small>{{ article.dateCreation|date('d/m/Y') }}</small>
+						</div>
+						<div>{{ article.contenu|slice(0,200) }}
+							...</div>
+						<div class="btn-group">
+							<a href={{ path('admin_show_article',{"articleId":article.id} ) }}>
+								<button class="btn btn-primary mt-3">Afficher l'article</button>
+							</a>
+							<a href={{ path('admin_edit_article',{"articleId":article.id} ) }}>
+								<button class="btn btn-warning mt-3">Modifier l'article</button>
+							</a>
+							<a href={{ path('admin_delete_article',{"articleId":article.id} ) }}>
+								<button class="btn btn-danger mt-3">Supprimer l'article</button>
+							</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	{% endif %}
+	<div>
+		<a href={{ path('admin_create_article') }}>
+			<button class="btn btn-success mt-3">Créer un nouvel article</button>
+		</a>
+	</div>
+{% endblock %}
