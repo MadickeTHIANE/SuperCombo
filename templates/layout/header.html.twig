@@ -15,12 +15,14 @@
 					<li class="nav-item">
 						<a class="nav-link active" aria-current="page" href="{{ path('article_index') }}">Articles</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link active" href={{ path('user_register') }}>Inscription</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" href={{ path('app_login') }}>Connexion</a>
-					</li>
+					{% if is_granted('ROLE_USER') == false %}
+						<li class="nav-item">
+							<a class="nav-link active" href={{ path('user_register') }}>Inscription</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href={{ path('app_login') }}>Connexion</a>
+						</li>
+					{% endif %}
 					{% if is_granted('ROLE_USER') %}
 						<li class="nav-item">
 							<a class="nav-link active" href={{ path('app_logout') }}>Déconnexion</a>
