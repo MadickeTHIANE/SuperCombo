@@ -7,15 +7,24 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class VideoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre')
+            ->add('titre', TextType::class, [
+                "attr" => [
+                    "maxlength" => "22"
+                ]
+            ])
             ->add('iframe')
-            ->add('extrait')
+            ->add('extrait', TextType::class, [
+                "attr" => [
+                    "maxlength" => "44"
+                ]
+            ])
             ->add('Valider', SubmitType::class, [
                 "attr" => [
                     "class" => "btn btn-success",
