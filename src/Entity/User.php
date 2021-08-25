@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Entity\Image;
+use App\Entity\Video;
 use App\Entity\Article;
 use App\Entity\BlogBillet;
 use App\Entity\BlogDiscussion;
@@ -63,12 +65,18 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $videos;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="user")
+     */
+    private $images;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
         $this->billets = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->videos = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -269,6 +277,36 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($video->getUser() === $this) {
                 $video->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getUser() === $this) {
+                $image->setUser(null);
             }
         }
 
