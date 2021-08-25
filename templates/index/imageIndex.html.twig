@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Images{{parent()}}
+{% endblock %}
+
+{% block body %}
+
+	{# Images #}
+
+	<div class="album py-5 bg-light">
+		<div class="container">
+			{% if images|length == 1 %}
+				<div class="row row-cols-1 g-3">
+					{% for image in images %}
+						<div class="col">
+							<div class="card shadow-sm">
+								<img src="{{ image.link }}" alt="{{ image.titre }}" title="{{ image.titre }}">
+
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			{% else %}
+				<div class="row row-cols-1 row-cols-md-2 g-3">
+					{% for image in images %}
+						<div class="col">
+							<div class="card shadow-sm">
+								<img src="{{ image.link }}" alt="{{ image.titre }}" title="{{ image.titre }}">
+
+
+								<div
+									class="card-body">
+									{# <h3>{{ image.titre }}</h3> #}
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="btn-group">
+											<a href={{ path('show_image',{"imageId":image.id} ) }}>
+												<button type="button" class="btn btn-sm btn-outline-secondary">Show</button>
+											</a>
+											<a href={{ path('edit_image',{"imageId":image.id} ) }}>
+												<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+											</a>
+											<a href={{ path('delete_image',{"imageId":image.id} ) }}>
+												<button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+				<a href={{ path('add_image') }} class="row">
+					<button type="button" class="btn btn-sm btn-outline-secondary btn-success text-white">Ajouter une image</button>
+				</a>
+			{% endif %}
+		</div>
+	</div>
+	{# Fin des Images #}
+{% endblock %}
