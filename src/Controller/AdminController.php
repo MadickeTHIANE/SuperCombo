@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Video;
 use App\Entity\Article;
-use App\Form\ArticleType;
+use App\Form\ImageType;
 use App\Form\VideoType;
+use App\Form\ArticleType;
 use App\Entity\BlogBillet;
 use App\Form\BlogBilletType;
 use App\Entity\BlogDiscussion;
@@ -35,6 +37,21 @@ class AdminController extends AbstractController
 
         return $this->render('admin/videoIndex.html.twig', [
             "videos" => $videos
+        ]);
+    }
+
+    /**
+     * @Route("/image", name="admin_image_index")
+     */
+    public function imageIndex(): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $imageRepository = $entityManager->getRepository(Image::class);
+        $images = $imageRepository->findAll();
+
+        return $this->render('admin/imageIndex.html.twig', [
+            "images" => $images
         ]);
     }
 
@@ -112,6 +129,45 @@ class AdminController extends AbstractController
         return $this->render('index/dataform.html.twig', [
             "formName" => "Ajouter une vidéo",
             "dataForm" => $videoForm->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/add/image", name = "add_image")
+     */
+    public function addImage(Request $request)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $user = $this->getUser();
+        $image = new Image;
+        $imageForm = $this->createForm(ImageType::class, $image);
+        $imageForm->handleRequest($request);
+
+        if ($request->isMethod('post') && $imageForm->isValid()) {
+            $image->setUser($user);
+            $entityManager->persist($image);
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('admin_image_index'));
+        }
+        return $this->render('index/dataform.html.twig', [
+            "formName" => "Ajouter une image",
+            "dataForm" => $imageForm->createView()
+        ]);
+    }
+
+
+    /**
+     * @Route("/show/image/{imageId}",name="admin_show_image")
+     */
+    public function showImage(Request $request, $imageId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $imageRepository = $entityManager->getRepository(Image::class);
+        $image = $imageRepository->find($imageId);
+        $images = [$image];
+        return $this->render('admin/imageIndex.html.twig', [
+            "images" => $images
         ]);
     }
 
@@ -250,8 +306,31 @@ class AdminController extends AbstractController
             return $this->redirect($this->generateUrl('index'));
         }
         return $this->render('index/dataform.html.twig', [
-            "formName" => "Ajouter une vidéo",
+            "formName" => "Modifier une vidéo",
             "dataForm" => $videoForm->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/edit/image/{imageId}", name = "edit_image")
+     */
+    public function editImage(Request $request, $imageId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $imageRepository = $entityManager->getRepository(Image::class);
+        $image = $imageRepository->find($imageId);
+
+        $imageForm = $this->createForm(ImageType::class, $image);
+        $imageForm->handleRequest($request);
+
+        if ($request->isMethod('post') && $imageForm->isValid()) {
+            $entityManager->persist($image);
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('index'));
+        }
+        return $this->render('index/dataform.html.twig', [
+            "formName" => "Modifier une image",
+            "dataForm" => $imageForm->createView()
         ]);
     }
 
@@ -317,6 +396,14 @@ class AdminController extends AbstractController
         if (!$article) {
             return $this->redirect($this->generateUrl('admin_article_index'));
         }
+
+        $images = $article->getImages();
+        if ($images != null) {
+            foreach ($images as $image) {
+                $entityManager->remove($image);
+            }
+        }
+
         $entityManager->remove($article);
         $entityManager->flush();
         return $this->redirect($this->generateUrl('admin_article_index'));
@@ -334,6 +421,22 @@ class AdminController extends AbstractController
             return $this->redirect($this->generateUrl('index'));
         }
         $entityManager->remove($video);
+        $entityManager->flush();
+        return $this->redirect($this->generateUrl('index'));
+    }
+
+    /**
+     * @Route("/delete/image/{imageId}", name="delete_image")
+     */
+    public function deleteImage(Request $request, $imageId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $imageRepository = $entityManager->getRepository(Image::class);
+        $image = $imageRepository->find($imageId);
+        if (!$image) {
+            return $this->redirect($this->generateUrl('index'));
+        }
+        $entityManager->remove($image);
         $entityManager->flush();
         return $this->redirect($this->generateUrl('index'));
     }
