@@ -2,10 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use App\Entity\BlogBillet;
+use App\Entity\BlogDiscussion;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -37,6 +41,22 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BlogDiscussion::class, mappedBy="user")
+     */
+    private $commentaires;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BlogBillet::class, mappedBy="user")
+     */
+    private $billets;
+
+    public function __construct()
+    {
+        $this->commentaires = new ArrayCollection();
+        $this->billets = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,5 +140,65 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|BlogDiscussion[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(BlogDiscussion $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(BlogDiscussion $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getUser() === $this) {
+                $commentaire->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BlogBillet[]
+     */
+    public function getBillets(): Collection
+    {
+        return $this->billets;
+    }
+
+    public function addBillet(BlogBillet $billet): self
+    {
+        if (!$this->billets->contains($billet)) {
+            $this->billets[] = $billet;
+            $billet->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBillet(BlogBillet $billet): self
+    {
+        if ($this->billets->removeElement($billet)) {
+            // set the owning side to null (unless already changed)
+            if ($billet->getUser() === $this) {
+                $billet->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
