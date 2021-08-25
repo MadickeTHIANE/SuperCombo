@@ -21,7 +21,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class SecurityController extends AbstractController
 {
     /**
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_SUPERADMIN')")
      * @Route("/admin_register",name="admin_register")
      */
     public function adminRegister(Request $request, UserPasswordEncoderInterface $passEncoder)
