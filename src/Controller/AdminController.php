@@ -98,11 +98,13 @@ class AdminController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
 
+        $user = $this->getUser();
         $video = new Video;
         $videoForm = $this->createForm(VideoType::class, $video);
         $videoForm->handleRequest($request);
 
         if ($request->isMethod('post') && $videoForm->isValid()) {
+            $video->setUser($user);
             $entityManager->persist($video);
             $entityManager->flush();
             return $this->redirect($this->generateUrl('index'));
