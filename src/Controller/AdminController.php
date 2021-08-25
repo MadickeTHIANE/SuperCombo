@@ -174,9 +174,11 @@ class AdminController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $article = new Article;
+        $user = $this->getUser();
         $articleForm = $this->createForm(ArticleType::class, $article);
         $articleForm->handleRequest($request);
         if ($request->isMethod('post') && $articleForm->isValid()) {
+            $article->setUser($user);
             $entityManager->persist($article);
             $entityManager->flush();
             return $this->redirect($this->generateUrl('admin_article_index'));
