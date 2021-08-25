@@ -23,6 +23,10 @@ class Video
     private $titre;
 
     /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="videos")
+     */
+    private $user;
+    /**
      * @ORM\Column(type="text")
      */
     private $iframe;
@@ -37,7 +41,8 @@ class Video
      */
     private $date_creation;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->date_creation = new \Datetime("now");
     }
 
@@ -90,6 +95,18 @@ class Video
     public function setDateCreation(\DateTimeInterface $date_creation): self
     {
         $this->date_creation = $date_creation;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

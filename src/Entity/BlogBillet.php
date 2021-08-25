@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use App\Entity\BlogDiscussion;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BlogBilletRepository;
@@ -24,6 +25,11 @@ class BlogBillet
      * @ORM\Column(type="string", length=255)
      */
     private $auteur;
+
+    /**
+     *@ORM\ManyToOne(targetEntity=User::class, inversedBy="billets") 
+     */
+    private $user;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -131,6 +137,18 @@ class BlogBillet
                 $blogDiscussion->setBillet(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

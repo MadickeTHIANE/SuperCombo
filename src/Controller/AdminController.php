@@ -98,11 +98,13 @@ class AdminController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
 
+        $user = $this->getUser();
         $video = new Video;
         $videoForm = $this->createForm(VideoType::class, $video);
         $videoForm->handleRequest($request);
 
         if ($request->isMethod('post') && $videoForm->isValid()) {
+            $video->setUser($user);
             $entityManager->persist($video);
             $entityManager->flush();
             return $this->redirect($this->generateUrl('index'));
@@ -121,10 +123,12 @@ class AdminController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $billet = new BlogBillet;
+        $user = $this->getUser();
         $billetForm = $this->createForm(BlogBilletType::class, $billet);
         $billetForm->handleRequest($request);
         if ($request->isMethod('post') && $billetForm->isValid()) {
             $billet->setAuteur($this->getUser()->getUsername());
+            $billet->setUser($user);
             $entityManager->persist($billet);
             $entityManager->flush();
             return $this->redirect($this->generateUrl('admin_blog_index'));
@@ -144,11 +148,13 @@ class AdminController extends AbstractController
         $blogBilletRepository = $entityManager->getRepository(BlogBillet::class);
 
         $billet = $blogBilletRepository->find($billetId);
+        $user = $this->getUser();
         $discussion = new BlogDiscussion($billet);
         $discussionForm = $this->createForm(BlogDiscussionType::class, $discussion);
         $discussionForm->handleRequest($request);
         if ($request->isMethod('post') && $discussionForm->isValid()) {
             $discussion->setAuteur($this->getUser()->getUsername());
+            $discussion->setUser($user);
             $discussion->setBillet($billet);
             $entityManager->persist($discussion);
             $entityManager->flush();
@@ -170,9 +176,11 @@ class AdminController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $article = new Article;
+        $user = $this->getUser();
         $articleForm = $this->createForm(ArticleType::class, $article);
         $articleForm->handleRequest($request);
         if ($request->isMethod('post') && $articleForm->isValid()) {
+            $article->setUser($user);
             $entityManager->persist($article);
             $entityManager->flush();
             return $this->redirect($this->generateUrl('admin_article_index'));

@@ -30,6 +30,11 @@ class BlogDiscussion
     private $auteur;
 
     /**
+     *@ORM\ManyToOne(targetEntity=User::class, inversedBy="commentaires") 
+     */
+    private $user;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $contenu;
@@ -95,6 +100,18 @@ class BlogDiscussion
     public function setBillet(?BlogBillet $billet): self
     {
         $this->billet = $billet;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

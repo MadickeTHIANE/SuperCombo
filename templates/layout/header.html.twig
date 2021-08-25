@@ -41,9 +41,11 @@
 								<li>
 									<a class="dropdown-item" href="{{ path('admin_article_index') }}">Gérer les articles</a>
 								</li>
-								<li>
-									<a class="dropdown-item" href={{ path('admin_register') }}>Inscription d'un admin</a>
-								</li>
+								{% if is_granted('ROLE_SUPERADMIN') %}
+									<li>
+										<a class="dropdown-item" href={{ path('admin_register') }}>Inscription d'un admin</a>
+									</li>
+								{% endif %}
 							</ul>
 						</li>
 					{% endif %}
