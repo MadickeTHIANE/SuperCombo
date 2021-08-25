@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Video;
 use App\Entity\Article;
 use App\Entity\BlogBillet;
@@ -137,6 +138,20 @@ class IndexController extends AbstractController
         $videos = [$video];
         return $this->render('index/index.html.twig', [
             "videos" => $videos
+        ]);
+    }
+
+    /**
+     * @Route("/show/image/{imageId}",name="show_image")
+     */
+    public function showImage(Request $request, $imageId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $imageRepository = $entityManager->getRepository(Image::class);
+        $image = $imageRepository->find($imageId);
+        $images = [$image];
+        return $this->render('index/imageIndex.html.twig', [
+            "images" => $images
         ]);
     }
 }
