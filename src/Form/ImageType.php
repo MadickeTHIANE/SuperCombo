@@ -16,7 +16,7 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('lien')
+            ->add('link')
             ->add('article', EntityType::class, [
                 'label' => 'Article',
                 'choice_label' => 'titre',
