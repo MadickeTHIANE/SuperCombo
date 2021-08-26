@@ -11,53 +11,59 @@
 				<div class="container">
 					<div>{{ article.contenu }}</div>
 					<hr>
-					<div class="row row-cols-1 row-cols-md-2 g-3">
-						{% for image in article.images %}
-							<div class="col">
-								<div class="card shadow-sm">
-									<img src="{{ image.link }}" alt="{{ image.titre }}" title="{{ image.titre }}">
+					{% if article.images|length == 1 %}
+						<div class="row row-cols-1 g-3">
+						{% else %}
+							<div class="row row-cols-1 row-cols-md-2 g-3">
+							{% endif %}
+							{% for image in article.images %}
+								<div class="col">
+									<div class="card shadow-sm">
+										<img src="{{ image.link }}" alt="{{ image.titre }}" title="{{ image.titre }}">
 
 
-									<div
-										class="card-body">
-										{# <h3>{{ image.titre }}</h3> #}
-										<div class="d-flex justify-content-between align-items-center">
-											<div class="btn-group">
-												<a href={{ path('show_image',{"imageId":image.id} ) }}>
-													<button type="button" class="btn btn-sm btn-outline-secondary">Voir</button>
-												</a>
-											</div>
+										<div
+											class="card-body">
+											{# <h3>{{ image.titre }}</h3> #}
+											{% if article.images|length > 1 %}
+												<div class="d-flex justify-content-between align-items-center">
+													<div class="btn-group">
+														<a href={{ path('show_image',{"imageId":image.id} ) }}>
+															<button type="button" class="btn btn-sm btn-outline-secondary">Voir</button>
+														</a>
+													</div>
+												</div>
+											{% endif %}
 										</div>
 									</div>
 								</div>
-							</div>
-						{% endfor %}
+							{% endfor %}
+						</div>
 					</div>
 				</div>
-			</div>
-		{% endfor %}
-	{% else %}
-		<div class="container">
-			<div class="list-group list-group-flush">
-				{% for article in articles %}
-					<div class="list-group-item">
-						<div class="d-flex w-100 justify-content-between">
-							<a href={{ path('show_article',{"articleId":article.id} ) }} class="text-decoration-none">
-								<h1>{{ article.titre }}</h1>
-							</a>
-							<small>{{ article.dateCreation|date('d/m/Y') }}</small>
+			{% endfor %}
+		{% else %}
+			<div class="container">
+				<div class="list-group list-group-flush">
+					{% for article in articles %}
+						<div class="list-group-item">
+							<div class="d-flex w-100 justify-content-between">
+								<a href={{ path('show_article',{"articleId":article.id} ) }} class="text-decoration-none">
+									<h1>{{ article.titre }}</h1>
+								</a>
+								<small>{{ article.dateCreation|date('d/m/Y') }}</small>
+							</div>
+							<div>{{ article.contenu|slice(0,200) }}
+								...</div>
+							<div class="btn-group">
+								<a href={{ path('show_article',{"articleId":article.id} ) }}>
+									<button class="btn btn-primary mt-3">Lire l'article</button>
+								</a>
+							</div>
 						</div>
-						<div>{{ article.contenu|slice(0,200) }}
-							...</div>
-						<div class="btn-group">
-							<a href={{ path('show_article',{"articleId":article.id} ) }}>
-								<button class="btn btn-primary mt-3">Lire l'article</button>
-							</a>
-						</div>
-					</div>
-				{% endfor %}
+					{% endfor %}
+				</div>
 			</div>
-		</div>
-	{% endif %}
+		{% endif %}
 
-{% endblock %}
+	{% endblock %}
