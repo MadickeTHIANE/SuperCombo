@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Image;
+use App\Entity\Slide;
 use App\Entity\Video;
 use App\Entity\Article;
 use App\Entity\BlogBillet;
@@ -13,6 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class IndexController extends AbstractController
 {
+    const BLOG_INDEX = 'index/blog.html.twig';
+
     //*ok
     /**
      * @Route("/", name="index")
@@ -21,11 +24,17 @@ class IndexController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
 
+
         $videoRepository = $entityManager->getRepository(Video::class);
-        $videos = $videoRepository->findAll();
+        $videos = $videoRepository->findBy([], ['id' => 'desc']);
+        $slideRepository = $entityManager->getRepository(Slide::class);
+        $slides = $slideRepository->findBy(["active" => 0]);
+        $slideActive = $slideRepository->findBy(["active" => 1])[0];
 
         return $this->render('index/index.html.twig', [
-            "videos" => $videos
+            "videos" => $videos,
+            "slideActive" => $slideActive,
+            "slides" => $slides,
         ]);
     }
 
@@ -37,7 +46,7 @@ class IndexController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
         $articleRepository = $entityManager->getRepository(Article::class);
-        $articles = $articleRepository->findAll();
+        $articles = $articleRepository->findBy([], ['id' => 'desc']);
         if (!$articles) {
             return $this->redirect($this->generateUrl('create_article'));
         }
@@ -56,20 +65,20 @@ class IndexController extends AbstractController
         $blogBilletRepository = $entityManager->getRepository(BlogBillet::class);
 
         //On récupère tous les billets
-        $blogBillets = $blogBilletRepository->findAll();
+        $blogBillets = $blogBilletRepository->findBy([], ['id' => 'desc']);
         if (!$blogBillets) {
             return $this->redirect($this->generateUrl('create_billet'));
         }
 
         $user = $this->getUser();
         if ($user == null) {
-            return $this->render('index/blog.html.twig', [
+            return $this->render(self::BLOG_INDEX, [
                 "blogBillets" => $blogBillets,
                 "userName" => null
             ]);
         }
 
-        return $this->render('index/blog.html.twig', [
+        return $this->render(self::BLOG_INDEX, [
             "blogBillets" => $blogBillets,
             "userName" => $user->getUsername()
         ]);
@@ -93,7 +102,7 @@ class IndexController extends AbstractController
 
         $user = $this->getUser();
         if ($user == null) {
-            return $this->render('index/blog.html.twig', [
+            return $this->render(self::BLOG_INDEX, [
                 "blogDiscussions" => $blogDiscussions,
                 "blogBillet" => $blogBillet,
                 "userName" => null
@@ -101,7 +110,7 @@ class IndexController extends AbstractController
         }
 
         //Renvoie des discussions et de leur billet
-        return $this->render('index/blog.html.twig', [
+        return $this->render(self::BLOG_INDEX, [
             "blogDiscussions" => $blogDiscussions,
             "blogBillet" => $blogBillet,
             "userName" => $user->getUsername()
@@ -136,8 +145,13 @@ class IndexController extends AbstractController
         $videoRepository = $entityManager->getRepository(Video::class);
         $video = $videoRepository->find($videoId);
         $videos = [$video];
+        $slideRepository = $entityManager->getRepository(Slide::class);
+        $slides = $slideRepository->findBy([], ['id' => 'desc']);
+        $slideActive = $slideRepository->findBy(["active" => true]);
         return $this->render('index/index.html.twig', [
-            "videos" => $videos
+            "videos" => $videos,
+            "slideActive" => $slideActive,
+            "slides" => $slides,
         ]);
     }
 
@@ -153,5 +167,21 @@ class IndexController extends AbstractController
         return $this->render('index/imageIndex.html.twig', [
             "images" => $images
         ]);
+    }
+
+    /**
+     * @Route("/mentions", name="mentions_legales")
+     */
+    public function showMention(Request $request)
+    {
+        return $this->render('index/mentionLegale.html.twig', []);
+    }
+
+    /**
+     * @Route("/politique", name="politique_confidentialite")
+     */
+    public function showPolitique(Request $request)
+    {
+        return $this->render('index/politiqueConfidentialite.html.twig', []);
     }
 }
