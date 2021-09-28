@@ -20,3 +20,5 @@
 ###< phpunit/phpunit ###
 
 BDD_ovh
+/migrations
+/.htaccess
