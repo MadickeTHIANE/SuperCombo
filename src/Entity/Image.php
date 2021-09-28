@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ImageRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
@@ -35,8 +37,16 @@ class Image
 
     /**
      * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="images")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $article;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Slide::class, inversedBy="image")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $slide;
+
     /**
      * @ORM\Column(type="datetime")
      */
@@ -108,6 +118,18 @@ class Image
     public function setArticle(?Article $article): self
     {
         $this->article = $article;
+
+        return $this;
+    }
+
+    public function getSlide(): ?Slide
+    {
+        return $this->slide;
+    }
+
+    public function setSlide(?Slide $slide): self
+    {
+        $this->slide = $slide;
 
         return $this;
     }
