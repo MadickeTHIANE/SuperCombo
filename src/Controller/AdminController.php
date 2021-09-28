@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Image;
+use App\Entity\Slide;
 use App\Entity\Video;
 use App\Entity\Article;
 use App\Form\ImageType;
+use App\Form\SlideType;
 use App\Form\VideoType;
 use App\Form\ArticleType;
 use App\Entity\BlogBillet;
@@ -33,7 +35,7 @@ class AdminController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $videoRepository = $entityManager->getRepository(Video::class);
-        $videos = $videoRepository->findAll();
+        $videos = $videoRepository->findBy([], ['id' => 'desc']);
 
         return $this->render('admin/videoIndex.html.twig', [
             "videos" => $videos
@@ -48,10 +50,26 @@ class AdminController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $imageRepository = $entityManager->getRepository(Image::class);
-        $images = $imageRepository->findAll();
+        $images = $imageRepository->findBy([], ['id' => 'desc']);
 
         return $this->render('admin/imageIndex.html.twig', [
             "images" => $images
+        ]);
+    }
+
+    /**
+     * @Route("/slide", name="admin_slide_index")
+     */
+    public function slideIndex(): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $slideRepository = $entityManager->getRepository(Slide::class);
+        $slides = $slideRepository->findAll();
+
+        //todo Compléter la page admin/slideIndex.html.twig
+        return $this->render('admin/slideIndex.html.twig', [
+            "slides" => $slides
         ]);
     }
 
@@ -63,7 +81,7 @@ class AdminController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $billetsRepository = $entityManager->getRepository(BlogBillet::class);
-        $billets = $billetsRepository->findAll();
+        $billets = $billetsRepository->findBy([], ['id' => 'desc']);
 
         return $this->render('admin/blog.html.twig', [
             "blogBillets" => $billets
@@ -99,7 +117,7 @@ class AdminController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
         $articleRepository = $entityManager->getRepository(Article::class);
-        $articles = $articleRepository->findAll();
+        $articles = $articleRepository->findBy([], ['id' => 'desc']);
         if (!$articles) {
             return $this->redirect($this->generateUrl('admin_create_article'));
         }
@@ -153,6 +171,28 @@ class AdminController extends AbstractController
         return $this->render('index/dataform.html.twig', [
             "formName" => "Ajouter une image",
             "dataForm" => $imageForm->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/add/slide", name = "add_slide")
+     */
+    public function addSlide(Request $request)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $slide = new Slide;
+        $slideForm = $this->createForm(SlideType::class, $slide);
+        $slideForm->handleRequest($request);
+
+        if ($request->isMethod('post') && $slideForm->isValid()) {
+            $entityManager->persist($slide);
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('admin_slide_index'));
+        }
+        return $this->render('index/dataform.html.twig', [
+            "formName" => "Ajouter une slide",
+            "dataForm" => $slideForm->createView()
         ]);
     }
 
@@ -335,6 +375,29 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/edit/slide/{slideId}", name = "edit_slide")
+     */
+    public function editSlide(Request $request, $slideId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $slideRepository = $entityManager->getRepository(Slide::class);
+        $slide = $slideRepository->find($slideId);
+
+        $slideForm = $this->createForm(SlideType::class, $slide);
+        $slideForm->handleRequest($request);
+
+        if ($request->isMethod('post') && $slideForm->isValid()) {
+            $entityManager->persist($slide);
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('admin_slide_index'));
+        }
+        return $this->render('index/dataform.html.twig', [
+            "formName" => "Modifier une slide",
+            "dataForm" => $slideForm->createView()
+        ]);
+    }
+
+    /**
      * @Route("/blog/billet/edit/{billetId}",name="admin_edit_billet")
      */
     public function editBillet(Request $request, $billetId)
@@ -439,6 +502,22 @@ class AdminController extends AbstractController
         $entityManager->remove($image);
         $entityManager->flush();
         return $this->redirect($this->generateUrl('index'));
+    }
+
+    /**
+     * @Route("/delete/slide/{slideId}", name="delete_slide")
+     */
+    public function deleteSlide(Request $request, $slideId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $slideRepository = $entityManager->getRepository(Slide::class);
+        $slide = $slideRepository->find($slideId);
+        if (!$slide) {
+            return $this->redirect($this->generateUrl('index'));
+        }
+        $entityManager->remove($slide);
+        $entityManager->flush();
+        return $this->redirect($this->generateUrl('admin_slide_index'));
     }
 
     /**
