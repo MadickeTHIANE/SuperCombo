@@ -53,8 +53,14 @@
 								</a>
 								<small>{{ article.dateCreation|date('d/m/Y') }}</small>
 							</div>
-							<div>{{ article.contenu|slice(0,200) }}
-								...</div>
+							<div>
+								{% if article.contenu|length >= 135 %}
+									{{ article.contenu|slice(0,135) }}
+									...
+								{% else %}
+									{{ article.contenu}}
+								{% endif %}
+							</div>
 							<div class="btn-group">
 								<a href={{ path('show_article',{"articleId":article.id} ) }}>
 									<button class="btn btn-primary mt-3">Lire l'article</button>
