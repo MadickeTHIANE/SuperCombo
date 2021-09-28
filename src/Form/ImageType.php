@@ -19,6 +19,7 @@ class ImageType extends AbstractType
             ->add('link')
             ->add('article', EntityType::class, [
                 'label' => 'Article',
+                'required' => false,
                 'choice_label' => 'titre',
                 'class' => Article::class,
                 'expanded' => true,
