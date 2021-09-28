@@ -3,13 +3,18 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
+		<meta name="description" content="Site dédié aux passionnés de jeux de société et de trading card game, nous vous apportons du contenu de qualité sur l'actualité ludique !">
+		<meta name="keywords" content="TCG,super, combo, supercombo, Supercombo, Dragon, Ball, dragon, ball, carte, game, card, jeu, jeux, france, règles de jeux,jeux de société,vidéoregle,jeux de plateau,règles en vidéo,règles,explications en vidéo,explications,société,stratégie ,enfants,jeux de société,jeu,ambiance">
+		<meta
+		name="author" content="Madické Thiane">
+		{#* Ajouter le logo dans l'onglet #}
+		<link rel="icon" type="image/png" sizes="16x16" href={{asset('assets/img/logo.ico')}}>
+
 		<title>
 			{% block title %}
 				- SuperCombo
 			{% endblock %}
 		</title>
-		{#* Ajouter le logo dans l'onglet #}
 
 		{% block stylesheets %}
 			{#{{ encore_entry_link_tags('app') }}#}
@@ -34,3 +39,17 @@
 
 		</body>
 	</html>
+
+
+	{# Valider la propriété du domaine via l'enregistrement DNS
+					supercombo.org
+					Instructions pour :
+					1. Connectez-vous à votre fournisseur de nom de domaine (godaddy.com ou namecheap.com, par exemple)
+					2. Copiez l'enregistrement TXT ci-dessous dans la configuration DNS du domaine supercombo.org
+					google-site-verification=EjXuTvLYy4AK0aF9_Rz_x4azGTImft-8hcY83qOY7xY
+					3. Appuyez sur valider ci-dessous
+					Remarque : L'application des modifications DNS peut prendre du temps. Si la Search Console ne trouve pas immédiatement l'enregistrement, attendez une journée, puis réessayez de valider la propriété du domaine.
+					Informations détaillées
+					
+					Vous ne parvenez pas à valider la propriété via votre fournisseur de nom de domaine ?
+					Essayez d'utiliser une propriété de préfixe d'URL à la place. #}
