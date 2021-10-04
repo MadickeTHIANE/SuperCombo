@@ -343,7 +343,7 @@ class AdminController extends AbstractController
         if ($request->isMethod('post') && $videoForm->isValid()) {
             $entityManager->persist($video);
             $entityManager->flush();
-            return $this->redirect($this->generateUrl('index'));
+            return $this->redirect($this->generateUrl('admin_video_index'));
         }
         return $this->render('index/dataform.html.twig', [
             "formName" => "Modifier une vidéo",
@@ -366,7 +366,7 @@ class AdminController extends AbstractController
         if ($request->isMethod('post') && $imageForm->isValid()) {
             $entityManager->persist($image);
             $entityManager->flush();
-            return $this->redirect($this->generateUrl('index'));
+            return $this->redirect($this->generateUrl('admin_image_index'));
         }
         return $this->render('index/dataform.html.twig', [
             "formName" => "Modifier une image",
@@ -485,7 +485,7 @@ class AdminController extends AbstractController
         }
         $entityManager->remove($video);
         $entityManager->flush();
-        return $this->redirect($this->generateUrl('index'));
+        return $this->redirect($this->generateUrl('admin_video_index'));
     }
 
     /**
@@ -501,7 +501,7 @@ class AdminController extends AbstractController
         }
         $entityManager->remove($image);
         $entityManager->flush();
-        return $this->redirect($this->generateUrl('index'));
+        return $this->redirect($this->generateUrl('admin_image_index'));
     }
 
     /**
