@@ -17,9 +17,9 @@
 			<h2>A la une</h2>
 			<div class="carousel-item active">
 				{% if slideActive.bgDark %}
-					<img class="bd-placeholder-img bg-dark" src="{{slideActive.image.link}}" alt="{{ slideActive.image.titre }}">
+					<img class="bd-placeholder-img bg-dark" style="max-width:100%" src="{{slideActive.image.link}}" alt="{{ slideActive.image.titre }}">
 				{% else %}
-					<img class="bd-placeholder-img" src="{{slideActive.image.link}}" alt="{{ slideActive.image.titre }}">
+					<img class="bd-placeholder-img" style="max-width:100%" src="{{slideActive.image.link}}" alt="{{ slideActive.image.titre }}">
 				{% endif %}
 
 				<div class="container">
@@ -39,9 +39,9 @@
 				{% for slide in slides %}
 					<div class="carousel-item">
 						{% if slide.bgDark %}
-							<img class="bd-placeholder-img bg-dark" src="{{slide.image.link}}" alt="{{ slide.image.titre }}">
+							<img class="bd-placeholder-img bg-dark" style="max-width:100%" src="{{slide.image.link}}" alt="{{ slide.image.titre }}">
 						{% else %}
-							<img class="bd-placeholder-img" src="{{slide.image.link}}" alt="{{ slide.image.titre }}">
+							<img class="bd-placeholder-img" style="max-width:100%" src="{{slide.image.link}}" alt="{{ slide.image.titre }}">
 						{% endif %}
 
 						<div class="container">
@@ -59,15 +59,15 @@
 							</div>
 						</div>
 					{% endfor %}
+					<button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
 				</div>
-				<button class="carousel-control-prev btn-dark" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Previous</span>
-				</button>
-				<button class="carousel-control-next btn-dark" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Next</span>
-				</button>
 			</div>
 		</div>
 
