@@ -1,0 +1,13 @@
+h1.article {
+  color: #ffa248;
+}
+
+button.link {
+  background-color: #cc3366;
+  color: white;
+}
+
+li a.onglet:hover,
+button.link:hover {
+  color: #ffa248 !important;
+}
