@@ -5,7 +5,7 @@
 {% block body %}
 	{% if articles|length == 1 %}
 		{% for article in articles %}
-			<h1>{{ article.titre }}</h1>
+			<h1 class="article">{{ article.titre }}</h1>
 
 			<div class="album py-5 bg-light">
 				<div class="container">
@@ -49,7 +49,7 @@
 						<div class="list-group-item">
 							<div class="d-flex w-100 justify-content-between">
 								<a href={{ path('show_article',{"articleId":article.id} ) }} class="text-decoration-none">
-									<h1>{{ article.titre }}</h1>
+									<h1 class="article">{{ article.titre }}</h1>
 								</a>
 								<small>{{ article.dateCreation|date('d/m/Y') }}</small>
 							</div>
@@ -62,8 +62,8 @@
 								{% endif %}
 							</div>
 							<div class="btn-group">
-								<a href={{ path('show_article',{"articleId":article.id} ) }}>
-									<button class="btn btn-primary mt-3">Lire l'article</button>
+								<a href={{ path('show_article',{"articleId":article.id} ) }} >
+									<button class="btn mt-3 link">Lire l'article</button>
 								</a>
 							</div>
 						</div>
