@@ -37,6 +37,28 @@ class IndexController extends AbstractController
             "slides" => $slides,
         ]);
     }
+    
+    //*ok
+    /**
+     * @Route("/show/video/{videoId}",name="show_video")
+     */
+    public function showVideo(Request $request, $videoId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $videoRepository = $entityManager->getRepository(Video::class);
+        $video = $videoRepository->find($videoId);
+        $videos = [$video];
+
+        $slideRepository = $entityManager->getRepository(Slide::class);
+        $slides = $slideRepository->findBy(["active" => 0]);
+        $slideActive = $slideRepository->findBy(["active" => 1])[0];
+        
+        return $this->render('index/index.html.twig', [
+            "videos" => $videos,
+            "slideActive" => $slideActive,
+            "slides" => $slides,
+        ]);
+    }
 
     //*ok
     /**
@@ -132,26 +154,6 @@ class IndexController extends AbstractController
         $articles = [$article];
         return $this->render('index/article.html.twig', [
             "articles" => $articles
-        ]);
-    }
-
-    //*ok
-    /**
-     * @Route("/show/video/{videoId}",name="show_video")
-     */
-    public function showVideo(Request $request, $videoId)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $videoRepository = $entityManager->getRepository(Video::class);
-        $video = $videoRepository->find($videoId);
-        $videos = [$video];
-        $slideRepository = $entityManager->getRepository(Slide::class);
-        $slides = $slideRepository->findBy([], ['id' => 'desc']);
-        $slideActive = $slideRepository->findBy(["active" => true]);
-        return $this->render('index/index.html.twig', [
-            "videos" => $videos,
-            "slideActive" => $slideActive,
-            "slides" => $slides,
         ]);
     }
 
