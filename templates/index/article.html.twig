@@ -46,25 +46,30 @@
 			<div class="container">
 				<div class="list-group list-group-flush">
 					{% for article in articles %}
-						<div class="list-group-item">
-							<div class="d-flex w-100 justify-content-between">
-								<a href={{ path('show_article',{"articleId":article.id} ) }} class="text-decoration-none">
-									<h1 class="article">{{ article.titre }}</h1>
-								</a>
-								<small>{{ article.dateCreation|date('d/m/Y') }}</small>
+						<div class="list-group-item d-flex">
+							<div>
+								<img src="{{ asset('assets/img/Super_Combo_Dice.png')}}" alt="supercombo_dice" width="45px" class="me-2">
 							</div>
 							<div>
-								{% if article.contenu|length >= 135 %}
-									{{ article.contenu|slice(0,135) }}
-									...
-								{% else %}
-									{{ article.contenu}}
-								{% endif %}
-							</div>
-							<div class="btn-group">
-								<a href={{ path('show_article',{"articleId":article.id} ) }} >
-									<button class="btn mt-3 link">Lire l'article</button>
-								</a>
+								<div class="d-flex w-100 justify-content-between">
+									<a href={{ path('show_article',{"articleId":article.id} ) }} class="text-decoration-none">
+										<h1 class="article">{{ article.titre }}</h1>
+									</a>
+									<small>{{ article.dateCreation|date('d/m/Y') }}</small>
+								</div>
+								<div>
+									{% if article.contenu|length >= 135 %}
+										{{ article.contenu|slice(0,135) }}
+										...
+									{% else %}
+										{{ article.contenu}}
+									{% endif %}
+								</div>
+								<div class="btn-group">
+									<a href={{ path('show_article',{"articleId":article.id} ) }}>
+										<button class="btn mt-3 link">Lire l'article</button>
+									</a>
+								</div>
 							</div>
 						</div>
 					{% endfor %}
