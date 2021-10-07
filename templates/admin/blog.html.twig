@@ -16,14 +16,14 @@
 						{{ blogBillet.auteur }}</li>
 				</ul>
 			</div>
-			<div class="col-8">
+			<div class="col-sm-8">
 				<p>{{ blogBillet.contenu }}</p>
-				<div class="btn-group">
+				<div class="btn-group row">
 					<a href={{ path('admin_edit_billet',{"billetId":blogBillet.Id} ) }}>
-						<button class="btn btn-warning">Modifier le billet</button>
+						<button class="btn btn-warning col-sm-6 w-100">Modifier le billet</button>
 					</a>
 					<a href={{ path('admin_delete_billet',{"billetId":blogBillet.Id} ) }}>
-						<button class="btn btn-danger">Supprimer le billet</button>
+						<button class="btn btn-danger col-sm-6 w-100">Supprimer le billet</button>
 					</a>
 				</div>
 			</div>
@@ -42,14 +42,14 @@
 								{{ blogDiscussion.auteur }}</li>
 						</ul>
 					</div>
-					<div class="col-8">
+					<div class="col-sm-8">
 						<p>{{ blogDiscussion.contenu }}</p>
-						<div class="btn-group">
+						<div class="btn-group row">
 							<a href={{ path('admin_edit_discussion',{"discussionId":blogDiscussion.id} ) }}>
-								<button class="btn btn-warning">Modifier le commentaire</button>
+								<button class="btn btn-warning col-sm-6 w-100">Modifier le commentaire</button>
 							</a>
 							<a href={{ path('admin_delete_discussion',{"discussionId":blogDiscussion.id} ) }}>
-								<button class="btn btn-danger">Supprimer le commentaire</button>
+								<button class="btn btn-danger col-sm-6 w-100">Supprimer le commentaire</button>
 							</a>
 						</div>
 					</div>
@@ -59,7 +59,7 @@
 			<hr>
 			{# Création d'un nouveau commentaire #}
 			<a href="{{ path('admin_create_discussion',{"billetId":blogBillet.id}) }}">
-				<button class="btn btn-success m-4">Ecrire un commentaire</button>
+				<button class="btn btn-success w-100">Ecrire un commentaire</button>
 			</a>
 		</div>
 	{% else %}
@@ -76,17 +76,17 @@
 							{{ blogBillet.auteur }}</li>
 					</ul>
 				</div>
-				<div class="col-8">
+				<div class="col-sm-8">
 					<p>{{ blogBillet.contenu }}</p>
-					<div class="btn-group">
+					<div class="btn-group row">
 						<a href="{{ path('admin_discussion_index',{"billetId":blogBillet.Id}) }}">
-							<button class="btn btn-secondary">Accéder</button>
+							<button class="btn btn-secondary col-sm-4 w-100">Accéder</button>
 						</a>
 						<a href={{ path('admin_edit_billet',{"billetId":blogBillet.Id} ) }}>
-							<button class="btn btn-warning">Modifier le billet</button>
+							<button class="btn btn-warning col-sm-4 w-100">Modifier le billet</button>
 						</a>
 						<a href={{ path('admin_delete_billet',{"billetId":blogBillet.Id} ) }}>
-							<button class="btn btn-danger">Supprimer le billet</button>
+							<button class="btn btn-danger col-sm-4 w-100">Supprimer le billet</button>
 						</a>
 					</div>
 				</div>
@@ -96,7 +96,7 @@
 		{% endfor %}
 		{# Création d'un nouveau billet #}
 		<a href="{{ path('admin_create_billet') }}">
-			<button class="btn btn-success m-4">Créer un nouveau sujet</button>
+			<button class="btn btn-success w-100">Créer un nouveau sujet</button>
 		</a>
 	{% endif %}
 {% endblock %}
