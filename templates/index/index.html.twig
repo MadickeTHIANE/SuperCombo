@@ -17,9 +17,9 @@
 			<h2>A la une</h2>
 			<div class="carousel-item active">
 				{% if slideActive.bgDark %}
-					<img class="bd-placeholder-img bg-dark" style="max-width:100%" src="{{slideActive.image.link}}" alt="{{ slideActive.image.titre }}">
+					<img class="bg-dark img-fluid" src="{{slideActive.image.link}}" alt="{{ slideActive.image.titre }}">
 				{% else %}
-					<img class="bd-placeholder-img" style="max-width:100%" src="{{slideActive.image.link}}" alt="{{ slideActive.image.titre }}">
+					<img class="img-fluid" src="{{slideActive.image.link}}" alt="{{ slideActive.image.titre }}">
 				{% endif %}
 
 				<div class="container">
@@ -39,9 +39,9 @@
 				{% for slide in slides %}
 					<div class="carousel-item">
 						{% if slide.bgDark %}
-							<img class="bd-placeholder-img bg-dark" style="max-width:100%" src="{{slide.image.link}}" alt="{{ slide.image.titre }}">
+							<img class="bg-dark img-fluid" src="{{slide.image.link}}" alt="{{ slide.image.titre }}">
 						{% else %}
-							<img class="bd-placeholder-img" style="max-width:100%" src="{{slide.image.link}}" alt="{{ slide.image.titre }}">
+							<img class="img-fluid" src="{{slide.image.link}}" alt="{{ slide.image.titre }}">
 						{% endif %}
 
 						<div class="container">
