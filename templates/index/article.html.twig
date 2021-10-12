@@ -46,20 +46,22 @@
 			<div class="container">
 				<div class="list-group list-group-flush">
 					{% for article in articles %}
-						<div class="list-group-item d-flex">
+						<div class="list-group-item d-flex w-100 my-2">
 							<div>
 								<img src="{{ asset('assets/img/Super_Combo_Dice.png')}}" alt="supercombo_dice" width="45px" class="me-2">
 							</div>
-							<div class="row">
-								<div class="d-flex w-100 justify-content-between">
+							<div class="d-flex w-100 justify-content-around row">
+								<div class="col-8">
 									<a href={{ path('show_article',{"articleId":article.id} ) }} class="text-decoration-none">
 										<h1 class="article">{{ article.titre }}</h1>
 									</a>
-									<small>{{ article.dateCreation|date('d/m/Y') }}</small>
+								</div>
+								<div class="col-4 text-right">
+									{{ article.dateCreation|date('d/m/Y') }}
 								</div>
 								<div>
-									{% if article.contenu|length >= 135 %}
-										{{ article.contenu|slice(0,135) }}
+									{% if article.contenu|length >= 100 %}
+										{{ article.contenu|slice(0,100) }}
 										...
 									{% else %}
 										{{ article.contenu}}
