@@ -33,6 +33,7 @@ class Video
 
     /**
      * @ORM\Column(type="text")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $extrait;
 
@@ -75,17 +76,6 @@ class Video
         return $this;
     }
 
-    public function getExtrait(): ?string
-    {
-        return $this->extrait;
-    }
-
-    public function setExtrait(string $extrait): self
-    {
-        $this->extrait = $extrait;
-
-        return $this;
-    }
 
     public function getDateCreation(): ?\DateTimeInterface
     {
@@ -107,6 +97,18 @@ class Video
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getExtrait(): ?string
+    {
+        return $this->extrait;
+    }
+
+    public function setExtrait(string $extrait): self
+    {
+        $this->extrait = $extrait;
 
         return $this;
     }
