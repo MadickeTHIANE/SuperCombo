@@ -21,8 +21,9 @@ class VideoType extends AbstractType
             ])
             ->add('iframe')
             ->add('extrait', TextType::class, [
+                "required" => false,
                 "attr" => [
-                    "maxlength" => "44"
+                    "maxlength" => "44", 
                 ]
             ])
             ->add('Valider', SubmitType::class, [
