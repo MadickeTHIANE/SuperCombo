@@ -20,14 +20,9 @@ class IndexController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(): Response
+    public function index(VideoRepository $videoRepository, SlideRepository $slideRepository)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
-
-        $videoRepository = $entityManager->getRepository(Video::class);
         $videos = $videoRepository->findBy([], ['id' => 'desc']);
-        $slideRepository = $entityManager->getRepository(Slide::class);
         $slides = $slideRepository->findBy(["active" => 0]);
         $slideActive = $slideRepository->findBy(["active" => 1])[0];
 
@@ -42,14 +37,11 @@ class IndexController extends AbstractController
     /**
      * @Route("/show/video/{videoId}",name="show_video")
      */
-    public function showVideo(Request $request, $videoId)
+    public function showVideo(Request $request, VideoRepository $videoRepository, SlideRepository $slideRepository, $videoId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $videoRepository = $entityManager->getRepository(Video::class);
         $video = $videoRepository->find($videoId);
         $videos = [$video];
 
-        $slideRepository = $entityManager->getRepository(Slide::class);
         $slides = $slideRepository->findBy(["active" => 0]);
         $slideActive = $slideRepository->findBy(["active" => 1])[0];
         
@@ -64,14 +56,9 @@ class IndexController extends AbstractController
     /**
      *@Route("/article",name="article_index") 
      */
-    public function articleIndex()
+    public function articleIndex(ArticleRepository $articleRepository)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $articleRepository = $entityManager->getRepository(Article::class);
         $articles = $articleRepository->findBy([], ['id' => 'desc']);
-        if (!$articles) {
-            return $this->redirect($this->generateUrl('create_article'));
-        }
         return $this->render('index/article.html.twig', [
             "articles" => $articles
         ]);
@@ -81,12 +68,8 @@ class IndexController extends AbstractController
     /**
      * @Route("/blog",name="blog_index")
      */
-    public function blogIndex()
+    public function blogIndex(BlogBilletRepository $blogBilletRepository)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $blogBilletRepository = $entityManager->getRepository(BlogBillet::class);
-
-        //On récupère tous les billets
         $blogBillets = $blogBilletRepository->findBy([], ['id' => 'desc']);
         if (!$blogBillets) {
             return $this->redirect($this->generateUrl('create_billet'));
@@ -110,11 +93,8 @@ class IndexController extends AbstractController
     /**
      * @Route("/blog/billet/display/{billetId}",name="discussion_index")
      */
-    public function billetDiscussionIndex(Request $request, $billetId)
+    public function billetDiscussionIndex(Request $request, BlogBilletRepository $blogBilletRepository, $billetId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $blogBilletRepository = $entityManager->getRepository(BlogBillet::class);
-        //On récupère le billet correspondant à l'id
         $blogBillet = $blogBilletRepository->find($billetId);
 
         if (!$blogBillet) {
@@ -143,10 +123,8 @@ class IndexController extends AbstractController
     /**
      * @Route("/show/article/{articleId}",name="show_article")
      */
-    public function showArticle(Request $request, $articleId)
+    public function showArticle(Request $request, ArticleRepository $articleRepository, $articleId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $articleRepository = $entityManager->getRepository(Article::class);
         $article = $articleRepository->find($articleId);
         if (!$article) {
             return $this->redirect($this->generateUrl('article_index'));

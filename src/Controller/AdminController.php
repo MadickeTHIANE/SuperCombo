@@ -14,6 +14,13 @@ use App\Entity\BlogBillet;
 use App\Form\BlogBilletType;
 use App\Entity\BlogDiscussion;
 use App\Form\BlogDiscussionType;
+use App\Repository\ImageRepository;
+use App\Repository\SlideRepository;
+use App\Repository\VideoRepository;
+use App\Repository\ArticleRepository;
+use App\Repository\BlogBilletRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\BlogDiscussionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,11 +37,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/video", name="admin_video_index")
      */
-    public function videoIndex(): Response
+    public function videoIndex(VideoRepository $videoRepository)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $videoRepository = $entityManager->getRepository(Video::class);
         $videos = $videoRepository->findBy([], ['id' => 'desc']);
 
         return $this->render('admin/videoIndex.html.twig', [
@@ -45,11 +49,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/image", name="admin_image_index")
      */
-    public function imageIndex(): Response
+    public function imageIndex(ImageRepository $imageRepository)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $imageRepository = $entityManager->getRepository(Image::class);
         $images = $imageRepository->findBy([], ['id' => 'desc']);
 
         return $this->render('admin/imageIndex.html.twig', [
@@ -60,11 +61,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/slide", name="admin_slide_index")
      */
-    public function slideIndex(): Response
+    public function slideIndex(SlideRepository $slideRepository)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $slideRepository = $entityManager->getRepository(Slide::class);
         $slides = $slideRepository->findAll();
 
         //todo Compléter la page admin/slideIndex.html.twig
@@ -76,12 +74,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/blog", name="admin_blog_index")
      */
-    public function blogIndex(): Response
+    public function blogIndex(BlogBilletRepository $blogBilletRepository)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $billetsRepository = $entityManager->getRepository(BlogBillet::class);
-        $billets = $billetsRepository->findBy([], ['id' => 'desc']);
+        $billets = $blogBilletRepository->findBy([], ['id' => 'desc']);
 
         return $this->render('admin/blog.html.twig', [
             "blogBillets" => $billets
@@ -91,10 +86,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/blog/billet/display/{billetId}",name="admin_discussion_index")
      */
-    public function billetDiscussionIndex(Request $request, $billetId)
+    public function billetDiscussionIndex(BlogBilletRepository $blogBilletRepository, $billetId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $blogBilletRepository = $entityManager->getRepository(BlogBillet::class);
         //On récupère le billet correspondant à l'id
         $blogBillet = $blogBilletRepository->find($billetId);
 
@@ -113,13 +106,11 @@ class AdminController extends AbstractController
     /**
      *@Route("/article",name="admin_article_index") 
      */
-    public function articleIndex()
+    public function articleIndex(ArticleRepository $articleRepository)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $articleRepository = $entityManager->getRepository(Article::class);
         $articles = $articleRepository->findBy([], ['id' => 'desc']);
         if (!$articles) {
-            return $this->redirect($this->generateUrl('admin_create_article'));
+            return $this->redirectToRoute('admin_create_article');
         }
         return $this->render('admin/article.html.twig', [
             "articles" => $articles
@@ -129,10 +120,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/add/video", name = "add_video")
      */
-    public function addVideo(Request $request)
+    public function addVideo(Request $request, EntityManagerInterface $entityManager)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
         $user = $this->getUser();
         $video = new Video;
         $videoForm = $this->createForm(VideoType::class, $video);
@@ -153,10 +142,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/add/image", name = "add_image")
      */
-    public function addImage(Request $request)
+    public function addImage(Request $request, EntityManagerInterface $entityManager)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
         $user = $this->getUser();
         $image = new Image;
         $imageForm = $this->createForm(ImageType::class, $image);
@@ -177,10 +164,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/add/slide", name = "add_slide")
      */
-    public function addSlide(Request $request)
+    public function addSlide(Request $request, EntityManagerInterface $entityManager)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
         $slide = new Slide;
         $slideForm = $this->createForm(SlideType::class, $slide);
         $slideForm->handleRequest($request);
@@ -200,10 +185,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/show/image/{imageId}",name="admin_show_image")
      */
-    public function showImage(Request $request, $imageId)
+    public function showImage(Request $request, $imageId, ImageRepository $imageRepository)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $imageRepository = $entityManager->getRepository(Image::class);
         $image = $imageRepository->find($imageId);
         $images = [$image];
         return $this->render('admin/imageIndex.html.twig', [
@@ -214,10 +197,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/blog/billet/create",name="admin_create_billet")
      */
-    public function createBillet(Request $request)
+    public function createBillet(Request $request, EntityManagerInterface $entityManager)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
         $billet = new BlogBillet;
         $user = $this->getUser();
         $billetForm = $this->createForm(BlogBilletType::class, $billet);
@@ -238,11 +219,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/blog/discussion/create/{billetId}",name="admin_create_discussion")
      */
-    public function createDiscussion(Request $request, $billetId)
+    public function createDiscussion(Request $request, BlogBilletRepository $blogBilletRepository,EntityManagerInterface $entityManager, $billetId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $blogBilletRepository = $entityManager->getRepository(BlogBillet::class);
-
         $billet = $blogBilletRepository->find($billetId);
         $user = $this->getUser();
         $discussion = new BlogDiscussion($billet);
@@ -267,10 +245,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/article/create",name="admin_create_article")
      */
-    public function createArticle(Request $request)
+    public function createArticle(Request $request, EntityManagerInterface $entityManager)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
         $article = new Article;
         $user = $this->getUser();
         $articleForm = $this->createForm(ArticleType::class, $article);
@@ -290,10 +266,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/show/article/{articleId}",name="admin_show_article")
      */
-    public function showArticle(Request $request, $articleId)
+    public function showArticle(Request $request, ArticleRepository $articleRepository, $articleId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $articleRepository = $entityManager->getRepository(Article::class);
         $article = $articleRepository->find($articleId);
         if (!$article) {
             return $this->redirect($this->generateUrl('admin_article_index'));
@@ -307,10 +281,8 @@ class AdminController extends AbstractController
     /**
      * @Route("article/edit/{articleId}",name="admin_edit_article")
      */
-    public function editArticle(Request $request, $articleId)
+    public function editArticle(Request $request, EntityManagerInterface $entityManager, ArticleRepository $articleRepository, $articleId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $articleRepository = $entityManager->getRepository(Article::class);
         $article = $articleRepository->find($articleId);
         if (!$article) {
             return $this->redirect($this->generateUrl('admin_article_index'));
@@ -331,10 +303,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/edit/video/{videoId}", name = "edit_video")
      */
-    public function editVideo(Request $request, $videoId)
+    public function editVideo(Request $request, EntityManagerInterface $entityManager,VideoRepository $videoRepository, $videoId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $videoRepository = $entityManager->getRepository(Video::class);
         $video = $videoRepository->find($videoId);
 
         $videoForm = $this->createForm(VideoType::class, $video);
@@ -354,10 +324,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/edit/image/{imageId}", name = "edit_image")
      */
-    public function editImage(Request $request, $imageId)
+    public function editImage(Request $request,EntityManagerInterface $entityManager, ImageRepository $imageRepository, $imageId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $imageRepository = $entityManager->getRepository(Image::class);
         $image = $imageRepository->find($imageId);
 
         $imageForm = $this->createForm(ImageType::class, $image);
@@ -377,10 +345,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/edit/slide/{slideId}", name = "edit_slide")
      */
-    public function editSlide(Request $request, $slideId)
+    public function editSlide(Request $request,EntityManagerInterface $entityManager, SlideRepository $slideRepository, $slideId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $slideRepository = $entityManager->getRepository(Slide::class);
         $slide = $slideRepository->find($slideId);
 
         $slideForm = $this->createForm(SlideType::class, $slide);
@@ -400,11 +366,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/blog/billet/edit/{billetId}",name="admin_edit_billet")
      */
-    public function editBillet(Request $request, $billetId)
+    public function editBillet(Request $request,EntityManagerInterface $entityManager, BlogBilletRepository $blogBilletRepository, $billetId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $billetRepository = $entityManager->getRepository(BlogBillet::class);
-        $billet = $billetRepository->find($billetId);
+        $billet = $blogBilletRepository->find($billetId);
         if (!$billet) {
             return $this->redirect($this->generateUrl('index'));
         }
@@ -424,11 +388,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/blog/discussion/edit/{discussionId}",name="admin_edit_discussion")
      */
-    public function editDiscussion(Request $request, $discussionId)
+    public function editDiscussion(Request $request, EntityManagerInterface $entityManager, BlogDiscussionRepository $blogDiscussionRepository, $discussionId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $discussionRepository = $entityManager->getRepository(BlogDiscussion::class);
-        $discussion = $discussionRepository->find($discussionId);
+        $discussion = $blogDiscussionRepository->find($discussionId);
         if (!$discussion) {
             return $this->redirect($this->generateUrl('admin_blog_index'));
         }
@@ -451,10 +413,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/article/delete/{articleId}",name="admin_delete_article")
      */
-    public function deleteArticle(Request $request, $articleId)
+    public function deleteArticle(EntityManagerInterface $entityManager, ArticleRepository $articleRepository, $articleId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $articleRepository = $entityManager->getRepository(Article::class);
         $article = $articleRepository->find($articleId);
         if (!$article) {
             return $this->redirect($this->generateUrl('admin_article_index'));
@@ -475,10 +435,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/delete/video/{videoId}", name="delete_video")
      */
-    public function deleteVideo(Request $request, $videoId)
+    public function deleteVideo(EntityManagerInterface $entityManager, VideoRepository $videoRepository,$videoId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $videoRepository = $entityManager->getRepository(Video::class);
         $video = $videoRepository->find($videoId);
         if (!$video) {
             return $this->redirect($this->generateUrl('index'));
@@ -491,10 +449,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/delete/image/{imageId}", name="delete_image")
      */
-    public function deleteImage(Request $request, $imageId)
+    public function deleteImage(EntityManagerInterface $entityManager, ImageRepository $imageRepository,$imageId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $imageRepository = $entityManager->getRepository(Image::class);
         $image = $imageRepository->find($imageId);
         if (!$image) {
             return $this->redirect($this->generateUrl('index'));
@@ -507,10 +463,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/delete/slide/{slideId}", name="delete_slide")
      */
-    public function deleteSlide(Request $request, $slideId)
+    public function deleteSlide(EntityManagerInterface $entityManager, SlideRepository $slideRepository,$slideId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $slideRepository = $entityManager->getRepository(Slide::class);
         $slide = $slideRepository->find($slideId);
         if (!$slide) {
             return $this->redirect($this->generateUrl('index'));
@@ -523,10 +477,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/blog/billet/delete/{billetId}",name="admin_delete_billet")
      */
-    public function deleteBillet(Request $request, $billetId)
+    public function deleteBillet(EntityManagerInterface $entityManager, BlogBilletRepository $blogBilletRepository, $billetId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $blogBilletRepository = $entityManager->getRepository(BlogBillet::class);
         $billet = $blogBilletRepository->find($billetId);
         if (!$billet) {
             return $this->redirect($this->generateUrl('index'));
@@ -543,11 +495,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/blog/discussion/delete/{discussionId}",name="admin_delete_discussion")
      */
-    public function deleteDiscussion(Request $request, $discussionId)
+    public function deleteDiscussion(EntityManagerInterface $entityManager, BlogDiscussionRepository $blogDiscussionRepository,$discussionId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $discussionRepository = $entityManager->getRepository(BlogDiscussion::class);
-        $discussion = $discussionRepository->find($discussionId);
+        $discussion = $blogDiscussionRepository->find($discussionId);
         if (!$discussion) {
             return $this->redirect($this->generateUrl('admin_blog_index'));
         }
