@@ -420,6 +420,7 @@ class AdminController extends AbstractController
             return $this->redirect($this->generateUrl('admin_article_index'));
         }
 
+        // Possibilité d'utiliser cascade sur un ondelete, cf https://github.com/SAMPAIO1748/test_symfony_inter/commit/ca46e843cb158a46da5e1d1405bd8100adedc25e
         $images = $article->getImages();
         if ($images != null) {
             foreach ($images as $image) {
