@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+        Recherche{{ parent()}}
+{% endblock %}
+
+{% block body %}
+
+        <h1>Voici les résultats de la recherche du terme {{ term }}</h1>
+        <h2>Articles</h2>
+        {% if articles is empty %}
+                <p>Aucun article ne correspond à votre recherche</p>
+        {% else %}
+                {% for article in articles %}
+                        <a href="{{ path('show_article',{'articleId':article.id })}}">Lien vers l'article</a>
+                        <p>{{ article.contenu }}</p>
+                {% endfor %}
+        {% endif %}
+        <h2>Discussions</h2>
+        {% if discussions is empty %}
+                <p>Aucune discussions ne correspond à votre recherche</p>
+                {% else %}
+                {% for discussion in discussions %}
+                <a href="{{ path('discussion_index',{'billetId' : discussion.billet.id}) }}">Lien vers la discussion</a>
+                        <p>{{ discussion.contenu }}</p>
+                {% endfor %}
+        {% endif %}
+
+{% endblock %}
