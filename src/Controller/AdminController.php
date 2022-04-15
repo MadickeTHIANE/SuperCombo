@@ -164,9 +164,9 @@ class AdminController extends AbstractController
 
             if ($mediaFile) {
 
-                $originalFielname = pathinfo($mediaFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $originalFilename = pathinfo($mediaFile->getClientOriginalName(), PATHINFO_FILENAME);
 
-                $safeFilename = $sluggerInterface->slug($originalFielname);
+                $safeFilename = $sluggerInterface->slug($originalFilename);
 
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $mediaFile->guessExtension();
 
@@ -367,9 +367,9 @@ class AdminController extends AbstractController
 
             if ($mediaFile) {
 
-                $originalFielname = pathinfo($mediaFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $originalFilename = pathinfo($mediaFile->getClientOriginalName(), PATHINFO_FILENAME);
 
-                $safeFilename = $sluggerInterface->slug($originalFielname);
+                $safeFilename = $sluggerInterface->slug($originalFilename);
 
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $mediaFile->guessExtension();
 
