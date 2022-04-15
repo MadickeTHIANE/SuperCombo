@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\Image;
 use App\Entity\Slide;
 use App\Entity\Video;
 use App\Entity\Article;
 use App\Entity\BlogBillet;
+use App\Repository\MediaRepository;
+use App\Repository\SlideRepository;
+use App\Repository\VideoRepository;
+use App\Repository\ArticleRepository;
+use App\Repository\BlogBilletRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -138,13 +142,11 @@ class IndexController extends AbstractController
     /**
      * @Route("/show/image/{imageId}",name="show_image")
      */
-    public function showImage(Request $request, $imageId)
+    public function showImage(Request $request, MediaRepository $mediaRepository, $imageId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $imageRepository = $entityManager->getRepository(Image::class);
-        $image = $imageRepository->find($imageId);
+        $image = $mediaRepository->find($imageId);
         $images = [$image];
-        return $this->render('index/imageIndex.html.twig', [
+        return $this->render('index/mediaIndex.html.twig', [
             "images" => $images
         ]);
     }

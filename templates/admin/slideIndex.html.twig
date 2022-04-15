@@ -12,9 +12,9 @@
 				<div class="carousel-inner">
 					<div class="carousel-item active">
 						{% if slide.bgDark %}
-							<img class="bd-placeholder-img bg-dark" src={{slide.image.link}} alt={{ slide.image.titre }}>
+							<img class="bd-placeholder-img bg-dark" src="{{ asset("/media/" ~ slide.media.src) }}" alt={{ slide.media.alt }}>
 						{% else %}
-							<img class="bd-placeholder-img" src={{slide.image.link}} alt={{ slide.image.titre }}>
+							<img class="bd-placeholder-img" src={{ asset("/media/" ~ slide.media.src) }} alt={{ slide.media.alt }}>
 						{% endif %}
 
 						<div class="container">

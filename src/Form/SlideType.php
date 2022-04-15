@@ -2,13 +2,13 @@
 
 namespace App\Form;
 
-use App\Entity\Image;
+use App\Entity\Media;
 use App\Entity\Slide;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class SlideType extends AbstractType
 {
@@ -26,10 +26,10 @@ class SlideType extends AbstractType
             ])
             ->add('textDark')
             ->add('bgDark')
-            ->add('image', EntityType::class, [
+            ->add('media', EntityType::class, [
                 'label' => 'Image',
-                'choice_label' => 'titre',
-                'class' => Image::class,
+                'choice_label' => 'title',
+                'class' => Media::class,
                 'expanded' => true,
                 'multiple' => false
             ])

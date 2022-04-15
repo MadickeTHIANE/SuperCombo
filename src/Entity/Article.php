@@ -3,10 +3,11 @@
 namespace App\Entity;
 
 use App\Entity\User;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -31,25 +32,25 @@ class Article
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="article")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $images;
-
-    /**
      * @ORM\Column(type="text")
      */
     private $contenu;
-
+    
     /**
      * @ORM\Column(type="datetime")
      */
     private $dateCreation;
+    
+    /**
+     * @ORM\OneToMany(targetEntity=Media::class, mappedBy="article")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $media;
 
     public function __construct()
     {
         $this->dateCreation = new \DateTime("now");
-        $this->images = new ArrayCollection();
+        $this->media = new ArrayCollection();
     }
 
 
@@ -107,29 +108,29 @@ class Article
     }
 
     /**
-     * @return Collection|Image[]
+     * @return Collection|Media[]
      */
-    public function getImages(): Collection
+    public function getMedia(): Collection
     {
-        return $this->images;
+        return $this->media;
     }
 
-    public function addImage(Image $image): self
+    public function addMedia(Media $media): self
     {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setArticle($this);
+        if (!$this->media->contains($media)) {
+            $this->media[] = $media;
+            $media->setArticle($this);
         }
 
         return $this;
     }
 
-    public function removeImage(Image $image): self
+    public function removeMedia(Media $media): self
     {
-        if ($this->images->removeElement($image)) {
+        if ($this->media->removeElement($media)) {
             // set the owning side to null (unless already changed)
-            if ($image->getArticle() === $this) {
-                $image->setArticle(null);
+            if ($media->getArticle() === $this) {
+                $media->setArticle(null);
             }
         }
 

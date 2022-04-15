@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\Image;
+use App\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\SlideRepository;
 
@@ -49,10 +49,10 @@ class Slide
     private $lien;
 
     /**
-     * @ORM\OneToOne(targetEntity=Image::class, mappedBy="slide")
+     * @ORM\OneToOne(targetEntity=Media::class, mappedBy="slide")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $image;
+    private $media;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -126,17 +126,6 @@ class Slide
         return $this;
     }
 
-    public function getImage(): ?Image
-    {
-        return $this->image;
-    }
-
-    public function setImage(?Image $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
 
     public function getBgDark(): ?bool
     {
@@ -158,6 +147,18 @@ class Slide
     public function setActive(bool $active): self
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    public function getMedia(): ?Media
+    {
+        return $this->media;
+    }
+
+    public function setMedia(?Media $media): self
+    {
+        $this->media = $media;
 
         return $this;
     }

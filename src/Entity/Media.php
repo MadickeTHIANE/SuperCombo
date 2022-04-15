@@ -2,16 +2,13 @@
 
 namespace App\Entity;
 
-use App\Entity\User;
+use App\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\ImageRepository;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity(repositoryClass=ImageRepository::class)
+ * @ORM\Entity(repositoryClass=MediaRepository::class)
  */
-class Image
+class Media
 {
     /**
      * @ORM\Id
@@ -23,30 +20,36 @@ class Image
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $titre;
+    private $src;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255)
      */
-    private $link;
+    private $alt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="images")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="media")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="images")
+     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="media")
      * @ORM\JoinColumn(nullable=true)
      */
     private $article;
 
     /**
-     * @ORM\OneToOne(targetEntity=Slide::class, inversedBy="image")
+     * @ORM\OneToOne(targetEntity=Slide::class, inversedBy="media")
      * @ORM\JoinColumn(nullable=true)
      */
     private $slide;
 
+    
     /**
      * @ORM\Column(type="datetime")
      */
@@ -62,38 +65,38 @@ class Image
         return $this->id;
     }
 
-    public function getLink(): ?string
+    public function getSrc(): ?string
     {
-        return $this->link;
+        return $this->src;
     }
 
-    public function setLink(string $link): self
+    public function setSrc(string $src): self
     {
-        $this->link = $link;
+        $this->src = $src;
 
         return $this;
     }
 
-    public function getTitre(): ?string
+    public function getAlt(): ?string
     {
-        return $this->titre;
+        return $this->alt;
     }
 
-    public function setTitre(string $titre): self
+    public function setAlt(string $alt): self
     {
-        $this->titre = $titre;
+        $this->alt = $alt;
 
         return $this;
     }
 
-    public function getDateCreation(): ?\DateTimeInterface
+    public function getTitle(): ?string
     {
-        return $this->date_creation;
+        return $this->title;
     }
 
-    public function setDateCreation(\DateTimeInterface $date_creation): self
+    public function setTitle(string $title): self
     {
-        $this->date_creation = $date_creation;
+        $this->title = $title;
 
         return $this;
     }
@@ -130,6 +133,18 @@ class Image
     public function setSlide(?Slide $slide): self
     {
         $this->slide = $slide;
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->date_creation;
+    }
+
+    public function setDateCreation(\DateTimeInterface $date_creation): self
+    {
+        $this->date_creation = $date_creation;
 
         return $this;
     }

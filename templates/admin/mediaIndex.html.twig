@@ -14,12 +14,12 @@
 					{% for image in images %}
 						<div class="col">
 							<div class="card shadow-sm">
-								<img src="{{ image.link }}" alt="{{ image.titre }}" title="{{ image.titre }}">
+								<img src="{{ asset("/media/" ~ image.src) }}" alt="{{ image.alt }}" title="{{ image.title }}">
 
 
 								<div
 									class="card-body">
-									<h3>{{ image.titre }}</h3>
+									<h3>{{ image.title }}</h3>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
 											<a href={{ path('edit_image',{"imageId":image.id} ) }}>
@@ -40,12 +40,12 @@
 					{% for image in images %}
 						<div class="col">
 							<div class="card shadow-sm">
-								<img src="{{ image.link }}" alt="{{ image.titre }}" title="{{ image.titre }}">
+								<img src="{{ asset("/media/" ~ image.src) }}" alt="{{ image.alt }}" title="{{ image.title }}">
 
 
 								<div
 									class="card-body">
-									<h3>{{ image.titre }}</h3>
+									<h3>{{ image.title }}</h3>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
 											<a href={{ path('show_image',{"imageId":image.id} ) }}>
@@ -64,10 +64,10 @@
 						</div>
 					{% endfor %}
 				</div>
+			{% endif %}
 				<a href={{ path('add_image') }} class="row">
 					<button type="button" class="btn btn-sm btn-outline-secondary btn-success text-white">Ajouter une image</button>
 				</a>
-			{% endif %}
 		</div>
 	</div>
 	{# Fin des Images #}
