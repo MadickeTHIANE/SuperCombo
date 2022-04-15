@@ -4,18 +4,24 @@ namespace App\Form;
 
 use App\Entity\Media;
 use App\Entity\Article;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class MediaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        ->add('EditImage', CheckBoxType::class,[
+            'label'=>'Voulez-vous changer l\'image ?',
+            'required' => false
+        ])
             ->add('src', FileType::class,[
                 'mapped' => false
             ])
@@ -35,6 +41,7 @@ class MediaType extends AbstractType
                     "style" => "margin-top : 5px"
                 ]
             ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
