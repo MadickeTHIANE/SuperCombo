@@ -39,9 +39,9 @@
 				{% for slide in slides %}
 					<div class="carousel-item">
 						{% if slide.bgDark %}
-							<img class="bg-dark img-fluid" src="{{ asset("/media/" ~ slideActive.media.src) }}" alt="{{ slideActive.media.title }}">
+							<img class="bg-dark img-fluid" src="{{ asset("/media/" ~ slide.media.src) }}" alt="{{ slide.media.title }}">
 						{% else %}
-							<img class="img-fluid" src="{{ asset("/media/" ~ slideActive.media.src) }}" alt="{{ slideActive.media.title }}">
+							<img class="img-fluid" src="{{ asset("/media/" ~ slide.media.src) }}" alt="{{ slide.media.title }}">
 						{% endif %}
 
 						<div class="container">
