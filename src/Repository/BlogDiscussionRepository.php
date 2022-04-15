@@ -19,6 +19,19 @@ class BlogDiscussionRepository extends ServiceEntityRepository
         parent::__construct($registry, BlogDiscussion::class);
     }
 
+    public function searchByTerm($term)
+    {
+        $queryBuilder = $this->createQueryBuilder('blog_discussion');
+
+        $query = $queryBuilder
+            ->select('blog_discussion')
+            ->orWhere('blog_discussion.contenu LIKE :term')
+            ->setParameter('term', '%' . $term . '%')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return BlogDiscussion[] Returns an array of BlogDiscussion objects
     //  */
