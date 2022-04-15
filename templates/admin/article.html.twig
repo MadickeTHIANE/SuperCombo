@@ -19,15 +19,15 @@
 					</div>
 					<hr>
 					<div class="row row-cols-1 row-cols-md-2 g-3">
-						{% for image in article.images %}
+						{% for image in article.media %}
 							<div class="col">
 								<div class="card shadow-sm">
-									<img src="{{ image.link }}" alt="{{ image.titre }}" title="{{ image.titre }}">
+									<img src="{{ asset("/media/" ~ image.src) }}" alt="{{ image.alt }}" title="{{ image.title }}">
 
 
 									<div
 										class="card-body">
-										<h3>{{ image.titre }}</h3>
+										<h3>{{ image.title }}</h3>
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="btn-group">
 												<a href={{ path('admin_show_image',{"imageId":image.id} ) }}>

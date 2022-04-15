@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Image;
+use App\Entity\Media;
 use App\Entity\Slide;
 use App\Entity\Video;
 use App\Entity\Article;
-use App\Form\ImageType;
+use App\Form\MediaType;
 use App\Form\SlideType;
 use App\Form\VideoType;
 use App\Form\ArticleType;
@@ -14,7 +14,7 @@ use App\Entity\BlogBillet;
 use App\Form\BlogBilletType;
 use App\Entity\BlogDiscussion;
 use App\Form\BlogDiscussionType;
-use App\Repository\ImageRepository;
+use App\Repository\MediaRepository;
 use App\Repository\SlideRepository;
 use App\Repository\VideoRepository;
 use App\Repository\ArticleRepository;
@@ -24,6 +24,7 @@ use App\Repository\BlogDiscussionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -47,14 +48,14 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/image", name="admin_image_index")
+     * @Route("/media", name="admin_media_index")
      */
-    public function imageIndex(ImageRepository $imageRepository)
+    public function MediaIndex(MediaRepository $mediaRepository)
     {
-        $images = $imageRepository->findBy([], ['id' => 'desc']);
+        $media = $mediaRepository->findBy([], ['id' => 'desc']);
 
-        return $this->render('admin/imageIndex.html.twig', [
-            "images" => $images
+        return $this->render('admin/mediaIndex.html.twig', [
+            "images" => $media
         ]);
     }
 
@@ -208,11 +209,11 @@ class AdminController extends AbstractController
     /**
      * @Route("/show/image/{imageId}",name="admin_show_image")
      */
-    public function showImage(Request $request, $imageId, ImageRepository $imageRepository)
+    public function showImage(Request $request, $imageId, MediaRepository $mediaRepository)
     {
-        $image = $imageRepository->find($imageId);
+        $image = $mediaRepository->find($imageId);
         $images = [$image];
-        return $this->render('admin/imageIndex.html.twig', [
+        return $this->render('admin/mediaIndex.html.twig', [
             "images" => $images
         ]);
     }
@@ -377,8 +378,6 @@ class AdminController extends AbstractController
 
             $entityManager->persist($media);
 
-        if ($request->isMethod('post') && $imageForm->isValid()) {
-            $entityManager->persist($image);
             $entityManager->flush();
 
             return $this->redirectToRoute("admin_media_index");
@@ -468,7 +467,7 @@ class AdminController extends AbstractController
         }
 
         // Possibilité d'utiliser cascade sur un ondelete, cf https://github.com/SAMPAIO1748/test_symfony_inter/commit/ca46e843cb158a46da5e1d1405bd8100adedc25e
-        $images = $article->getImages();
+        $images = $article->getMedia();
         if ($images != null) {
             foreach ($images as $image) {
                 $entityManager->remove($image);
@@ -497,15 +496,15 @@ class AdminController extends AbstractController
     /**
      * @Route("/delete/image/{imageId}", name="delete_image")
      */
-    public function deleteImage(EntityManagerInterface $entityManager, ImageRepository $imageRepository,$imageId)
+    public function deleteImage(EntityManagerInterface $entityManager, MediaRepository $mediaRepository,$imageId)
     {
-        $image = $imageRepository->find($imageId);
+        $image = $mediaRepository->find($imageId);
         if (!$image) {
             return $this->redirect($this->generateUrl('index'));
         }
         $entityManager->remove($image);
         $entityManager->flush();
-        return $this->redirect($this->generateUrl('admin_image_index'));
+        return $this->redirect($this->generateUrl('admin_media_index'));
     }
 
     /**

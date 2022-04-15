@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\Image;
+use App\Entity\Media;
 use App\Entity\Video;
 use App\Entity\Article;
 use App\Entity\BlogBillet;
@@ -66,9 +66,9 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $videos;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Media::class, mappedBy="user")
      */
-    private $images;
+    private $media;
 
     public function __construct()
     {
@@ -76,7 +76,7 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->billets = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->videos = new ArrayCollection();
-        $this->images = new ArrayCollection();
+        $this->media = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -284,29 +284,29 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|Image[]
+     * @return Collection|Media[]
      */
-    public function getImages(): Collection
+    public function getMedia(): Collection
     {
-        return $this->images;
+        return $this->media;
     }
 
-    public function addImage(Image $image): self
+    public function addMedia(Media $media): self
     {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setUser($this);
+        if (!$this->media->contains($media)) {
+            $this->media[] = $media;
+            $media->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeImage(Image $image): self
+    public function removeMedia(Media $media): self
     {
-        if ($this->images->removeElement($image)) {
+        if ($this->media->removeElement($media)) {
             // set the owning side to null (unless already changed)
-            if ($image->getUser() === $this) {
-                $image->setUser(null);
+            if ($media->getUser() === $this) {
+                $media->setUser(null);
             }
         }
 
