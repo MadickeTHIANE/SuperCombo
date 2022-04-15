@@ -22,3 +22,4 @@
 BDD_ovh
 /migrations
 /.htaccess
+/public/media/*
