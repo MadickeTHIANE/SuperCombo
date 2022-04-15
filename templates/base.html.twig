@@ -33,12 +33,14 @@
 
 	</head>
 	<body>
+		
 		{% include "layout/header.html.twig" %}
 		<main class="flex-shrink-0">
-			<div class="container"> {% block body %}{% endblock %}
-				</div>
-			</main>
-			{% include "layout/footer.html.twig" %}
+			<div class="container"> 
+				{% block body %}{% endblock %}
+			</div>
+		</main>
+		{% include "layout/footer.html.twig" %}
 
-		</body>
-	</html>
+	</body>
+</html>

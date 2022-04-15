@@ -1,70 +1,66 @@
 <header>
 	<!-- Fixed navbar -->
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-		<div class="container-fluid justify-content-around">
-			<a class="navbar-brand mx-2" href="{{ path('index') }}"><img src={{ asset('assets/img/logo.png') }} alt="logo" width="50px" class="img img-thumbnail figure-img">
-				<h1 class="h5 d-inline">SuperCombo</h1>
+		<div class="container-fluid">
+			<a class="navbar-brand d-flex align-items-center fs-4 mb-0" href="{{ path('index') }}">
+				<img src="{{ asset('assets/img/logo.png') }}" alt="logo" width="50px" class="img img-thumbnail figure-img">
+				<h1 class="navbar-brand mx-2">SuperCombo</h1>
 			</a>
-			<div>
-				<button class="navbar-toggler float-sm-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarCollapse">
-					<ul class="navbar-nav me-auto mb-2 mb-md-0">
-					<form class="col-5 mx-md-5 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-md-flex" wtx-context="500D2FCE-75B2-412E-881C-0C996F1FFFDE" action="{{ path('search') }}">
-          					<input type="search" name="search" class="form-control form-control-dark w-100" placeholder="Search..." aria-label="Search" wtx-context="4368D188-76A9-491D-A21D-36A010F0B660">
-						  <input type="submit" class="form-control btn-success w-25" value="search">
-        				</form>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav me-auto mb-2 mb-md-0">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="{{ path('article_index') }}">Articles</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="{{ path('blog_index') }}">Forum</a>
+					</li>
+					{% if is_granted('ROLE_USER') == false %}
 						<li class="nav-item">
-							<a class="nav-link active onglet" aria-current="page" href="{{ path('article_index') }}">Articles</a>
+							<a class="nav-link active" href={{ path('user_register') }}>Inscription</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active onglet" aria-current="page" href="{{ path('blog_index') }}">Forum</a>
+							<a class="nav-link active" href={{ path('app_login') }}>Connexion</a>
 						</li>
-						{% if is_granted('ROLE_USER') == false %}
-							<li class="nav-item">
-								<a class="nav-link active onglet" href={{ path('user_register') }}>Inscription</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link active onglet" href={{ path('app_login') }}>Connexion</a>
-							</li>
-							{# {% endif %} #}
-						{% else %}
-
-							{# {% if is_granted('ROLE_USER') %} #}
-							<li class="nav-item">
-								<a class="nav-link active onglet" href={{ path('app_logout') }}>Déconnexion</a>
-							</li>
-						{% endif %}
-						{% if is_granted('ROLE_ADMIN') %}
-							<li class="nav-item dropdown">
-								<a class="nav-link active  onglet dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Menu admin</a>
-								<ul class="dropdown-menu" aria-labelledby="category">
+					{% else %}
+						<li class="nav-item">
+							<a class="nav-link active" href={{ path('app_logout') }}>Déconnexion</a>
+						</li>
+					{% endif %}
+					{% if is_granted('ROLE_ADMIN') %}
+						<li class="nav-item dropdown">
+							<a class="nav-link active dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Menu admin</a>
+							<ul class="dropdown-menu" aria-labelledby="category">
+								<li>
+									<a class="dropdown-item" href={{ path('admin_video_index') }}>Gérer les vidéos</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('admin_blog_index') }}">Gérer le forum</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('admin_article_index') }}">Gérer les articles</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('admin_media_index') }}">Gérer les images</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('admin_slide_index') }}">Gérer les slides</a>
+								</li>
+								{% if is_granted('ROLE_SUPERADMIN') %}
 									<li>
-										<a class="dropdown-item" href={{ path('admin_video_index') }}>Gérer les vidéos</a>
+										<a class="dropdown-item" href={{ path('admin_register') }}>Inscription d'un admin</a>
 									</li>
-									<li>
-										<a class="dropdown-item" href="{{ path('admin_blog_index') }}">Gérer le forum</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="{{ path('admin_article_index') }}">Gérer les articles</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="{{ path('admin_media_index') }}">Gérer les images</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="{{ path('admin_slide_index') }}">Gérer les slides</a>
-									</li>
-									{% if is_granted('ROLE_SUPERADMIN') %}
-										<li>
-											<a class="dropdown-item" href={{ path('admin_register') }}>Inscription d'un admin</a>
-										</li>
-									{% endif %}
-								</ul>
-							</li>
-						{% endif %}
-					</ul>
-				</div>
+								{% endif %}
+							</ul>
+						</li>
+					{% endif %}
+				</ul>
+				<form class="d-flex" action="{{ path('search') }}">
+					<input type="search" name="search" class="form-control me-2" placeholder="Search..." aria-label="Search" >
+						<input type="submit" class="btn btn-outline-success" value="Search">
+				</form>
 			</div>
 		</div>
 	</nav>
