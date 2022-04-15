@@ -142,22 +142,45 @@ class AdminController extends AbstractController
     /**
      * @Route("/add/image", name = "add_image")
      */
-    public function addImage(Request $request, EntityManagerInterface $entityManager)
+    public function addImage(Request $request, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface)
     {
         $user = $this->getUser();
-        $image = new Image;
-        $imageForm = $this->createForm(ImageType::class, $image);
-        $imageForm->handleRequest($request);
+        $media = new Media();
 
-        if ($request->isMethod('post') && $imageForm->isValid()) {
-            $image->setUser($user);
-            $entityManager->persist($image);
+        $mediaForm = $this->createForm(MediaType::class, $media);
+
+        $mediaForm->handleRequest($request);
+        
+        if ($mediaForm->isSubmitted() && $mediaForm->isValid()) {
+            
+            $media->setUser($user);
+            $mediaFile = $mediaForm->get('src')->getData();
+
+            if ($mediaFile) {
+
+                $originalFielname = pathinfo($mediaFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $safeFilename = $sluggerInterface->slug($originalFielname);
+
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $mediaFile->guessExtension();
+
+                $mediaFile->move(
+                    $this->getParameter('images_directory'),
+                    $newFilename
+                );
+
+                $media->setSrc($newFilename);
+            }
+
+            $entityManager->persist($media);
+
             $entityManager->flush();
-            return $this->redirect($this->generateUrl('admin_image_index'));
+
+            return $this->redirectToRoute("admin_media_index");
         }
         return $this->render('index/dataform.html.twig', [
             "formName" => "Ajouter une image",
-            "dataForm" => $imageForm->createView()
+            "dataForm" => $mediaForm->createView()
         ]);
     }
 
@@ -324,21 +347,45 @@ class AdminController extends AbstractController
     /**
      * @Route("/edit/image/{imageId}", name = "edit_image")
      */
-    public function editImage(Request $request,EntityManagerInterface $entityManager, ImageRepository $imageRepository, $imageId)
+    public function editImage(Request $request, EntityManagerInterface $entityManager, MediaRepository $mediaRepository,SluggerInterface $sluggerInterface, $imageId)
     {
-        $image = $imageRepository->find($imageId);
+        $media = $mediaRepository->find($imageId);
 
-        $imageForm = $this->createForm(ImageType::class, $image);
-        $imageForm->handleRequest($request);
+        $mediaForm = $this->createForm(MediaType::class, $media);
+
+        $mediaForm->handleRequest($request);
+        
+        if ($mediaForm->isSubmitted() && $mediaForm->isValid()) {
+            
+            $mediaFile = $mediaForm->get('src')->getData();
+
+            if ($mediaFile) {
+
+                $originalFielname = pathinfo($mediaFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $safeFilename = $sluggerInterface->slug($originalFielname);
+
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $mediaFile->guessExtension();
+
+                $mediaFile->move(
+                    $this->getParameter('images_directory'),
+                    $newFilename
+                );
+
+                $media->setSrc($newFilename);
+            }
+
+            $entityManager->persist($media);
 
         if ($request->isMethod('post') && $imageForm->isValid()) {
             $entityManager->persist($image);
             $entityManager->flush();
-            return $this->redirect($this->generateUrl('admin_image_index'));
+
+            return $this->redirectToRoute("admin_media_index");
         }
         return $this->render('index/dataform.html.twig', [
             "formName" => "Modifier une image",
-            "dataForm" => $imageForm->createView()
+            "dataForm" => $mediaForm->createView()
         ]);
     }
 
