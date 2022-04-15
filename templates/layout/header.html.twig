@@ -1,55 +1,66 @@
 <header>
 	<!-- Fixed navbar -->
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-		<div class="container-fluid">
+		<div class="container-fluid justify-content-around">
 			<a class="navbar-brand mx-2" href="{{ path('index') }}"><img src={{ asset('assets/img/logo.png') }} alt="logo" width="50px" class="img img-thumbnail figure-img">
-				SuperCombo</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarCollapse">
-				<ul class="navbar-nav me-auto mb-2 mb-md-0">
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="{{ path('blog_index') }}">Blog</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="{{ path('article_index') }}">Articles</a>
-					</li>
-					{% if is_granted('ROLE_USER') == false %}
+				<h1 class="h5 d-inline">SuperCombo</h1>
+			</a>
+			<div>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarCollapse">
+					<ul class="navbar-nav me-auto mb-2 mb-md-0">
 						<li class="nav-item">
-							<a class="nav-link active" href={{ path('user_register') }}>Inscription</a>
+							<a class="nav-link active onglet" aria-current="page" href="{{ path('article_index') }}">Articles</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href={{ path('app_login') }}>Connexion</a>
+							<a class="nav-link active onglet" aria-current="page" href="{{ path('blog_index') }}">Forum</a>
 						</li>
-					{% endif %}
-					{% if is_granted('ROLE_USER') %}
-						<li class="nav-item">
-							<a class="nav-link active" href={{ path('app_logout') }}>Déconnexion</a>
-						</li>
-					{% endif %}
-					{% if is_granted('ROLE_ADMIN') %}
-						<li class="nav-item dropdown">
-							<a class="nav-link active dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Menu admin</a>
-							<ul class="dropdown-menu" aria-labelledby="category">
-								<li>
-									<a class="dropdown-item" href={{ path('admin_video_index') }}>Gérer les vidéos</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="{{ path('admin_blog_index') }}">Gérer le blog</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="{{ path('admin_article_index') }}">Gérer les articles</a>
-								</li>
-								{% if is_granted('ROLE_SUPERADMIN') %}
+						{% if is_granted('ROLE_USER') == false %}
+							<li class="nav-item">
+								<a class="nav-link active onglet" href={{ path('user_register') }}>Inscription</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active onglet" href={{ path('app_login') }}>Connexion</a>
+							</li>
+							{# {% endif %} #}
+						{% else %}
+
+							{# {% if is_granted('ROLE_USER') %} #}
+							<li class="nav-item">
+								<a class="nav-link active onglet" href={{ path('app_logout') }}>Déconnexion</a>
+							</li>
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') %}
+							<li class="nav-item dropdown">
+								<a class="nav-link active  onglet dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Menu admin</a>
+								<ul class="dropdown-menu" aria-labelledby="category">
 									<li>
-										<a class="dropdown-item" href={{ path('admin_register') }}>Inscription d'un admin</a>
+										<a class="dropdown-item" href={{ path('admin_video_index') }}>Gérer les vidéos</a>
 									</li>
-								{% endif %}
-							</ul>
-						</li>
-					{% endif %}
-				</ul>
+									<li>
+										<a class="dropdown-item" href="{{ path('admin_blog_index') }}">Gérer le forum</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="{{ path('admin_article_index') }}">Gérer les articles</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="{{ path('admin_media_index') }}">Gérer les images</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="{{ path('admin_slide_index') }}">Gérer les slides</a>
+									</li>
+									{% if is_granted('ROLE_SUPERADMIN') %}
+										<li>
+											<a class="dropdown-item" href={{ path('admin_register') }}>Inscription d'un admin</a>
+										</li>
+									{% endif %}
+								</ul>
+							</li>
+						{% endif %}
+					</ul>
+				</div>
 			</div>
 		</div>
 	</nav>

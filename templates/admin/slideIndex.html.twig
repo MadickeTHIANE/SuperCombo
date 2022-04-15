@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Slides{{parent()}}
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		{% for slide in slides %}
+
+			<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						{% if slide.bgDark %}
+							<img class="bd-placeholder-img bg-dark" src="{{ asset("/media/" ~ slide.media.src) }}" alt={{ slide.media.alt }}>
+						{% else %}
+							<img class="bd-placeholder-img" src={{ asset("/media/" ~ slide.media.src) }} alt={{ slide.media.alt }}>
+						{% endif %}
+
+						<div class="container">
+							{% if slide.textDark == true %}
+								<div class="carousel-caption text-dark">
+								{% else %}
+									<div class="carousel-caption">
+									{% endif %}
+									<h3>{{ slide.titre }}</h3>
+									<p class='h4'>{{ slide.extrait }}</p>
+									<p>
+										<a class="btn btn-lg btn-primary" href={{ slide.lien }}>{{ slide.button }}</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="btn-group">
+							<a href={{ path('edit_slide',{"slideId":slide.id} ) }}>
+								<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+							</a>
+							<a href={{ path('delete_slide',{"slideId":slide.id} ) }}>
+								<button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
+							</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+			<a href={{ path('add_slide') }} class="row">
+				<button type="button" class="btn btn-sm btn-outline-secondary btn-success text-white">Ajouter une slide</button>
+			</a>
+		</div>
+
+	{% endblock %}

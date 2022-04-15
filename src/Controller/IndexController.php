@@ -2,9 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Slide;
 use App\Entity\Video;
 use App\Entity\Article;
 use App\Entity\BlogBillet;
+use App\Repository\MediaRepository;
+use App\Repository\SlideRepository;
+use App\Repository\VideoRepository;
+use App\Repository\ArticleRepository;
+use App\Repository\BlogBilletRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,19 +18,41 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class IndexController extends AbstractController
 {
+    const BLOG_INDEX = 'index/blog.html.twig';
+
     //*ok
     /**
      * @Route("/", name="index")
      */
-    public function index(): Response
+    public function index(VideoRepository $videoRepository, SlideRepository $slideRepository)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $videoRepository = $entityManager->getRepository(Video::class);
-        $videos = $videoRepository->findAll();
+        $videos = $videoRepository->findBy([], ['id' => 'desc']);
+        $slides = $slideRepository->findBy(["active" => 0]);
+        $slideActive = $slideRepository->findBy(["active" => 1])[0];
 
         return $this->render('index/index.html.twig', [
-            "videos" => $videos
+            "videos" => $videos,
+            "slideActive" => $slideActive,
+            "slides" => $slides,
+        ]);
+    }
+    
+    //*ok
+    /**
+     * @Route("/show/video/{videoId}",name="show_video")
+     */
+    public function showVideo(Request $request, VideoRepository $videoRepository, SlideRepository $slideRepository, $videoId)
+    {
+        $video = $videoRepository->find($videoId);
+        $videos = [$video];
+
+        $slides = $slideRepository->findBy(["active" => 0]);
+        $slideActive = $slideRepository->findBy(["active" => 1])[0];
+        
+        return $this->render('index/index.html.twig', [
+            "videos" => $videos,
+            "slideActive" => $slideActive,
+            "slides" => $slides,
         ]);
     }
 
@@ -32,14 +60,9 @@ class IndexController extends AbstractController
     /**
      *@Route("/article",name="article_index") 
      */
-    public function articleIndex()
+    public function articleIndex(ArticleRepository $articleRepository)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $articleRepository = $entityManager->getRepository(Article::class);
-        $articles = $articleRepository->findAll();
-        if (!$articles) {
-            return $this->redirect($this->generateUrl('create_article'));
-        }
+        $articles = $articleRepository->findBy([], ['id' => 'desc']);
         return $this->render('index/article.html.twig', [
             "articles" => $articles
         ]);
@@ -49,26 +72,22 @@ class IndexController extends AbstractController
     /**
      * @Route("/blog",name="blog_index")
      */
-    public function blogIndex()
+    public function blogIndex(BlogBilletRepository $blogBilletRepository)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $blogBilletRepository = $entityManager->getRepository(BlogBillet::class);
-
-        //On récupère tous les billets
-        $blogBillets = $blogBilletRepository->findAll();
+        $blogBillets = $blogBilletRepository->findBy([], ['id' => 'desc']);
         if (!$blogBillets) {
             return $this->redirect($this->generateUrl('create_billet'));
         }
 
         $user = $this->getUser();
         if ($user == null) {
-            return $this->render('index/blog.html.twig', [
+            return $this->render(self::BLOG_INDEX, [
                 "blogBillets" => $blogBillets,
                 "userName" => null
             ]);
         }
 
-        return $this->render('index/blog.html.twig', [
+        return $this->render(self::BLOG_INDEX, [
             "blogBillets" => $blogBillets,
             "userName" => $user->getUsername()
         ]);
@@ -78,11 +97,8 @@ class IndexController extends AbstractController
     /**
      * @Route("/blog/billet/display/{billetId}",name="discussion_index")
      */
-    public function billetDiscussionIndex(Request $request, $billetId)
+    public function billetDiscussionIndex(Request $request, BlogBilletRepository $blogBilletRepository, $billetId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $blogBilletRepository = $entityManager->getRepository(BlogBillet::class);
-        //On récupère le billet correspondant à l'id
         $blogBillet = $blogBilletRepository->find($billetId);
 
         if (!$blogBillet) {
@@ -92,7 +108,7 @@ class IndexController extends AbstractController
 
         $user = $this->getUser();
         if ($user == null) {
-            return $this->render('index/blog.html.twig', [
+            return $this->render(self::BLOG_INDEX, [
                 "blogDiscussions" => $blogDiscussions,
                 "blogBillet" => $blogBillet,
                 "userName" => null
@@ -100,7 +116,7 @@ class IndexController extends AbstractController
         }
 
         //Renvoie des discussions et de leur billet
-        return $this->render('index/blog.html.twig', [
+        return $this->render(self::BLOG_INDEX, [
             "blogDiscussions" => $blogDiscussions,
             "blogBillet" => $blogBillet,
             "userName" => $user->getUsername()
@@ -111,10 +127,8 @@ class IndexController extends AbstractController
     /**
      * @Route("/show/article/{articleId}",name="show_article")
      */
-    public function showArticle(Request $request, $articleId)
+    public function showArticle(Request $request, ArticleRepository $articleRepository, $articleId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $articleRepository = $entityManager->getRepository(Article::class);
         $article = $articleRepository->find($articleId);
         if (!$article) {
             return $this->redirect($this->generateUrl('article_index'));
@@ -125,18 +139,31 @@ class IndexController extends AbstractController
         ]);
     }
 
-    //*ok
     /**
-     * @Route("/show/video/{videoId}",name="show_video")
+     * @Route("/show/image/{imageId}",name="show_image")
      */
-    public function showVideo(Request $request, $videoId)
+    public function showImage(Request $request, MediaRepository $mediaRepository, $imageId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $videoRepository = $entityManager->getRepository(Video::class);
-        $video = $videoRepository->find($videoId);
-        $videos = [$video];
-        return $this->render('index/index.html.twig', [
-            "videos" => $videos
+        $image = $mediaRepository->find($imageId);
+        $images = [$image];
+        return $this->render('index/mediaIndex.html.twig', [
+            "images" => $images
         ]);
+    }
+
+    /**
+     * @Route("/mentions", name="mentions_legales")
+     */
+    public function showMention(Request $request)
+    {
+        return $this->render('index/mentionLegale.html.twig', []);
+    }
+
+    /**
+     * @Route("/politique", name="politique_confidentialite")
+     */
+    public function showPolitique(Request $request)
+    {
+        return $this->render('index/politiqueConfidentialite.html.twig', []);
     }
 }

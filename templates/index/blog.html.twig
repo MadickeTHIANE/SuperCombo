@@ -6,7 +6,7 @@
 	{# Affichage des discussions relatives à un billet #}
 	{% if blogDiscussions is defined %}
 		<div class="row alert alert-info">
-			<div class="col-4">
+			<div class="col-sm-4 mb-2">
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item">Sujet :
 						{{ blogBillet.titre }}</li>
@@ -16,11 +16,11 @@
 						{{ blogBillet.auteur }}</li>
 				</ul>
 			</div>
-			<div class="col-8">
+			<div class="col-sm-8">
 				<p>{{ blogBillet.contenu }}</p>
 				{% if userName is not null and userName == blogBillet.auteur %}
 					<a href={{ path('edit_billet',{"billetId":blogBillet.Id} ) }}>
-						<button class="btn btn-warning">Modifier le billet</button>
+						<button class="btn btn-warning w-auto">Modifier le billet</button>
 					</a>
 				{% endif %}
 			</div>
@@ -31,7 +31,7 @@
 			{% for blogDiscussion in blogDiscussions %}
 
 				<div class="row alert alert-info">
-					<div class="col-4">
+					<div class="col-sm-4 mb-2">
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item">Créé le
 								{{ blogDiscussion.datecreation|date('d/m/Y à G:i:s', 'Europe/Paris') }}
@@ -39,15 +39,15 @@
 								{{ blogDiscussion.auteur }}</li>
 						</ul>
 					</div>
-					<div class="col-8">
+					<div class="col-sm-8">
 						<p>{{ blogDiscussion.contenu }}</p>
 						{% if userName is not null and userName == blogDiscussion.auteur %}
-							<div class="btn-group">
+							<div class="btn-group row">
 								<a href={{ path('edit_discussion',{"discussionId":blogDiscussion.id} ) }}>
-									<button class="btn btn-warning">Modifier le commentaire</button>
+									<button class="btn btn-warning col-sm-6 w-100">Modifier le commentaire</button>
 								</a>
 								<a href={{ path('delete_discussion',{"discussionId":blogDiscussion.id} ) }}>
-									<button class="btn btn-danger">Supprimer le commentaire</button>
+									<button class="btn btn-danger col-sm-6 w-100">Supprimer le commentaire</button>
 								</a>
 							</div>
 						{% endif %}
@@ -59,7 +59,7 @@
 			{# Création d'un nouveau commentaire #}
 			{% if userName is not null %}
 				<a href="{{ path('create_discussion',{"billetId":blogBillet.id}) }}">
-					<button class="btn btn-success m-4">Ecrire un commentaire</button>
+					<button class="btn btn-success w-100">Ecrire un commentaire</button>
 				</a>
 			{% else %}
 				<div class="alert alert-warning">
@@ -71,7 +71,7 @@
 		{# Affichage des billets #}
 		{% for blogBillet in blogBillets %}
 			<div class="row alert alert-info">
-				<div class="col-4">
+				<div class="col-sm-4 mb-2">
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">Sujet :
 							{{ blogBillet.titre }}</li>
@@ -81,15 +81,15 @@
 							{{ blogBillet.auteur }}</li>
 					</ul>
 				</div>
-				<div class="col-8">
+				<div class="col-sm-8">
 					<p>{{ blogBillet.contenu }}</p>
-					<div class="btn-group">
+					<div class="btn-group row">
 						<a href="{{ path('discussion_index',{"billetId":blogBillet.Id}) }}">
-							<button class="btn btn-secondary">Accéder</button>
+							<button class="btn btn-secondary col-sm-6 w-100">Accéder</button>
 						</a>
 						{% if userName is not null and userName == blogBillet.auteur %}
 							<a href={{ path('edit_billet',{"billetId":blogBillet.Id} ) }}>
-								<button class="btn btn-warning">Modifier le billet
+								<button class="btn btn-warning col-sm-6 w-100">Modifier le billet
 								</button>
 							</a>
 						{% endif %}
@@ -102,7 +102,7 @@
 		{# Création d'un nouveau billet #}
 		{% if userName is not null %}
 			<a href="{{ path('create_billet') }}">
-				<button class="btn btn-success m-4">Créer un nouveau sujet</button>
+				<button class="btn btn-success w-100">Créer un nouveau sujet</button>
 			</a>
 		{% else %}
 			<div class="alert alert-warning">

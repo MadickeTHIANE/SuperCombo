@@ -2,17 +2,29 @@
 
 namespace App\Controller;
 
+use App\Entity\Media;
+use App\Entity\Slide;
 use App\Entity\Video;
 use App\Entity\Article;
-use App\Form\ArticleType;
+use App\Form\MediaType;
+use App\Form\SlideType;
 use App\Form\VideoType;
+use App\Form\ArticleType;
 use App\Entity\BlogBillet;
 use App\Form\BlogBilletType;
 use App\Entity\BlogDiscussion;
 use App\Form\BlogDiscussionType;
+use App\Repository\MediaRepository;
+use App\Repository\SlideRepository;
+use App\Repository\VideoRepository;
+use App\Repository\ArticleRepository;
+use App\Repository\BlogBilletRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\BlogDiscussionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -26,12 +38,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/video", name="admin_video_index")
      */
-    public function videoIndex(): Response
+    public function videoIndex(VideoRepository $videoRepository)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $videoRepository = $entityManager->getRepository(Video::class);
-        $videos = $videoRepository->findAll();
+        $videos = $videoRepository->findBy([], ['id' => 'desc']);
 
         return $this->render('admin/videoIndex.html.twig', [
             "videos" => $videos
@@ -39,14 +48,36 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/media", name="admin_media_index")
+     */
+    public function MediaIndex(MediaRepository $mediaRepository)
+    {
+        $media = $mediaRepository->findBy([], ['id' => 'desc']);
+
+        return $this->render('admin/mediaIndex.html.twig', [
+            "images" => $media
+        ]);
+    }
+
+    /**
+     * @Route("/slide", name="admin_slide_index")
+     */
+    public function slideIndex(SlideRepository $slideRepository)
+    {
+        $slides = $slideRepository->findAll();
+
+        //todo Compléter la page admin/slideIndex.html.twig
+        return $this->render('admin/slideIndex.html.twig', [
+            "slides" => $slides
+        ]);
+    }
+
+    /**
      * @Route("/blog", name="admin_blog_index")
      */
-    public function blogIndex(): Response
+    public function blogIndex(BlogBilletRepository $blogBilletRepository)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $billetsRepository = $entityManager->getRepository(BlogBillet::class);
-        $billets = $billetsRepository->findAll();
+        $billets = $blogBilletRepository->findBy([], ['id' => 'desc']);
 
         return $this->render('admin/blog.html.twig', [
             "blogBillets" => $billets
@@ -56,10 +87,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/blog/billet/display/{billetId}",name="admin_discussion_index")
      */
-    public function billetDiscussionIndex(Request $request, $billetId)
+    public function billetDiscussionIndex(BlogBilletRepository $blogBilletRepository, $billetId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $blogBilletRepository = $entityManager->getRepository(BlogBillet::class);
         //On récupère le billet correspondant à l'id
         $blogBillet = $blogBilletRepository->find($billetId);
 
@@ -78,13 +107,11 @@ class AdminController extends AbstractController
     /**
      *@Route("/article",name="admin_article_index") 
      */
-    public function articleIndex()
+    public function articleIndex(ArticleRepository $articleRepository)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $articleRepository = $entityManager->getRepository(Article::class);
-        $articles = $articleRepository->findAll();
+        $articles = $articleRepository->findBy([], ['id' => 'desc']);
         if (!$articles) {
-            return $this->redirect($this->generateUrl('admin_create_article'));
+            return $this->redirectToRoute('admin_create_article');
         }
         return $this->render('admin/article.html.twig', [
             "articles" => $articles
@@ -94,10 +121,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/add/video", name = "add_video")
      */
-    public function addVideo(Request $request)
+    public function addVideo(Request $request, EntityManagerInterface $entityManager)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
         $user = $this->getUser();
         $video = new Video;
         $videoForm = $this->createForm(VideoType::class, $video);
@@ -116,12 +141,88 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/add/image", name = "add_image")
+     */
+    public function addImage(Request $request, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface)
+    {
+        $user = $this->getUser();
+        $media = new Media();
+
+        $mediaForm = $this->createForm(MediaType::class, $media);
+
+        $mediaForm->handleRequest($request);
+        
+        if ($mediaForm->isSubmitted() && $mediaForm->isValid()) {
+            
+            $media->setUser($user);
+            $mediaFile = $mediaForm->get('src')->getData();
+
+            if ($mediaFile) {
+
+                $originalFielname = pathinfo($mediaFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $safeFilename = $sluggerInterface->slug($originalFielname);
+
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $mediaFile->guessExtension();
+
+                $mediaFile->move(
+                    $this->getParameter('images_directory'),
+                    $newFilename
+                );
+
+                $media->setSrc($newFilename);
+            }
+
+            $entityManager->persist($media);
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute("admin_media_index");
+        }
+        return $this->render('index/dataform.html.twig', [
+            "formName" => "Ajouter une image",
+            "dataForm" => $mediaForm->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/add/slide", name = "add_slide")
+     */
+    public function addSlide(Request $request, EntityManagerInterface $entityManager)
+    {
+        $slide = new Slide;
+        $slideForm = $this->createForm(SlideType::class, $slide);
+        $slideForm->handleRequest($request);
+
+        if ($request->isMethod('post') && $slideForm->isValid()) {
+            $entityManager->persist($slide);
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('admin_slide_index'));
+        }
+        return $this->render('index/dataform.html.twig', [
+            "formName" => "Ajouter une slide",
+            "dataForm" => $slideForm->createView()
+        ]);
+    }
+
+
+    /**
+     * @Route("/show/image/{imageId}",name="admin_show_image")
+     */
+    public function showImage(Request $request, $imageId, MediaRepository $mediaRepository)
+    {
+        $image = $mediaRepository->find($imageId);
+        $images = [$image];
+        return $this->render('admin/mediaIndex.html.twig', [
+            "images" => $images
+        ]);
+    }
+
+    /**
      * @Route("/blog/billet/create",name="admin_create_billet")
      */
-    public function createBillet(Request $request)
+    public function createBillet(Request $request, EntityManagerInterface $entityManager)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
         $billet = new BlogBillet;
         $user = $this->getUser();
         $billetForm = $this->createForm(BlogBilletType::class, $billet);
@@ -142,11 +243,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/blog/discussion/create/{billetId}",name="admin_create_discussion")
      */
-    public function createDiscussion(Request $request, $billetId)
+    public function createDiscussion(Request $request, BlogBilletRepository $blogBilletRepository,EntityManagerInterface $entityManager, $billetId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $blogBilletRepository = $entityManager->getRepository(BlogBillet::class);
-
         $billet = $blogBilletRepository->find($billetId);
         $user = $this->getUser();
         $discussion = new BlogDiscussion($billet);
@@ -171,10 +269,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/article/create",name="admin_create_article")
      */
-    public function createArticle(Request $request)
+    public function createArticle(Request $request, EntityManagerInterface $entityManager)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
         $article = new Article;
         $user = $this->getUser();
         $articleForm = $this->createForm(ArticleType::class, $article);
@@ -194,10 +290,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/show/article/{articleId}",name="admin_show_article")
      */
-    public function showArticle(Request $request, $articleId)
+    public function showArticle(Request $request, ArticleRepository $articleRepository, $articleId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $articleRepository = $entityManager->getRepository(Article::class);
         $article = $articleRepository->find($articleId);
         if (!$article) {
             return $this->redirect($this->generateUrl('admin_article_index'));
@@ -211,10 +305,8 @@ class AdminController extends AbstractController
     /**
      * @Route("article/edit/{articleId}",name="admin_edit_article")
      */
-    public function editArticle(Request $request, $articleId)
+    public function editArticle(Request $request, EntityManagerInterface $entityManager, ArticleRepository $articleRepository, $articleId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $articleRepository = $entityManager->getRepository(Article::class);
         $article = $articleRepository->find($articleId);
         if (!$article) {
             return $this->redirect($this->generateUrl('admin_article_index'));
@@ -235,10 +327,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/edit/video/{videoId}", name = "edit_video")
      */
-    public function editVideo(Request $request, $videoId)
+    public function editVideo(Request $request, EntityManagerInterface $entityManager,VideoRepository $videoRepository, $videoId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $videoRepository = $entityManager->getRepository(Video::class);
         $video = $videoRepository->find($videoId);
 
         $videoForm = $this->createForm(VideoType::class, $video);
@@ -247,22 +337,84 @@ class AdminController extends AbstractController
         if ($request->isMethod('post') && $videoForm->isValid()) {
             $entityManager->persist($video);
             $entityManager->flush();
-            return $this->redirect($this->generateUrl('index'));
+            return $this->redirect($this->generateUrl('admin_video_index'));
         }
         return $this->render('index/dataform.html.twig', [
-            "formName" => "Ajouter une vidéo",
+            "formName" => "Modifier une vidéo",
             "dataForm" => $videoForm->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/edit/image/{imageId}", name = "edit_image")
+     */
+    public function editImage(Request $request, EntityManagerInterface $entityManager, MediaRepository $mediaRepository,SluggerInterface $sluggerInterface, $imageId)
+    {
+        $media = $mediaRepository->find($imageId);
+
+        $mediaForm = $this->createForm(MediaType::class, $media);
+
+        $mediaForm->handleRequest($request);
+        
+        if ($mediaForm->isSubmitted() && $mediaForm->isValid()) {
+            
+            $mediaFile = $mediaForm->get('src')->getData();
+
+            if ($mediaFile) {
+
+                $originalFielname = pathinfo($mediaFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $safeFilename = $sluggerInterface->slug($originalFielname);
+
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $mediaFile->guessExtension();
+
+                $mediaFile->move(
+                    $this->getParameter('images_directory'),
+                    $newFilename
+                );
+
+                $media->setSrc($newFilename);
+            }
+
+            $entityManager->persist($media);
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute("admin_media_index");
+        }
+        return $this->render('index/dataform.html.twig', [
+            "formName" => "Modifier une image",
+            "dataForm" => $mediaForm->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/edit/slide/{slideId}", name = "edit_slide")
+     */
+    public function editSlide(Request $request,EntityManagerInterface $entityManager, SlideRepository $slideRepository, $slideId)
+    {
+        $slide = $slideRepository->find($slideId);
+
+        $slideForm = $this->createForm(SlideType::class, $slide);
+        $slideForm->handleRequest($request);
+
+        if ($request->isMethod('post') && $slideForm->isValid()) {
+            $entityManager->persist($slide);
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('admin_slide_index'));
+        }
+        return $this->render('index/dataform.html.twig', [
+            "formName" => "Modifier une slide",
+            "dataForm" => $slideForm->createView()
         ]);
     }
 
     /**
      * @Route("/blog/billet/edit/{billetId}",name="admin_edit_billet")
      */
-    public function editBillet(Request $request, $billetId)
+    public function editBillet(Request $request,EntityManagerInterface $entityManager, BlogBilletRepository $blogBilletRepository, $billetId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $billetRepository = $entityManager->getRepository(BlogBillet::class);
-        $billet = $billetRepository->find($billetId);
+        $billet = $blogBilletRepository->find($billetId);
         if (!$billet) {
             return $this->redirect($this->generateUrl('index'));
         }
@@ -282,11 +434,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/blog/discussion/edit/{discussionId}",name="admin_edit_discussion")
      */
-    public function editDiscussion(Request $request, $discussionId)
+    public function editDiscussion(Request $request, EntityManagerInterface $entityManager, BlogDiscussionRepository $blogDiscussionRepository, $discussionId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $discussionRepository = $entityManager->getRepository(BlogDiscussion::class);
-        $discussion = $discussionRepository->find($discussionId);
+        $discussion = $blogDiscussionRepository->find($discussionId);
         if (!$discussion) {
             return $this->redirect($this->generateUrl('admin_blog_index'));
         }
@@ -309,14 +459,21 @@ class AdminController extends AbstractController
     /**
      * @Route("/article/delete/{articleId}",name="admin_delete_article")
      */
-    public function deleteArticle(Request $request, $articleId)
+    public function deleteArticle(EntityManagerInterface $entityManager, ArticleRepository $articleRepository, $articleId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $articleRepository = $entityManager->getRepository(Article::class);
         $article = $articleRepository->find($articleId);
         if (!$article) {
             return $this->redirect($this->generateUrl('admin_article_index'));
         }
+
+        // Possibilité d'utiliser cascade sur un ondelete, cf https://github.com/SAMPAIO1748/test_symfony_inter/commit/ca46e843cb158a46da5e1d1405bd8100adedc25e
+        $images = $article->getMedia();
+        if ($images != null) {
+            foreach ($images as $image) {
+                $entityManager->remove($image);
+            }
+        }
+
         $entityManager->remove($article);
         $entityManager->flush();
         return $this->redirect($this->generateUrl('admin_article_index'));
@@ -325,26 +482,50 @@ class AdminController extends AbstractController
     /**
      * @Route("/delete/video/{videoId}", name="delete_video")
      */
-    public function deleteVideo(Request $request, $videoId)
+    public function deleteVideo(EntityManagerInterface $entityManager, VideoRepository $videoRepository,$videoId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $videoRepository = $entityManager->getRepository(Video::class);
         $video = $videoRepository->find($videoId);
         if (!$video) {
             return $this->redirect($this->generateUrl('index'));
         }
         $entityManager->remove($video);
         $entityManager->flush();
-        return $this->redirect($this->generateUrl('index'));
+        return $this->redirect($this->generateUrl('admin_video_index'));
+    }
+
+    /**
+     * @Route("/delete/image/{imageId}", name="delete_image")
+     */
+    public function deleteImage(EntityManagerInterface $entityManager, MediaRepository $mediaRepository,$imageId)
+    {
+        $image = $mediaRepository->find($imageId);
+        if (!$image) {
+            return $this->redirect($this->generateUrl('index'));
+        }
+        $entityManager->remove($image);
+        $entityManager->flush();
+        return $this->redirect($this->generateUrl('admin_media_index'));
+    }
+
+    /**
+     * @Route("/delete/slide/{slideId}", name="delete_slide")
+     */
+    public function deleteSlide(EntityManagerInterface $entityManager, SlideRepository $slideRepository,$slideId)
+    {
+        $slide = $slideRepository->find($slideId);
+        if (!$slide) {
+            return $this->redirect($this->generateUrl('index'));
+        }
+        $entityManager->remove($slide);
+        $entityManager->flush();
+        return $this->redirect($this->generateUrl('admin_slide_index'));
     }
 
     /**
      * @Route("/blog/billet/delete/{billetId}",name="admin_delete_billet")
      */
-    public function deleteBillet(Request $request, $billetId)
+    public function deleteBillet(EntityManagerInterface $entityManager, BlogBilletRepository $blogBilletRepository, $billetId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $blogBilletRepository = $entityManager->getRepository(BlogBillet::class);
         $billet = $blogBilletRepository->find($billetId);
         if (!$billet) {
             return $this->redirect($this->generateUrl('index'));
@@ -361,11 +542,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/blog/discussion/delete/{discussionId}",name="admin_delete_discussion")
      */
-    public function deleteDiscussion(Request $request, $discussionId)
+    public function deleteDiscussion(EntityManagerInterface $entityManager, BlogDiscussionRepository $blogDiscussionRepository,$discussionId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $discussionRepository = $entityManager->getRepository(BlogDiscussion::class);
-        $discussion = $discussionRepository->find($discussionId);
+        $discussion = $blogDiscussionRepository->find($discussionId);
         if (!$discussion) {
             return $this->redirect($this->generateUrl('admin_blog_index'));
         }

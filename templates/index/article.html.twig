@@ -5,32 +5,80 @@
 {% block body %}
 	{% if articles|length == 1 %}
 		{% for article in articles %}
-			<h1>{{ article.titre }}</h1>
-			<div>{{ article.contenu }}</div>
+			<h1 class="article">{{ article.titre }}</h1>
 
-		{% endfor %}
-	{% else %}
-		<div class="container">
-			<div class="list-group list-group-flush">
-				{% for article in articles %}
-					<div class="list-group-item">
-						<div class="d-flex w-100 justify-content-between">
-							<a href={{ path('show_article',{"articleId":article.id} ) }} class="text-decoration-none">
-								<h1>{{ article.titre }}</h1>
-							</a>
-							<small>{{ article.dateCreation|date('d/m/Y') }}</small>
-						</div>
-						<div>{{ article.contenu|slice(0,200) }}
-							...</div>
-						<div class="btn-group">
-							<a href={{ path('show_article',{"articleId":article.id} ) }}>
-								<button class="btn btn-primary mt-3">Lire l'article</button>
-							</a>
+			<div class="album py-5 bg-light">
+				<div class="container">
+					<div>{{ article.contenu }}</div>
+					<hr>
+					{% if article.media|length == 1 %}
+						<div class="row row-cols-1 g-3">
+						{% else %}
+							<div class="row row-cols-1 row-cols-md-2 g-3">
+							{% endif %}
+							{% for image in article.media %}
+								<div class="col">
+									<div class="card shadow-sm">
+										<img src="{{ asset("/media/" ~ image.src) }}" alt="{{ image.alt }}" title="{{ image.title }}">
+
+
+										<div
+											class="card-body">
+											<h3>{{ image.title }}</h3>
+											{% if article.media|length > 1 %}
+												<div class="d-flex justify-content-between align-items-center">
+													<div class="btn-group">
+														<a href={{ path('show_image',{"imageId":image.id} ) }}>
+															<button type="button" class="btn btn-sm btn-outline-secondary">Voir</button>
+														</a>
+													</div>
+												</div>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							{% endfor %}
 						</div>
 					</div>
-				{% endfor %}
+				</div>
+			{% endfor %}
+		{% elseif not articles %}
+		<h1>Aucun article</h1>
+		{% else %}
+			<div class="container">
+				<div class="list-group list-group-flush">
+					{% for article in articles %}
+						<div class="list-group-item d-flex w-100 my-2">
+							<div>
+								<img src="{{ asset('assets/img/Super_Combo_Dice.png')}}" alt="supercombo_dice" width="45px" class="me-2">
+							</div>
+							<div class="d-flex w-100 justify-content-around row">
+								<div class="col-8">
+									<a href={{ path('show_article',{"articleId":article.id} ) }} class="text-decoration-none">
+										<h1 class="article">{{ article.titre }}</h1>
+									</a>
+								</div>
+								<div class="col-4 text-right">
+									{{ article.dateCreation|date('d/m/Y') }}
+								</div>
+								<div>
+									{% if article.contenu|length >= 100 %}
+										{{ article.contenu|slice(0,100) }}
+										...
+									{% else %}
+										{{ article.contenu}}
+									{% endif %}
+								</div>
+								<div class="btn-group">
+									<a href={{ path('show_article',{"articleId":article.id} ) }}>
+										<button class="btn mt-3 link">Lire l'article</button>
+									</a>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
 			</div>
-		</div>
-	{% endif %}
+		{% endif %}
 
-{% endblock %}
+	{% endblock %}

@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Entity\User;
+use App\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -32,15 +35,22 @@ class Article
      * @ORM\Column(type="text")
      */
     private $contenu;
-
+    
     /**
      * @ORM\Column(type="datetime")
      */
     private $dateCreation;
+    
+    /**
+     * @ORM\OneToMany(targetEntity=Media::class, mappedBy="article")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $media;
 
     public function __construct()
     {
         $this->dateCreation = new \DateTime("now");
+        $this->media = new ArrayCollection();
     }
 
 
@@ -93,6 +103,36 @@ class Article
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Media[]
+     */
+    public function getMedia(): Collection
+    {
+        return $this->media;
+    }
+
+    public function addMedia(Media $media): self
+    {
+        if (!$this->media->contains($media)) {
+            $this->media[] = $media;
+            $media->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedia(Media $media): self
+    {
+        if ($this->media->removeElement($media)) {
+            // set the owning side to null (unless already changed)
+            if ($media->getArticle() === $this) {
+                $media->setArticle(null);
+            }
+        }
 
         return $this;
     }

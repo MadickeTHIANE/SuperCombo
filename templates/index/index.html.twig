@@ -9,102 +9,108 @@
 	<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
 		<div class="carousel-indicators">
 			<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-			<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-			<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			{% for i in 1 .. slides|length %}
+				<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{{ i }}" aria-label="Slide {{ i + 1 }}"></button>
+			{% endfor %}
 		</div>
 		<div class="carousel-inner">
-			<h1>A la une</h1>
+			<h2>A la une</h2>
 			<div class="carousel-item active">
-				<svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveaspectratio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-
-				<div class="container">
-					<div class="carousel-caption text-start">
-						<h2>Example headline.</h2>
-						<p>Some representative placeholder content for the first slide of the carousel.</p>
-						<p>
-							<a class="btn btn-lg btn-primary" href="#">Sign up today</a>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="carousel-item">
-				<svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveaspectratio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-
-				<div class="container">
-					<div class="carousel-caption">
-						<h2>Another example headline.</h2>
-						<p>Some representative placeholder content for the second slide of the carousel.</p>
-						<p>
-							<a class="btn btn-lg btn-primary" href="#">Learn more</a>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="carousel-item">
-				<svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveaspectratio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-
-				<div class="container">
-					<div class="carousel-caption text-end">
-						<h2>One more for good measure.</h2>
-						<p>Some representative placeholder content for the third slide of this carousel.</p>
-						<p>
-							<a class="btn btn-lg btn-primary" href="#">Browse gallery</a>
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			<span class="visually-hidden">Previous</span>
-		</button>
-		<button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-			<span class="carousel-control-next-icon" aria-hidden="true"></span>
-			<span class="visually-hidden">Next</span>
-		</button>
-	</div>
-
-	{# Fin du carousel #}
-
-	{# Vidéos #}
-
-	<div class="album py-5 bg-light">
-		<div class="container">
-			{% if videos|length > 1 %}
-				<h1>Vidéos du moment</h1>
-			{% endif %}
-			{% if videos|length == 1  %}
-				{% set height = 720 %}
-				<div class="row">
+				{% if slideActive.bgDark %}
+					<img class="bg-dark img-fluid" src="{{ asset("/media/" ~ slideActive.media.src) }}" alt="{{ slideActive.media.title }}">
 				{% else %}
-					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-						{% set height = 320 %}
-					{% endif %}
-					{% for video in videos %}
-						<div class="col">
-							<div class="card shadow-sm">
-								<iframe width="100%" height={{ height }} src="https://www.youtube.com/embed/{{ video.iframe }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					<img class="img-fluid" src="{{ asset("/media/" ~ slideActive.media.src) }}" alt="{{ slideActive.media.title }}">
+				{% endif %}
 
+				<div class="container">
+					{% if slideActive.textDark %}
+						<div class="carousel-caption text-dark">
+						{% else %}
+							<div class="carousel-caption">
+							{% endif %}
+							<h3>{{ slideActive.titre }}</h3>
+							<p class='h4'>{{ slideActive.extrait }}</p>
+							<p>
+								<a class="btn btn-lg btn-primary" href="{{ slideActive.lien }}">{{ slideActive.button }}</a>
+							</p>
+						</div>
+					</div>
+				</div>
+				{% for slide in slides %}
+					<div class="carousel-item">
+						{% if slide.bgDark %}
+							<img class="bg-dark img-fluid" src="{{ asset("/media/" ~ slideActive.media.src) }}" alt="{{ slideActive.media.title }}">
+						{% else %}
+							<img class="img-fluid" src="{{ asset("/media/" ~ slideActive.media.src) }}" alt="{{ slideActive.media.title }}">
+						{% endif %}
 
-								<div class="card-body">
-									<h3>{{ video.titre }}</h3>
-									<p class="card-text">{{ video.extrait }}</p>
-									<div class="d-flex justify-content-between align-items-center">
-										<div class="btn-group">
-											{% if videos|length > 1 %}
-												<a href={{ path('show_video',{"videoId":video.id} ) }}>
-													<button type="button" class="btn btn-sm btn-outline-secondary">Voir</button>
-												</a>
-											{% endif %}
-										</div>
-									</div>
+						<div class="container">
+							{% if slide.textDark == true %}
+								<div class="carousel-caption text-dark">
+								{% else %}
+									<div class="carousel-caption">
+									{% endif %}
+									<h3>{{ slide.titre }}</h3>
+									<p class='h4'>{{ slide.extrait }}</p>
+									<p>
+										<a class="btn btn-lg btn-primary" href="{{ slide.lien }}">{{ slide.button }}</a>
+									</p>
 								</div>
 							</div>
 						</div>
 					{% endfor %}
+					<button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
 				</div>
 			</div>
 		</div>
-		{# Fin des Vidéos #}
-		{# test ajout uniquement develop #}
-	{% endblock %}
+
+		{# Fin du carousel #}
+
+		{# Vidéos #}
+
+		<div class="album py-5 bg-light">
+			<div class="container">
+				{% if videos|length > 1 %}
+					<h2>Vidéos du moment</h2>
+				{% endif %}
+				{% if videos|length == 1  %}
+					{% set height = 720 %}
+					<div class="row">
+					{% else %}
+						<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
+							{% set height = 320 %}
+						{% endif %}
+						{% for video in videos %}
+							<div class="col">
+								<div class="card shadow-sm">
+									<iframe width="100%" height={{ height }} src="https://www.youtube.com/embed/{{ video.iframe }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+									<div class="card-body">
+										<h3>{{ video.titre }}</h3>
+										<p class="card-text">{{ video.extrait }}</p>
+										<div class="d-flex justify-content-between align-items-center">
+											<div class="btn-group">
+												{% if videos|length > 1 %}
+													<a href={{ path('show_video',{"videoId":video.id} ) }}>
+														<button type="button" class="btn btn-sm btn-outline-secondary">Voir</button>
+													</a>
+												{% endif %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+			{# Fin des Vidéos #}
+		{% endblock %}
