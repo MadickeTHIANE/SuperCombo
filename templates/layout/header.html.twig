@@ -6,11 +6,15 @@
 				<h1 class="h5 d-inline">SuperCombo</h1>
 			</a>
 			<div>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<button class="navbar-toggler float-sm-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarCollapse">
 					<ul class="navbar-nav me-auto mb-2 mb-md-0">
+					<form class="col-5 mx-md-5 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-md-flex" wtx-context="500D2FCE-75B2-412E-881C-0C996F1FFFDE" action="{{ path('search') }}">
+          					<input type="search" name="search" class="form-control form-control-dark w-100" placeholder="Search..." aria-label="Search" wtx-context="4368D188-76A9-491D-A21D-36A010F0B660">
+						  <input type="submit" class="form-control btn-success w-25" value="search">
+        				</form>
 						<li class="nav-item">
 							<a class="nav-link active onglet" aria-current="page" href="{{ path('article_index') }}">Articles</a>
 						</li>
