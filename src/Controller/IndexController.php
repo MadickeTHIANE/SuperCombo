@@ -11,6 +11,7 @@ use App\Repository\SlideRepository;
 use App\Repository\VideoRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\BlogBilletRepository;
+use App\Repository\BlogDiscussionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,6 +38,27 @@ class IndexController extends AbstractController
         ]);
     }
     
+    /**
+     * @Route("/search",name="search")
+     */
+    public function search(Request $request, ArticleRepository $articleRepository, BlogDiscussionRepository $blogDiscussionRepository)
+    {
+        $term = $request->query->get('search');
+
+        if (!$term) {
+            return $this->redirectToRoute('index');
+        }
+        
+        $articles = $articleRepository->searchByTerm($term);
+        $discussions = $blogDiscussionRepository->searchByTerm($term);
+
+        return $this->render('index/search.html.twig',[
+            'term'=>$term,
+            'articles' => $articles,
+            'discussions' => $discussions
+        ]);
+    }
+
     //*ok
     /**
      * @Route("/show/video/{videoId}",name="show_video")
