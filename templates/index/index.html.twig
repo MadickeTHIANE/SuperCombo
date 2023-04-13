@@ -14,7 +14,7 @@
 			{% endfor %}
 		</div>
 		<div class="carousel-inner">
-			<h2>A la une</h2>
+			<h2>{{transSpotlight}}</h2>
 			<div class="carousel-item active">
 				{% if slideActive.bgDark %}
 					<img class="bg-dark img-fluid" src="{{ asset("/media/" ~ slideActive.media.src) }}" alt="{{ slideActive.media.title }}">
