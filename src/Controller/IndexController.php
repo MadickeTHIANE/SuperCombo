@@ -31,7 +31,8 @@ class IndexController extends AbstractController
         $videos = $videoRepository->findBy([], ['id' => 'desc']);
         $slides = $slideRepository->findBy(["active" => 0]);
         $slideActive = $slideRepository->findBy(["active" => 1])[0];
-        $spotlight = $translator->trans('index.spotlight');
+        $name = "Madické";
+        $spotlight = $translator->trans('index.spotlight',['name' => $name]);
 
         return $this->render('index/index.html.twig', [
             "videos" => $videos,
