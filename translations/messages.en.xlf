@@ -17,6 +17,54 @@
         <source>index.next</source>
         <target state="translated">Next</target>
       </trans-unit>
+      <trans-unit id="PtAwRxm" resname="header.articles">
+        <source>header.articles</source>
+        <target state="translated">Posts</target>
+      </trans-unit>
+      <trans-unit id="2QsBojR" resname="header.forum">
+        <source>header.forum</source>
+        <target state="translated">Forum</target>
+      </trans-unit>
+      <trans-unit id="xGFcefF" resname="header.signIn">
+        <source>header.signIn</source>
+        <target state="translated">Sign Up</target>
+      </trans-unit>
+      <trans-unit id="HIJTbxm" resname="header.logIn">
+        <source>header.logIn</source>
+        <target state="translated">Login</target>
+      </trans-unit>
+      <trans-unit id="oYxv23X" resname="header.logOut">
+        <source>header.logOut</source>
+        <target state="translated">Logout</target>
+      </trans-unit>
+      <trans-unit id="UL4bh0e" resname="header.admin">
+        <source>header.admin</source>
+        <target state="translated">Admin Menu</target>
+      </trans-unit>
+      <trans-unit id="zMO8S7." resname="header.admin.videos">
+        <source>header.admin.videos</source>
+        <target state="translated">Manage videos</target>
+      </trans-unit>
+      <trans-unit id="FvhZSud" resname="header.admin.forum">
+        <source>header.admin.forum</source>
+        <target state="translated">Manage forum</target>
+      </trans-unit>
+      <trans-unit id="pbsqGwi" resname="header.admin.articles">
+        <source>header.admin.articles</source>
+        <target state="translated">Manage articles</target>
+      </trans-unit>
+      <trans-unit id="d5IyQXb" resname="header.admin.images">
+        <source>header.admin.images</source>
+        <target state="translated">Manage images</target>
+      </trans-unit>
+      <trans-unit id="A4aV7cK" resname="header.admin.slides">
+        <source>header.admin.slides</source>
+        <target state="translated">Manage slides</target>
+      </trans-unit>
+      <trans-unit id="fp98aQM" resname="header.admin.signIn">
+        <source>header.admin.signIn</source>
+        <target state="translated">Admin Registration</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
