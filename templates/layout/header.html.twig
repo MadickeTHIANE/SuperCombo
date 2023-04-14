@@ -1,3 +1,4 @@
+{% trans_default_domain "messages" %}
 <header>
 	<!-- Fixed navbar -->
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -12,45 +13,45 @@
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav me-auto mb-2 mb-md-0">
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="{{ path('article_index') }}">Articles</a>
+						<a class="nav-link active" aria-current="page" href="{{ path('article_index') }}">{% trans %}header.articles{% endtrans %}</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="{{ path('blog_index') }}">Forum</a>
+						<a class="nav-link active" aria-current="page" href="{{ path('blog_index') }}">{% trans %}header.forum{% endtrans %}</a>
 					</li>
 					{% if is_granted('ROLE_USER') == false %}
 						<li class="nav-item">
-							<a class="nav-link active" href={{ path('user_register') }}>Inscription</a>
+							<a class="nav-link active" href={{ path('user_register') }}>{% trans %}header.signIn{% endtrans %}</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href={{ path('app_login') }}>Connexion</a>
+							<a class="nav-link active" href={{ path('app_login') }}>{% trans %}header.logIn{% endtrans %}</a>
 						</li>
 					{% else %}
 						<li class="nav-item">
-							<a class="nav-link active" href={{ path('app_logout') }}>Déconnexion</a>
+							<a class="nav-link active" href={{ path('app_logout') }}>{% trans %}header.logOut{% endtrans %}</a>
 						</li>
 					{% endif %}
 					{% if is_granted('ROLE_ADMIN') %}
 						<li class="nav-item dropdown">
-							<a class="nav-link active dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Menu admin</a>
+							<a class="nav-link active dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">{% trans %}header.admin{% endtrans %}</a>
 							<ul class="dropdown-menu" aria-labelledby="category">
 								<li>
-									<a class="dropdown-item" href={{ path('admin_video_index') }}>Gérer les vidéos</a>
+									<a class="dropdown-item" href={{ path('admin_video_index') }}>{% trans %}header.admin.videos{% endtrans %}</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="{{ path('admin_blog_index') }}">Gérer le forum</a>
+									<a class="dropdown-item" href="{{ path('admin_blog_index') }}">{% trans %}header.admin.forum{% endtrans %}</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="{{ path('admin_article_index') }}">Gérer les articles</a>
+									<a class="dropdown-item" href="{{ path('admin_article_index') }}">{% trans %}header.admin.articles{% endtrans %}</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="{{ path('admin_media_index') }}">Gérer les images</a>
+									<a class="dropdown-item" href="{{ path('admin_media_index') }}">{% trans %}header.admin.images{% endtrans %}</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="{{ path('admin_slide_index') }}">Gérer les slides</a>
+									<a class="dropdown-item" href="{{ path('admin_slide_index') }}">{% trans %}header.admin.slides{% endtrans %}</a>
 								</li>
 								{% if is_granted('ROLE_SUPERADMIN') %}
 									<li>
-										<a class="dropdown-item" href={{ path('admin_register') }}>Inscription d'un admin</a>
+										<a class="dropdown-item" href={{ path('admin_register') }}>{% trans %}header.admin.signIn{% endtrans %}</a>
 									</li>
 								{% endif %}
 							</ul>
