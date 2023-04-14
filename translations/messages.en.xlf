@@ -9,6 +9,14 @@
         <source>index.headline</source>
         <target state="translated">Headline</target>
       </trans-unit>
+      <trans-unit id="xS35Zul" resname="index.previous">
+        <source>index.previous</source>
+        <target>__index.previous</target>
+      </trans-unit>
+      <trans-unit id="3mxeBtS" resname="index.next">
+        <source>index.next</source>
+        <target>__index.next</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
