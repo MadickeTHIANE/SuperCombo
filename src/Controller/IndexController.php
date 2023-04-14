@@ -31,8 +31,8 @@ class IndexController extends AbstractController
         $videos = $videoRepository->findBy([], ['id' => 'desc']);
         $slides = $slideRepository->findBy(["active" => 0]);
         $slideActive = $slideRepository->findBy(["active" => 1])[0];
-        $name = "Madické";
-        $spotlight = $translator->trans('index.spotlight',['name' => $name]);
+        
+        $headline = $translator->trans('index.headline');
         $previous = $translator->trans('index.previous');
         $next = $translator->trans('index.next');
 
@@ -40,7 +40,7 @@ class IndexController extends AbstractController
             "videos" => $videos,
             "slideActive" => $slideActive,
             "slides" => $slides,
-            "transSpotlight"=>$spotlight,
+            "headline"=>$headline,
             "previous"=>$previous,
             "next"=>$next,
         ]);

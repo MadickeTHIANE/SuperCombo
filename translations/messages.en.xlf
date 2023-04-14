@@ -5,8 +5,8 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="EZM.uvd" resname="index.spotlight">
-        <source>index.spotlight</source>
+      <trans-unit id="gKvxm5K" resname="index.headline">
+        <source>index.headline</source>
         <target state="translated">Headline</target>
       </trans-unit>
     </body>
