@@ -17,6 +17,54 @@
         <source>index.next</source>
         <target>Suivant</target>
       </trans-unit>
+      <trans-unit id="PtAwRxm" resname="header.articles">
+        <source>header.articles</source>
+        <target>Articles</target>
+      </trans-unit>
+      <trans-unit id="2QsBojR" resname="header.forum">
+        <source>header.forum</source>
+        <target>Forum</target>
+      </trans-unit>
+      <trans-unit id="xGFcefF" resname="header.signIn">
+        <source>header.signIn</source>
+        <target>Inscription</target>
+      </trans-unit>
+      <trans-unit id="HIJTbxm" resname="header.logIn">
+        <source>header.logIn</source>
+        <target>Connexion</target>
+      </trans-unit>
+      <trans-unit id="oYxv23X" resname="header.logOut">
+        <source>header.logOut</source>
+        <target>Déconnexion</target>
+      </trans-unit>
+      <trans-unit id="UL4bh0e" resname="header.admin">
+        <source>header.admin</source>
+        <target>Menu Admin</target>
+      </trans-unit>
+      <trans-unit id="zMO8S7." resname="header.admin.videos">
+        <source>header.admin.videos</source>
+        <target>Gérer les vidéos</target>
+      </trans-unit>
+      <trans-unit id="FvhZSud" resname="header.admin.forum">
+        <source>header.admin.forum</source>
+        <target>Gérer le forum</target>
+      </trans-unit>
+      <trans-unit id="pbsqGwi" resname="header.admin.articles">
+        <source>header.admin.articles</source>
+        <target>Gérer les articles</target>
+      </trans-unit>
+      <trans-unit id="d5IyQXb" resname="header.admin.images">
+        <source>header.admin.images</source>
+        <target>Gérer les images</target>
+      </trans-unit>
+      <trans-unit id="A4aV7cK" resname="header.admin.slides">
+        <source>header.admin.slides</source>
+        <target>Gérer les slides</target>
+      </trans-unit>
+      <trans-unit id="fp98aQM" resname="header.admin.signIn">
+        <source>header.admin.signIn</source>
+        <target>Inscription d'un admin</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
