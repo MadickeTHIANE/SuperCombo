@@ -1,2 +1,4 @@
 index:
   spotlight: 'A la une !{name}!'
+  previous: précédent
+  next: suivant

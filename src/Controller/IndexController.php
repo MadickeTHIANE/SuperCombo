@@ -33,12 +33,16 @@ class IndexController extends AbstractController
         $slideActive = $slideRepository->findBy(["active" => 1])[0];
         $name = "Madické";
         $spotlight = $translator->trans('index.spotlight',['name' => $name]);
+        $previous = $translator->trans('index.previous');
+        $next = $translator->trans('index.next');
 
         return $this->render('index/index.html.twig', [
             "videos" => $videos,
             "slideActive" => $slideActive,
             "slides" => $slides,
             "transSpotlight"=>$spotlight,
+            "previous"=>$previous,
+            "next"=>$next,
         ]);
     }
     
