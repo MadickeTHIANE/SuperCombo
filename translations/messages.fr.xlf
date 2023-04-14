@@ -11,11 +11,11 @@
       </trans-unit>
       <trans-unit id="xS35Zul" resname="index.previous">
         <source>index.previous</source>
-        <target>__index.previous</target>
+        <target>Précédent</target>
       </trans-unit>
       <trans-unit id="3mxeBtS" resname="index.next">
         <source>index.next</source>
-        <target>__index.next</target>
+        <target>Suivant</target>
       </trans-unit>
     </body>
   </file>
