@@ -32,7 +32,7 @@
 					{% endif %}
 					{% if is_granted('ROLE_ADMIN') %}
 						<li class="nav-item dropdown">
-							<a class="nav-link active dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">{% trans %}header.admin{% endtrans %}</a>
+							<a class="nav-link active dropdown-toggle" href="#" id="adminDropdown" data-bs-toggle="dropdown" aria-expanded="false">{% trans %}header.admin{% endtrans %}</a>
 							<ul class="dropdown-menu" aria-labelledby="category">
 								<li>
 									<a class="dropdown-item" href={{ path('admin_video_index') }}>{% trans %}header.admin.videos{% endtrans %}</a>
@@ -59,9 +59,27 @@
 					{% endif %}
 				</ul>
 				<form class="d-flex" action="{{ path('search') }}">
-					<input type="search" name="search" class="form-control me-2" placeholder="Search..." aria-label="Search" >
-						<input type="submit" class="btn btn-outline-success" value="Search">
+					<input type="search" name="search" class="form-control me-2" aria-label="Search">
+					<input type="submit" class="btn btn-outline-success" value={% trans %} header.search {% endtrans %}>
 				</form>
+
+				<li class="nav-item dropdown d-flex">
+					<a class="nav-link active dropdown-toggle" href="#" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+						<img src="{{asset("assets/img/fr-flag-icon.png")}}" alt="french flag" style="width : 40px"/>
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="language">
+						<li>
+							<a class="dropdown-item" href="#">
+								<img src="{{asset("assets/img/fr-flag-icon.png")}}" alt="french flag" style="width : 40px"/>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="#">
+								<img src="{{asset("assets/img/en-flag-icon.png")}}" alt="english flag" style="width : 40px"/>
+							</a>
+						</li>
+					</ul>
+				</li>
 			</div>
 		</div>
 	</nav>
