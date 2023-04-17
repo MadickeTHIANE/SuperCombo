@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
-{# TODO : i18n #}
-{% block title %}Accueil{{parent()}}
+{% block title %}
+{% trans %}index.tag{% endtrans %}{{parent()}}
 {% endblock %}
 
 {% block body %}
@@ -78,7 +78,7 @@
 		<div class="album py-5 bg-light">
 			<div class="container">
 				{% if videos|length > 1 %}
-					<h2>Vidéos du moment</h2>
+					<h2>{% trans %}index.headline_videos{% endtrans %}</h2>
 				{% endif %}
 				{% if videos|length == 1  %}
 					{% set height = 720 %}
@@ -100,7 +100,7 @@
 											<div class="btn-group">
 												{% if videos|length > 1 %}
 													<a href={{ path('show_video',{"videoId":video.id} ) }}>
-														<button type="button" class="btn btn-sm btn-outline-secondary">Voir</button>
+														<button type="button" class="btn btn-sm btn-outline-secondary">{% trans %}see{% endtrans %}</button>
 													</a>
 												{% endif %}
 											</div>

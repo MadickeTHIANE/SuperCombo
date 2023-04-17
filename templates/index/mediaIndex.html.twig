@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Images{{parent()}}
+{% block title %}
+{% trans %}media.tag{% endtrans %}{{parent()}}
 {% endblock %}
 
 {% block body %}
@@ -28,19 +28,21 @@
 								<img src="{{ asset("/media/" ~ image.src) }}" alt="{{ image.alt }}" title="{{ image.title }}">
 
 
-								<div
-									class="card-body">
+								<div class="card-body">
 									<h3>{{ image.title }}</h3>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
-											<a href={{ path('show_image',{"imageId":image.id} ) }}>
-												<button type="button" class="btn btn-sm btn-outline-secondary">Show</button>
+											<a
+												href={{ path('show_image',{"imageId":image.id} ) }}>
+												<button type="button" class="btn btn-sm btn-outline-secondary">{% trans %}media.show{% endtrans %}</button>
 											</a>
-											<a href={{ path('edit_image',{"imageId":image.id} ) }}>
-												<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+											<a
+												href={{ path('edit_image',{"imageId":image.id} ) }}>
+												<button type="button" class="btn btn-sm btn-outline-secondary">{% trans %}media.edit{% endtrans %}</button>
 											</a>
-											<a href={{ path('delete_image',{"imageId":image.id} ) }}>
-												<button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
+											<a
+												href={{ path('delete_image',{"imageId":image.id} ) }}>
+												<button type="button" class="btn btn-sm btn-outline-secondary">{% trans %}media.delete{% endtrans %}</button>
 											</a>
 										</div>
 									</div>
@@ -49,8 +51,9 @@
 						</div>
 					{% endfor %}
 				</div>
-				<a href={{ path('add_image') }} class="row">
-					<button type="button" class="btn btn-sm btn-outline-secondary btn-success text-white">Ajouter une image</button>
+				<a
+					href={{ path('add_image') }} class="row">
+					<button type="button" class="btn btn-sm btn-outline-secondary btn-success text-white">{% trans %}media.image.add{% endtrans %}</button>
 				</a>
 			{% endif %}
 		</div>

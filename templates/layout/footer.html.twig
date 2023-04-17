@@ -1,13 +1,15 @@
 <footer class="footer mt-5 py-3 bg-light">
 	<div class="container">
 		<p>
-			<a href="{{path('mentions_legales')}}">
-				<h3 class="d-inline h6">Mentions légales</h3>
+			<a
+				href="{{path('mentions_legales')}}">
+				<h3 class="d-inline h6">{% trans %}legal.tag{% endtrans %}</h3>
 			</a>
 		</p>
 		<p>
-			<a href="{{path('politique_confidentialite')}}">
-				<h3 class="d-inline h6">Politique de confidentialité</h3>
+			<a
+				href="{{path('politique_confidentialite')}}">
+				<h3 class="d-inline h6">{% trans %}privacy.tag{% endtrans %}</h3>
 			</a>
 		</p>
 		<p class="float-end mb-1">

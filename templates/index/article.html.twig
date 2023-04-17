@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 {% block title %}
-	Article{{ parent() }}
+	{% trans %}tab.article{% endtrans %}{{ parent() }}
 {% endblock %}
 {% block body %}
 	{% if articles|length == 1 %}
@@ -22,14 +22,13 @@
 										<img src="{{ asset("/media/" ~ image.src) }}" alt="{{ image.alt }}" title="{{ image.title }}">
 
 
-										<div
-											class="card-body">
+										<div class="card-body">
 											<h3>{{ image.title }}</h3>
 											{% if article.media|length > 1 %}
 												<div class="d-flex justify-content-between align-items-center">
 													<div class="btn-group">
 														<a href={{ path('show_image',{"imageId":image.id} ) }}>
-															<button type="button" class="btn btn-sm btn-outline-secondary">Voir</button>
+															<button type="button" class="btn btn-sm btn-outline-secondary">{% trans %}see{% endtrans %}</button>
 														</a>
 													</div>
 												</div>
@@ -43,7 +42,7 @@
 				</div>
 			{% endfor %}
 		{% elseif not articles %}
-		<h1>Aucun article</h1>
+			<h1>Aucun article</h1>
 		{% else %}
 			<div class="container">
 				<div class="list-group list-group-flush">
@@ -70,8 +69,9 @@
 									{% endif %}
 								</div>
 								<div class="btn-group">
-									<a href={{ path('show_article',{"articleId":article.id} ) }}>
-										<button class="btn mt-3 link">Lire l'article</button>
+									<a
+										href={{ path('show_article',{"articleId":article.id} ) }}>
+										<button class="btn mt-3 link">{% trans %}article.read{% endtrans %}</button>
 									</a>
 								</div>
 							</div>

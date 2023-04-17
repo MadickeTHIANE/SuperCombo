@@ -9,6 +9,7 @@ framework:
                 dsn: '%env(CROWDIN_DSN)%'
                 domains: ['messages']
                 locales: ['fr','en']
+                # Rajouter it et sp lorsque les traductions auront été faites
 #            loco:
 #                dsn: '%env(LOCO_DSN)%'
 #            lokalise:
