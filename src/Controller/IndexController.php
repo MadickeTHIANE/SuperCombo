@@ -26,16 +26,18 @@ class IndexController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(VideoRepository $videoRepository, SlideRepository $slideRepository, TranslatorInterface $translator)
+    public function index(VideoRepository $videoRepository, SlideRepository $slideRepository, TranslatorInterface $translator, Request $request)
     {
         $videos = $videoRepository->findBy([], ['id' => 'desc']);
         $slides = $slideRepository->findBy(["active" => 0]);
         $slideActive = $slideRepository->findBy(["active" => 1])[0];
-        
+        $locale = $request->getLocale();
+
         return $this->render('index/index.html.twig', [
             "videos" => $videos,
             "slideActive" => $slideActive,
             "slides" => $slides,
+            "locale"=>$locale,
         ]);
     }
     
