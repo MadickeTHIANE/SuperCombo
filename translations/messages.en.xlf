@@ -5,6 +5,46 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
+      <trans-unit id="XCH6jgZ" resname="article.tag">
+        <source>article.tag</source>
+        <target>Posts</target>
+      </trans-unit>
+      <trans-unit id="JiEhxTc" resname="edit">
+        <source>edit</source>
+        <target>Edit</target>
+      </trans-unit>
+      <trans-unit id="YZdZVQP" resname="delete">
+        <source>delete</source>
+        <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="1kNN5ZC" resname="article.show">
+        <source>article.show</source>
+        <target>Show</target>
+      </trans-unit>
+      <trans-unit id="ARmG8Ow" resname="article.add">
+        <source>article.add</source>
+        <target>Add an article</target>
+      </trans-unit>
+      <trans-unit id="MJ2rLcB" resname="blog.topic.delete">
+        <source>blog.topic.delete</source>
+        <target>Delete this topic</target>
+      </trans-unit>
+      <trans-unit id="6B_H8Ax" resname="slide.tag">
+        <source>slide.tag</source>
+        <target>Slides</target>
+      </trans-unit>
+      <trans-unit id="s5AEk_2" resname="slide.add">
+        <source>slide.add</source>
+        <target>Add a slide</target>
+      </trans-unit>
+      <trans-unit id="J5Lpr9G" resname="video.tag">
+        <source>video.tag</source>
+        <target>Videos</target>
+      </trans-unit>
+      <trans-unit id="NBbXJct" resname="video.add">
+        <source>video.add</source>
+        <target>Add a video</target>
+      </trans-unit>
       <trans-unit id="wE7vp5h" resname="header.search">
         <source>header.search</source>
         <target>Search</target>
@@ -41,7 +81,7 @@
         <source>blog.comment.delete</source>
         <target>Delete comment</target>
       </trans-unit>
-      <trans-unit id="WU4pQoA" resname="blog.comment.write">
+      <trans-unit id="VN7dWky" resname="blog.comment.write">
         <source>blog.comment.write</source>
         <target>Write a comment </target>
       </trans-unit>
@@ -109,7 +149,7 @@
         <source>media.delete</source>
         <target>Delete</target>
       </trans-unit>
-      <trans-unit id="3BEtdv1" resname="media.add">
+      <trans-unit id="xhCMxn1" resname="media.add">
         <source>media.add</source>
         <target>Add image</target>
       </trans-unit>
