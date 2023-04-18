@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Slides{{parent()}}
+{% block title %}{% trans %}slide.tag{% endtrans %}{{parent()}}
 {% endblock %}
 
 {% block body %}
@@ -35,17 +35,17 @@
 					<div class="d-flex justify-content-between align-items-center">
 						<div class="btn-group">
 							<a href={{ path('edit_slide',{"slideId":slide.id} ) }}>
-								<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+								<button type="button" class="btn btn-sm btn-outline-secondary">{% trans %}edit{% endtrans %}</button>
 							</a>
 							<a href={{ path('delete_slide',{"slideId":slide.id} ) }}>
-								<button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
+								<button type="button" class="btn btn-sm btn-outline-secondary">{% trans %}delete{% endtrans %}</button>
 							</a>
 						</div>
 					</div>
 				</div>
 			{% endfor %}
 			<a href={{ path('add_slide') }} class="row">
-				<button type="button" class="btn btn-sm btn-outline-secondary btn-success text-white">Ajouter une slide</button>
+				<button type="button" class="btn btn-sm btn-outline-secondary btn-success text-white">{% trans %}slide.add{% endtrans %}</button>
 			</a>
 		</div>
 

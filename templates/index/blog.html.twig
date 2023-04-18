@@ -1,26 +1,28 @@
 {% extends "base.html.twig" %}
 {% block title %}
-	Discussion{{ parent() }}
+	{% trans %}blog.tag{% endtrans %}{{ parent() }}
 {% endblock %}
 {% block body %}
 	{# Affichage des discussions relatives à un billet #}
 	{% if blogDiscussions is defined %}
 		<div class="row alert alert-info">
 			<div class="col-sm-4 mb-2">
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">Sujet :
+				<ul
+					class="list-group list-group-flush">
+					<li class="list-group-item">{% trans %}blog.topic{% endtrans %}
 						{{ blogBillet.titre }}</li>
-					<li class="list-group-item">Créé le
+					<li class="list-group-item">{% trans %}blog.creation_date{% endtrans %}
 						{{ blogBillet.datecreation|date('d/m/Y à G:i:s', 'Europe/Paris') }}
-						par
+						{% trans %}blog.author{% endtrans %}
 						{{ blogBillet.auteur }}</li>
 				</ul>
 			</div>
 			<div class="col-sm-8">
 				<p>{{ blogBillet.contenu }}</p>
 				{% if userName is not null and userName == blogBillet.auteur %}
-					<a href={{ path('edit_billet',{"billetId":blogBillet.Id} ) }}>
-						<button class="btn btn-warning w-auto">Modifier le billet</button>
+					<a
+						href={{ path('edit_billet',{"billetId":blogBillet.Id} ) }}>
+						<button class="btn btn-warning w-auto">{% trans %}blog.topic.update{% endtrans %}</button>
 					</a>
 				{% endif %}
 			</div>
@@ -32,10 +34,11 @@
 
 				<div class="row alert alert-info">
 					<div class="col-sm-4 mb-2">
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">Créé le
+						<ul
+							class="list-group list-group-flush">
+							<li class="list-group-item">{% trans %}blog.creation_date{% endtrans %}
 								{{ blogDiscussion.datecreation|date('d/m/Y à G:i:s', 'Europe/Paris') }}
-								par
+								{% trans %}blog.author{% endtrans %}
 								{{ blogDiscussion.auteur }}</li>
 						</ul>
 					</div>
@@ -43,11 +46,13 @@
 						<p>{{ blogDiscussion.contenu }}</p>
 						{% if userName is not null and userName == blogDiscussion.auteur %}
 							<div class="btn-group row">
-								<a href={{ path('edit_discussion',{"discussionId":blogDiscussion.id} ) }}>
-									<button class="btn btn-warning col-sm-6 w-100">Modifier le commentaire</button>
+								<a
+									href={{ path('edit_discussion',{"discussionId":blogDiscussion.id} ) }}>
+									<button class="btn btn-warning col-sm-6 w-100">{% trans %}blog.comment.update{% endtrans %}</button>
 								</a>
-								<a href={{ path('delete_discussion',{"discussionId":blogDiscussion.id} ) }}>
-									<button class="btn btn-danger col-sm-6 w-100">Supprimer le commentaire</button>
+								<a
+									href={{ path('delete_discussion',{"discussionId":blogDiscussion.id} ) }}>
+									<button class="btn btn-danger col-sm-6 w-100"> {% trans %}blog.comment.delete{% endtrans %}</button>
 								</a>
 							</div>
 						{% endif %}
@@ -58,12 +63,14 @@
 			<hr>
 			{# Création d'un nouveau commentaire #}
 			{% if userName is not null %}
-				<a href="{{ path('create_discussion',{"billetId":blogBillet.id}) }}">
-					<button class="btn btn-success w-100">Ecrire un commentaire</button>
+				<a
+					href="{{ path('create_discussion',{"billetId":blogBillet.id}) }}">
+					<button class="btn btn-success w-100">{% trans %}blog.comment.write{% endtrans %}</button>
 				</a>
 			{% else %}
-				<div class="alert alert-warning">
-					<a class="text-decoration-none text-danger" href="{{ path('user_register') }}">Veuillez vous connecter ou vous inscrire pour ajouter un commentaire</a>
+				<div
+					class="alert alert-warning">
+					<a class="text-decoration-none text-danger" href="{{ path('user_register') }}">{% trans %}blog.auth_required{% endtrans %}</a>
 				</div>
 			{% endif %}
 		</div>
@@ -72,24 +79,27 @@
 		{% for blogBillet in blogBillets %}
 			<div class="row alert alert-info">
 				<div class="col-sm-4 mb-2">
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">Sujet :
+					<ul
+						class="list-group list-group-flush">
+						<li class="list-group-item">{% trans %}blog.topic{% endtrans %}
 							{{ blogBillet.titre }}</li>
-						<li class="list-group-item">Créé le
+						<li class="list-group-item">{% trans %}blog.creation_date{% endtrans %}
 							{{ blogBillet.datecreation|date('d/m/Y à G:i:s', 'Europe/Paris') }}
-							par
+							{% trans %}blog.author{% endtrans %}
 							{{ blogBillet.auteur }}</li>
 					</ul>
 				</div>
 				<div class="col-sm-8">
 					<p>{{ blogBillet.contenu }}</p>
 					<div class="btn-group row">
-						<a href="{{ path('discussion_index',{"billetId":blogBillet.Id}) }}">
-							<button class="btn btn-secondary col-sm-6 w-100">Accéder</button>
+						<a
+							href="{{ path('discussion_index',{"billetId":blogBillet.Id}) }}">
+							<button class="btn btn-secondary col-sm-6 w-100"> {% trans %}blog.go{% endtrans %}</button>
 						</a>
 						{% if userName is not null and userName == blogBillet.auteur %}
-							<a href={{ path('edit_billet',{"billetId":blogBillet.Id} ) }}>
-								<button class="btn btn-warning col-sm-6 w-100">Modifier le billet
+							<a
+								href={{ path('edit_billet',{"billetId":blogBillet.Id} ) }}>
+								<button class="btn btn-warning col-sm-6 w-100">{% trans %}blog.topic.update{% endtrans %}
 								</button>
 							</a>
 						{% endif %}
@@ -101,12 +111,14 @@
 		{% endfor %}
 		{# Création d'un nouveau billet #}
 		{% if userName is not null %}
-			<a href="{{ path('create_billet') }}">
-				<button class="btn btn-success w-100">Créer un nouveau sujet</button>
+			<a
+				href="{{ path('create_billet') }}">
+				<button class="btn btn-success w-100">{% trans %}blog.topic.create{% endtrans %}</button>
 			</a>
 		{% else %}
-			<div class="alert alert-warning">
-				<a class="text-decoration-none text-danger" href="{{ path('user_register') }}">Veuillez vous connecter ou vous inscrire pour ajouter un billet</a>
+			<div
+				class="alert alert-warning">
+				<a class="text-decoration-none text-danger" href="{{ path('user_register') }}">{% trans %}blog.auth_required{% endtrans %}</a>
 			</div>
 		{% endif %}
 	{% endif %}

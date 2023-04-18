@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 {% block title %}
-	Article{{ parent() }}
+	{% trans %}article.tag{% endtrans %}{{ parent() }}
 {% endblock %}
 {% block body %}
 	{% if articles|length == 1 %}
@@ -11,10 +11,10 @@
 					<div>{{ article.contenu }}</div>
 					<div class="btn-group">
 						<a href={{ path('admin_edit_article',{"articleId":article.id} ) }}>
-							<button class="btn btn-warning mt-3">Modifier l'article</button>
+							<button class="btn btn-warning mt-3">{% trans %}edit{% endtrans %}</button>
 						</a>
 						<a href={{ path('admin_delete_article',{"articleId":article.id} ) }}>
-							<button class="btn btn-danger mt-3">Supprimer l'article</button>
+							<button class="btn btn-danger mt-3">{% trans %}delete{% endtrans %}</button>
 						</a>
 					</div>
 					<hr>
@@ -31,13 +31,13 @@
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="btn-group">
 												<a href={{ path('admin_show_image',{"imageId":image.id} ) }}>
-													<button type="button" class="btn btn-sm btn-outline-secondary">Voir</button>
+													<button type="button" class="btn btn-sm btn-outline-secondary">{% trans %}see{% endtrans %}</button>
 												</a>
 												<a href={{ path('edit_image',{"imageId":image.id} ) }}>
-													<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+													<button type="button" class="btn btn-sm btn-outline-secondary">{% trans %}edit{% endtrans %}</button>
 												</a>
 												<a href={{ path('delete_image',{"imageId":image.id} ) }}>
-													<button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
+													<button type="button" class="btn btn-sm btn-outline-secondary">{% trans %}delete{% endtrans %}</button>
 												</a>
 											</div>
 										</div>
@@ -70,13 +70,13 @@
 						</div>
 						<div class="btn-group">
 							<a href={{ path('admin_show_article',{"articleId":article.id} ) }}>
-								<button class="btn btn-primary mt-3">Afficher l'article</button>
+								<button class="btn btn-primary mt-3">{% trans %}article.show{% endtrans %}</button>
 							</a>
 							<a href={{ path('admin_edit_article',{"articleId":article.id} ) }}>
-								<button class="btn btn-warning mt-3">Modifier l'article</button>
+								<button class="btn btn-warning mt-3">{% trans %}edit{% endtrans %}</button>
 							</a>
 							<a href={{ path('admin_delete_article',{"articleId":article.id} ) }}>
-								<button class="btn btn-danger mt-3">Supprimer l'article</button>
+								<button class="btn btn-danger mt-3">{% trans %}delete{% endtrans %}</button>
 							</a>
 						</div>
 					</div>
@@ -86,7 +86,7 @@
 	{% endif %}
 	<div>
 		<a href={{ path('admin_create_article') }}>
-			<button class="btn btn-success mt-3">Créer un nouvel article</button>
+			<button class="btn btn-success mt-3">{% trans %}article.add{% endtrans %}</button>
 		</a>
 	</div>
 {% endblock %}

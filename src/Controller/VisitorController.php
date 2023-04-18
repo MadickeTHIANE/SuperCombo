@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
- *@Route("/user")
+ *@Route("/{_locale}/user", requirements={"_locale": "en|fr"})
  *@Security("is_granted('ROLE_USER')") 
  */
 class VisitorController extends AbstractController

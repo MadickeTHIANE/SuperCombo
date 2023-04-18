@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Mentions légales{{parent()}}
+{% block title %}
+{% trans %}legal.tag{% endtrans %}{{parent()}}
 {% endblock %}
 {% block body %}
-	<h3>Mentions légales</h3>
+	<h3>{% trans %}legal.tag{% endtrans %}</h3>
 	<address>
-		Association Supercombo
+		Supercombo
 		<br>
 		30 rue de Jean Dupont 75000 Paris
 		<br>
@@ -13,10 +13,10 @@
 	</address>
 	<h4>Contact</h4>
 	<ul>
-		<li>Téléphone au +33 (0)6 33 01 52 54</li>
-		<li>Mail : supercombo.org@gmail.com</li>
+		<li>{% trans %}legal.tel{% endtrans %} +33 (0)6 33 01 52 54</li>
+		<li>{% trans %}legal.mail{% endtrans %}supercombo.org@gmail.com</li>
 	</ul>
-	<h4>Crédits</h4>
-	Conception et production :
-	<p>Ce site a été réalisé avec Symfony par Madické Thiane.</p>
+	<h4>{% trans %}legal.credits.title{% endtrans %}</h4>
+	{% trans %}legal.credits.conc-prod{% endtrans %}
+	<p>{% trans %}legal.credits.descritption{% endtrans %}</p>
 {% endblock %}

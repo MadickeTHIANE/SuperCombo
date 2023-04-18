@@ -7,6 +7,11 @@ parameters:
   images_directory: "%kernel.project_dir%/public/media"
 
 services:
+  App\EventSubscriber\LocaleSubscriber:
+      arguments: ['%kernel.default_locale%']
+      # uncomment the next line if you are not using autoconfigure
+      # tags: [kernel.event_subscriber]
+      
   # default configuration for services in *this* file
   _defaults:
     autowire: true # Automatically injects dependencies in your services.

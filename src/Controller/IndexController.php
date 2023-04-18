@@ -16,7 +16,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @Route(
+ *     "/{_locale}",
+ *     requirements={
+ *         "_locale": "en|fr",
+ *     }
+ * )
+ */
 class IndexController extends AbstractController
 {
     const BLOG_INDEX = 'index/blog.html.twig';
@@ -25,16 +34,18 @@ class IndexController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(VideoRepository $videoRepository, SlideRepository $slideRepository)
+    public function index(VideoRepository $videoRepository, SlideRepository $slideRepository, TranslatorInterface $translator, Request $request)
     {
         $videos = $videoRepository->findBy([], ['id' => 'desc']);
         $slides = $slideRepository->findBy(["active" => 0]);
         $slideActive = $slideRepository->findBy(["active" => 1])[0];
+        $locale = $request->getLocale();
 
         return $this->render('index/index.html.twig', [
             "videos" => $videos,
             "slideActive" => $slideActive,
             "slides" => $slides,
+            "locale"=>$locale,
         ]);
     }
     

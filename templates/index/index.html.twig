@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Accueil{{parent()}}
+{% block title %}
+{% trans %}index.tag{% endtrans %}{{parent()}}
 {% endblock %}
 
 {% block body %}
@@ -14,7 +14,7 @@
 			{% endfor %}
 		</div>
 		<div class="carousel-inner">
-			<h2>A la une</h2>
+			<h2>{% trans %}index.headline{% endtrans %}</h2>
 			<div class="carousel-item active">
 				{% if slideActive.bgDark %}
 					<img class="bg-dark img-fluid" src="{{ asset("/media/" ~ slideActive.media.src) }}" alt="{{ slideActive.media.title }}">
@@ -61,11 +61,11 @@
 					{% endfor %}
 					<button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Previous</span>
+						<span class="visually-hidden">{% trans %}index.previous{% endtrans %}</span>
 					</button>
 					<button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
 						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Next</span>
+						<span class="visually-hidden">{% trans %}index.next{% endtrans %}</span>
 					</button>
 				</div>
 			</div>
@@ -78,7 +78,7 @@
 		<div class="album py-5 bg-light">
 			<div class="container">
 				{% if videos|length > 1 %}
-					<h2>Vidéos du moment</h2>
+					<h2>{% trans %}index.headline_videos{% endtrans %}</h2>
 				{% endif %}
 				{% if videos|length == 1  %}
 					{% set height = 720 %}
@@ -100,7 +100,7 @@
 											<div class="btn-group">
 												{% if videos|length > 1 %}
 													<a href={{ path('show_video',{"videoId":video.id} ) }}>
-														<button type="button" class="btn btn-sm btn-outline-secondary">Voir</button>
+														<button type="button" class="btn btn-sm btn-outline-secondary">{% trans %}see{% endtrans %}</button>
 													</a>
 												{% endif %}
 											</div>
