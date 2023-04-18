@@ -69,10 +69,6 @@
         <source>header.search</source>
         <target>Recherche</target>
       </trans-unit>
-      <trans-unit id="HPVC20m" resname="tab.article">
-        <source>tab.article</source>
-        <target>Article</target>
-      </trans-unit>
       <trans-unit id="8RXs6Cp" resname="article.read">
         <source>article.read</source>
         <target>Lire l'article</target>
@@ -105,8 +101,8 @@
         <source>blog.comment.delete</source>
         <target>Supprimer le commentaire</target>
       </trans-unit>
-      <trans-unit id="WU4pQoA" resname="blog.commment.write">
-        <source>blog.commment.write</source>
+      <trans-unit id="WU4pQoA" resname="blog.comment.write">
+        <source>blog.comment.write</source>
         <target>Ecrire un commentaire </target>
       </trans-unit>
       <trans-unit id="dhd.fUW" resname="blog.auth_required">
@@ -173,8 +169,8 @@
         <source>media.delete</source>
         <target>Supprimer</target>
       </trans-unit>
-      <trans-unit id="3BEtdv1" resname="media.image.add">
-        <source>media.image.add</source>
+      <trans-unit id="xhCMxn1" resname="media.add">
+        <source>media.add</source>
         <target>Ajouter une image</target>
       </trans-unit>
       <trans-unit id="hg8cFfT" resname="privacy.tag">
@@ -212,6 +208,46 @@
       <trans-unit id="zwINL5B" resname="search.result.discussion_link">
         <source>search.result.discussion_link</source>
         <target>Lien vers la discussion</target>
+      </trans-unit>
+      <trans-unit id="XCH6jgZ" resname="article.tag">
+        <source>article.tag</source>
+        <target>Articles</target>
+      </trans-unit>
+      <trans-unit id="W12cLaV" resname="edit">
+        <source>edit</source>
+        <target>Modifier</target>
+      </trans-unit>
+      <trans-unit id="i7QTzVQ" resname="delete">
+        <source>delete</source>
+        <target>Supprimer</target>
+      </trans-unit>
+      <trans-unit id="1kNN5ZC" resname="article.show">
+        <source>article.show</source>
+        <target>Afficher</target>
+      </trans-unit>
+      <trans-unit id="ARmG8Ow" resname="article.add">
+        <source>article.add</source>
+        <target>Ajouter un article</target>
+      </trans-unit>
+      <trans-unit id="MJ2rLcB" resname="blog.topic.delete">
+        <source>blog.topic.delete</source>
+        <target>Supprimer ce topic</target>
+      </trans-unit>
+      <trans-unit id="6B_H8Ax" resname="slide.tag">
+        <source>slide.tag</source>
+        <target>Diapos</target>
+      </trans-unit>
+      <trans-unit id="s5AEk_2" resname="slide.add">
+        <source>slide.add</source>
+        <target>Ajouter une diapo</target>
+      </trans-unit>
+      <trans-unit id="J5Lpr9G" resname="video.tag">
+        <source>video.tag</source>
+        <target>Vidéos</target>
+      </trans-unit>
+      <trans-unit id="NBbXJct" resname="video.add">
+        <source>video.add</source>
+        <target>Ajouter une vidéo</target>
       </trans-unit>
     </body>
   </file>

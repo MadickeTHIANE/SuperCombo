@@ -9,10 +9,6 @@
         <source>header.search</source>
         <target>Search</target>
       </trans-unit>
-      <trans-unit id="HPVC20m" resname="tab.article">
-        <source>tab.article</source>
-        <target>Post</target>
-      </trans-unit>
       <trans-unit id="8RXs6Cp" resname="article.read">
         <source>article.read</source>
         <target>Read article</target>
@@ -45,8 +41,8 @@
         <source>blog.comment.delete</source>
         <target>Delete comment</target>
       </trans-unit>
-      <trans-unit id="WU4pQoA" resname="blog.commment.write">
-        <source>blog.commment.write</source>
+      <trans-unit id="WU4pQoA" resname="blog.comment.write">
+        <source>blog.comment.write</source>
         <target>Write a comment </target>
       </trans-unit>
       <trans-unit id="dhd.fUW" resname="blog.auth_required">
@@ -113,8 +109,8 @@
         <source>media.delete</source>
         <target>Delete</target>
       </trans-unit>
-      <trans-unit id="3BEtdv1" resname="media.image.add">
-        <source>media.image.add</source>
+      <trans-unit id="3BEtdv1" resname="media.add">
+        <source>media.add</source>
         <target>Add image</target>
       </trans-unit>
       <trans-unit id="hg8cFfT" resname="privacy.tag">
