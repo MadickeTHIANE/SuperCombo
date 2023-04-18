@@ -30,7 +30,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
- *@Route("/admin")
+ *@Route(
+ *   "/{_locale}/admin", 
+ * requirements={
+ *         "_locale": "en|fr",
+ *     }
+ * )
  *@Security("is_granted('ROLE_ADMIN')") 
  */
 class AdminController extends AbstractController
