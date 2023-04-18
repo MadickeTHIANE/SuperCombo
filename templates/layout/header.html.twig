@@ -1,5 +1,6 @@
 {% trans_default_domain "messages" %}
 {% set locale = app.request.locale %}
+{% set currentUrl = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
 <header>
 	<!-- Fixed navbar -->
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -70,13 +71,25 @@
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="language">
 						<li>
-							<a class="dropdown-item" href="#">
+							<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'fr'})) }}">
 								<img src="{{asset("assets/img/fr-flag-icon.png")}}" alt="french flag" style="width : 40px"/>
 							</a>
 						</li>
 						<li>
-							<a class="dropdown-item" href="#">
+							<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">
 								<img src="{{asset("assets/img/en-flag-icon.png")}}" alt="english flag" style="width : 40px"/>
+							</a>
+						</li>
+						<li>
+							{# <a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'it'})) }}"> #}
+							<a href="#">
+								<img src="{{asset("assets/img/it-flag-icon.png")}}" alt="italian flag" style="width : 40px"/>
+							</a>
+						</li>
+						<li>
+							{# <a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'sp'})) }}"> #}
+							<a href="#">
+								<img src="{{asset("assets/img/sp-flag-icon.png")}}" alt="spanish flag" style="width : 40px"/>
 							</a>
 						</li>
 					</ul>
