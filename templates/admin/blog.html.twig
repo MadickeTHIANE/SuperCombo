@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 {% block title %}
-	Discussion{{ parent() }}
+	{% trans %}blog.tag{% endtrans %}{{ parent() }}
 {% endblock %}
 {% block body %}
 	{# Affichage des discussions relatives à un billet #}
@@ -8,11 +8,11 @@
 		<div class="row alert alert-info">
 			<div class="col-sm-4 mb-2">
 				<ul class="list-group list-group-flush">
-					<li class="list-group-item">Sujet :
+					<li class="list-group-item">{% trans %}blog.topic{% endtrans %}
 						{{ blogBillet.titre }}</li>
-					<li class="list-group-item">Créé le
+					<li class="list-group-item">{% trans %}blog.creation_date{% endtrans %}
 						{{ blogBillet.datecreation|date('d/m/Y à G:i:s', 'Europe/Paris') }}
-						par
+						{% trans %}blog.author{% endtrans %}
 						{{ blogBillet.auteur }}</li>
 				</ul>
 			</div>
@@ -20,10 +20,10 @@
 				<p>{{ blogBillet.contenu }}</p>
 				<div class="btn-group row">
 					<a href={{ path('admin_edit_billet',{"billetId":blogBillet.Id} ) }}>
-						<button class="btn btn-warning col-sm-6 w-100">Modifier le billet</button>
+						<button class="btn btn-warning col-sm-6 w-100">{% trans %}blog.topic.update{% endtrans %}</button>
 					</a>
 					<a href={{ path('admin_delete_billet',{"billetId":blogBillet.Id} ) }}>
-						<button class="btn btn-danger col-sm-6 w-100">Supprimer le billet</button>
+						<button class="btn btn-danger col-sm-6 w-100">{% trans %}blog.topic.delete{% endtrans %}</button>
 					</a>
 				</div>
 			</div>
@@ -36,9 +36,9 @@
 				<div class="row alert alert-info">
 					<div class="col-sm-4 mb-2">
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item">Créé le
+							<li class="list-group-item">{% trans %}blog.creation_date{% endtrans %}
 								{{ blogDiscussion.datecreation|date('d/m/Y à G:i:s', 'Europe/Paris') }}
-								par
+								{% trans %}blog.author{% endtrans %}
 								{{ blogDiscussion.auteur }}</li>
 						</ul>
 					</div>
@@ -46,10 +46,10 @@
 						<p>{{ blogDiscussion.contenu }}</p>
 						<div class="btn-group row">
 							<a href={{ path('admin_edit_discussion',{"discussionId":blogDiscussion.id} ) }}>
-								<button class="btn btn-warning col-sm-6 w-100">Modifier le commentaire</button>
+								<button class="btn btn-warning col-sm-6 w-100">{% trans %}blog.comment.update{% endtrans %}</button>
 							</a>
 							<a href={{ path('admin_delete_discussion',{"discussionId":blogDiscussion.id} ) }}>
-								<button class="btn btn-danger col-sm-6 w-100">Supprimer le commentaire</button>
+								<button class="btn btn-danger col-sm-6 w-100">{% trans %}blog.comment.delete{% endtrans %}</button>
 							</a>
 						</div>
 					</div>
@@ -59,7 +59,7 @@
 			<hr>
 			{# Création d'un nouveau commentaire #}
 			<a href="{{ path('admin_create_discussion',{"billetId":blogBillet.id}) }}">
-				<button class="btn btn-success w-100">Ecrire un commentaire</button>
+				<button class="btn btn-success w-100">{% trans %}blog.comment.write{% endtrans %}</button>
 			</a>
 		</div>
 	{% else %}
@@ -68,11 +68,11 @@
 			<div class="row alert alert-info">
 				<div class="col-sm-4 mb-2">
 					<ul class="list-group list-group-flush">
-						<li class="list-group-item">Sujet :
+						<li class="list-group-item">{% trans %}blog.topic{% endtrans %}
 							{{ blogBillet.titre }}</li>
-						<li class="list-group-item">Créé le
+						<li class="list-group-item">{% trans %}blog.creation_date{% endtrans %}
 							{{ blogBillet.datecreation|date('d/m/Y à G:i:s', 'Europe/Paris') }}
-							par
+							{% trans %}blog.author{% endtrans %}
 							{{ blogBillet.auteur }}</li>
 					</ul>
 				</div>
@@ -80,13 +80,13 @@
 					<p>{{ blogBillet.contenu }}</p>
 					<div class="btn-group row">
 						<a href="{{ path('admin_discussion_index',{"billetId":blogBillet.Id}) }}">
-							<button class="btn btn-secondary col-sm-4 w-100">Accéder</button>
+							<button class="btn btn-secondary col-sm-4 w-100">{% trans %}blog.go{% endtrans %}</button>
 						</a>
 						<a href={{ path('admin_edit_billet',{"billetId":blogBillet.Id} ) }}>
-							<button class="btn btn-warning col-sm-4 w-100">Modifier le billet</button>
+							<button class="btn btn-warning col-sm-4 w-100">{% trans %}blog.topic.update{% endtrans %}</button>
 						</a>
 						<a href={{ path('admin_delete_billet',{"billetId":blogBillet.Id} ) }}>
-							<button class="btn btn-danger col-sm-4 w-100">Supprimer le billet</button>
+							<button class="btn btn-danger col-sm-4 w-100">{% trans %}blog.topic.delete{% endtrans %}</button>
 						</a>
 					</div>
 				</div>
@@ -96,7 +96,7 @@
 		{% endfor %}
 		{# Création d'un nouveau billet #}
 		<a href="{{ path('admin_create_billet') }}">
-			<button class="btn btn-success w-100">Créer un nouveau sujet</button>
+			<button class="btn btn-success w-100">{% trans %}blog.topic.create{% endtrans %}</button>
 		</a>
 	{% endif %}
 {% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vidéos{{parent()}}
+{% block title %}{% trans %}video.tag{% endtrans %}{{parent()}}
 {% endblock %}
 
 {% block body %}
@@ -23,10 +23,10 @@
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<a href={{ path('edit_video',{"videoId":video.id} ) }}>
-											<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+											<button type="button" class="btn btn-sm btn-outline-secondary">{% trans %}edit{% endtrans %}</button>
 										</a>
 										<a href={{ path('delete_video',{"videoId":video.id} ) }}>
-											<button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
+											<button type="button" class="btn btn-sm btn-outline-secondary">{% trans %}delete{% endtrans %}</button>
 										</a>
 									</div>
 								</div>
@@ -36,7 +36,7 @@
 				{% endfor %}
 			</div>
 			<a href={{ path('add_video') }} class="row">
-				<button type="button" class="btn btn-sm btn-outline-secondary btn-success text-white">Ajouter une vidéo</button>
+				<button type="button" class="btn btn-sm btn-outline-secondary btn-success text-white">{% trans %}video.add{% endtrans %}</button>
 			</a>
 		</div>
 	</div>
