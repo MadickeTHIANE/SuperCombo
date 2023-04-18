@@ -18,6 +18,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @Route(
+ *     "/{_locale}",
+ *     requirements={
+ *         "_locale": "en|fr",
+ *     }
+ * )
+ */
 class IndexController extends AbstractController
 {
     const BLOG_INDEX = 'index/blog.html.twig';
