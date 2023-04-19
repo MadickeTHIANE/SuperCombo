@@ -1,7 +1,7 @@
 security:
-  encoders:
-    App\Entity\User:
-      algorithm: auto
+  password_hashers:
+  # Remplacer plaintext par  auto
+    App\Entity\User: auto
 
   # https://symfony.com/doc/current/security/experimental_authenticators.html
   enable_authenticator_manager: true

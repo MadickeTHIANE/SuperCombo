@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class SecurityController extends AbstractController
 {
@@ -24,7 +24,7 @@ class SecurityController extends AbstractController
      * @Security("is_granted('ROLE_SUPERADMIN')")
      * @Route("/admin_register",name="admin_register")
      */
-    public function adminRegister(Request $request, UserPasswordEncoderInterface $passEncoder)
+    public function adminRegister(Request $request, UserPasswordHasherInterface $passwordHasher)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -65,7 +65,7 @@ class SecurityController extends AbstractController
             $user = new Admin;
             $user->setUsername($datas['username']);
             $user->setMatricle($datas['matricle']);
-            $user->setPassword($passEncoder->encodePassword($user, $datas['password']));
+            $user->setPassword($passwordHasher->hashPassword($user, $datas['password']));
             $user->setRoles($datas['roles']);
 
             $entityManager->persist($user);
@@ -82,7 +82,7 @@ class SecurityController extends AbstractController
     /**
      *@Route("/register",name="user_register") 
      */
-    public function userRegister(Request $request, UserPasswordEncoderInterface $passEncoder)
+    public function userRegister(Request $request, UserPasswordHasherInterface $passwordHasher)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $userForm = $this->createFormBuilder()
@@ -114,7 +114,7 @@ class SecurityController extends AbstractController
             $user->setUsername($datas['username']);
             $user->setMail($datas['mail']);
             $user->setRoles(['ROLE_USER']);
-            $user->setPassword($passEncoder->encodePassword($user, $datas['password']));
+            $user->setPassword($passwordHasher->hashPassword($user, $datas['password']));
             $entityManager->persist($user);
             $entityManager->flush();
             return $this->redirect($this->generateUrl('app_login'));
