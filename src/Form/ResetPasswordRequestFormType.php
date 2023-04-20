@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -13,7 +12,7 @@ class ResetPasswordRequestFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('mail', EmailType::class, [
+        ->add('mail', EmailType::class, [
                 'attr' => ['autocomplete' => 'email'],
                 'constraints' => [
                     new NotBlank([
