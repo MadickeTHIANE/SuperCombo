@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-{% trans %}index.tag{% endtrans %}{{parent()}}
+	{% trans %}index.tag{% endtrans %}{{parent()}}
 {% endblock %}
 
 {% block body %}
@@ -31,7 +31,7 @@
 							<h3>{{ slideActive.titre }}</h3>
 							<p class='h4'>{{ slideActive.extrait }}</p>
 							<p>
-								<a class="btn btn-lg btn-primary" href="{{ slideActive.lien }}">{{ slideActive.button }}</a>
+								<a class="btn btn-lg btn-primary" href="{{locale ~ "/" ~ slideActive.lien }}">{{ slideActive.button }}</a>
 							</p>
 						</div>
 					</div>
