@@ -21,8 +21,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @Route(
  *     "/{_locale}",
+ *     defaults={
+ *         "_locale": "fr",
+ *     },
  *     requirements={
- *         "_locale": "en|fr",
+ *         "_locale": "fr|en",
  *     }
  * )
  */
