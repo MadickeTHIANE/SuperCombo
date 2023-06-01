@@ -47,10 +47,16 @@ class Article
      */
     private $media;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="article")
+     */
+    private $images;
+
     public function __construct()
     {
         $this->dateCreation = new \DateTime("now");
         $this->media = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
 
@@ -131,6 +137,36 @@ class Article
             // set the owning side to null (unless already changed)
             if ($media->getArticle() === $this) {
                 $media->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getArticle() === $this) {
+                $image->setArticle(null);
             }
         }
 

@@ -55,6 +55,12 @@ class Slide
     private $media;
 
     /**
+     * @ORM\OneToOne(targetEntity=Image::class, mappedBy="slide")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $image;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $button;

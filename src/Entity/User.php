@@ -70,6 +70,11 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $media;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="user")
+     */
+    private $images;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
