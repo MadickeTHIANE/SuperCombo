@@ -21,6 +21,7 @@ use App\Repository\ArticleRepository;
 use App\Repository\BlogBilletRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\BlogDiscussionRepository;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -170,11 +171,15 @@ class AdminController extends AbstractController
 
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $mediaFile->guessExtension();
 
-                $mediaFile->move(
-                    $this->getParameter('images_directory'),
-                    $newFilename
-                );
-
+                try {
+                    $mediaFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                   echo $e;
+                }
+           
                 $media->setSrc($newFilename);
             }
 
