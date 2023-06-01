@@ -18,10 +18,6 @@ class MediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('EditImage', CheckBoxType::class,[
-            'label'=>'Voulez-vous changer l\'image ?',
-            'required' => false
-        ])
         ->add('src', FileType::class,[
             'mapped' => false,
             'required' => false,

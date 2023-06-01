@@ -55,11 +55,6 @@ class Media
      */
     private $date_creation;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $EditImage;
-
     public function __construct()
     {
         $this->date_creation = new \Datetime("now");
@@ -150,18 +145,6 @@ class Media
     public function setDateCreation(\DateTimeInterface $date_creation): self
     {
         $this->date_creation = $date_creation;
-
-        return $this;
-    }
-
-    public function getEditImage(): ?bool
-    {
-        return $this->EditImage;
-    }
-
-    public function setEditImage(bool $EditImage): self
-    {
-        $this->EditImage = $EditImage;
 
         return $this;
     }
