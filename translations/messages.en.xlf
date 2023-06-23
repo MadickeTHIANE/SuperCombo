@@ -293,6 +293,30 @@
         <source>admin_register.label.role</source>
         <target state="translated">Role(s)</target>
       </trans-unit>
+      <trans-unit id="Kd99AFq" resname="login.title">
+        <source>login.title</source>
+        <target state="translated">Sign in</target>
+      </trans-unit>
+      <trans-unit id="z0fOXSR" resname="login.logged-msg">
+        <source>login.logged-msg</source>
+        <target state="translated">You are logged in as</target>
+      </trans-unit>
+      <trans-unit id="wsaupPh" resname="login.username">
+        <source>login.username</source>
+        <target state="translated">Username</target>
+      </trans-unit>
+      <trans-unit id="guXTUCg" resname="login.password">
+        <source>login.password</source>
+        <target state="translated">Password</target>
+      </trans-unit>
+      <trans-unit id="U4Qj3wm" resname="login.sign_in">
+        <source>login.sign_in</source>
+        <target state="translated">Sign in</target>
+      </trans-unit>
+      <trans-unit id="ls7YRPX" resname="login.password_forgotten">
+        <source>login.password_forgotten</source>
+        <target state="translated">Forgot your password?</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

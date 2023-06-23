@@ -293,6 +293,30 @@
         <source>admin_register.label.role</source>
         <target>Rôle(s)</target>
       </trans-unit>
+      <trans-unit id="Kd99AFq" resname="login.title">
+        <source>login.title</source>
+        <target>Connexion</target>
+      </trans-unit>
+      <trans-unit id="z0fOXSR" resname="login.logged-msg">
+        <source>login.logged-msg</source>
+        <target>Vous êtes connecté en tant que</target>
+      </trans-unit>
+      <trans-unit id="wsaupPh" resname="login.username">
+        <source>login.username</source>
+        <target>Pseudo</target>
+      </trans-unit>
+      <trans-unit id="guXTUCg" resname="login.password">
+        <source>login.password</source>
+        <target>Mot de passe</target>
+      </trans-unit>
+      <trans-unit id="U4Qj3wm" resname="login.sign_in">
+        <source>login.sign_in</source>
+        <target>Se connecter</target>
+      </trans-unit>
+      <trans-unit id="ls7YRPX" resname="login.password_forgotten">
+        <source>login.password_forgotten</source>
+        <target>Mot de passe oublié ?</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
