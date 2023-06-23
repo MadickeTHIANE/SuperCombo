@@ -5,6 +5,46 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
+      <trans-unit id="NYwLuEi" resname="form.topic">
+        <source>form.topic</source>
+        <target>Topic</target>
+      </trans-unit>
+      <trans-unit id="miE4t70" resname="form.image.file-error">
+        <source>form.image.file-error</source>
+        <target>Please upload an image in PNG or JPEG format</target>
+      </trans-unit>
+      <trans-unit id="kohqA_C" resname="form.submit">
+        <source>form.submit</source>
+        <target>Confirm</target>
+      </trans-unit>
+      <trans-unit id="ZPgRQAU" resname="form.title">
+        <source>form.title</source>
+        <target>Title</target>
+      </trans-unit>
+      <trans-unit id="idN0Syj" resname="form.content">
+        <source>form.content</source>
+        <target>Content</target>
+      </trans-unit>
+      <trans-unit id="h2JZhLm" resname="form.description">
+        <source>form.description</source>
+        <target>Description</target>
+      </trans-unit>
+      <trans-unit id=".x10Da." resname="form.link">
+        <source>form.link</source>
+        <target>Link</target>
+      </trans-unit>
+      <trans-unit id="TWgxQaw" resname="form.slide.main">
+        <source>form.slide.main</source>
+        <target>Main slide</target>
+      </trans-unit>
+      <trans-unit id="RGtI7oG" resname="form.slide.image">
+        <source>form.slide.image</source>
+        <target>Image</target>
+      </trans-unit>
+      <trans-unit id="UkOHKxx" resname="form.slide.button-text">
+        <source>form.slide.button-text</source>
+        <target>Button text</target>
+      </trans-unit>
       <trans-unit id="gKvxm5K" resname="index.headline">
         <source>index.headline</source>
         <target state="translated">Headline</target>

@@ -317,6 +317,46 @@
         <source>login.password_forgotten</source>
         <target>Mot de passe oublié ?</target>
       </trans-unit>
+      <trans-unit id="miE4t70" resname="form.image.file-error">
+        <source>form.image.file-error</source>
+        <target>Veuillez télécharger une image au format PNG ou JPEG</target>
+      </trans-unit>
+      <trans-unit id="kohqA_C" resname="form.submit">
+        <source>form.submit</source>
+        <target>Valider</target>
+      </trans-unit>
+      <trans-unit id="ZPgRQAU" resname="form.title">
+        <source>form.title</source>
+        <target>Titre</target>
+      </trans-unit>
+      <trans-unit id="idN0Syj" resname="form.content">
+        <source>form.content</source>
+        <target>Contenu</target>
+      </trans-unit>
+      <trans-unit id="h2JZhLm" resname="form.description">
+        <source>form.description</source>
+        <target>Description</target>
+      </trans-unit>
+      <trans-unit id=".x10Da." resname="form.link">
+        <source>form.link</source>
+        <target>Lien</target>
+      </trans-unit>
+      <trans-unit id="TWgxQaw" resname="form.slide.main">
+        <source>form.slide.main</source>
+        <target>Slide principale</target>
+      </trans-unit>
+      <trans-unit id="RGtI7oG" resname="form.slide.image">
+        <source>form.slide.image</source>
+        <target>Image</target>
+      </trans-unit>
+      <trans-unit id="UkOHKxx" resname="form.slide.button-text">
+        <source>form.slide.button-text</source>
+        <target>Texte du bouton</target>
+      </trans-unit>
+      <trans-unit id="NYwLuEi" resname="form.topic">
+        <source>form.topic</source>
+        <target>Sujet</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
