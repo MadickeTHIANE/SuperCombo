@@ -17,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route(
@@ -34,24 +35,25 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
      * @Security("is_granted('ROLE_SUPERADMIN')")
      * @Route("/admin_register",name="admin_register")
      */
-    public function adminRegister(Request $request, UserPasswordHasherInterface $passwordHasher)
+    public function adminRegister(Request $request, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
         $userForm = $this->createFormBuilder()
             ->add('username', TextType::class, [
-                'label' => "Nom de l'utilisateur",
+                'label' => $translator->trans('admin_register.label.username'),
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'required' => true,
-                'first_options' => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Confirmation du mot de passe'],
+                'first_options' => ['label' => $translator->trans('admin_register.label.password')],
+                'second_options' => ['label' => $translator->trans('admin_register.label.password_confirmation')],
             ])
             ->add('matricle', TextType::class, [
-                'label' => "Matricule de l'utilisateur",
+                'label' => $translator->trans('admin_register.label.matricule'),
             ])
             ->add('roles', ChoiceType::class, [
+                'label' => $translator->trans('admin_register.label.role'),
                 'choices' => [
                     'Role : USER' => 'ROLE_USER',
                     'Role : ADMIN' => 'ROLE_ADMIN',
@@ -61,7 +63,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
                 'multiple' => true,
             ])
             ->add('register', SubmitType::class, [
-                'label' => "Inscrire",
+                'label' => $translator->trans('admin_register.label.register'),
                 'attr' => [
                     'class' => 'btn btn-success',
                     'style' => 'margin-top : 5px',
@@ -85,31 +87,31 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
         }
         return $this->render('index/dataform.html.twig', [
             "dataForm" => $userForm->createView(),
-            "formName" => "Inscription (Admin)"
+            "formName" => $translator->trans('header.signIn')." (Admin)"
         ]);
     }
 
     /**
      *@Route("/register",name="user_register") 
      */
-    public function userRegister(Request $request, UserPasswordHasherInterface $passwordHasher)
+    public function userRegister(Request $request, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $userForm = $this->createFormBuilder()
             ->add('username', TextType::class, [
-                'label' => 'Pseudo'
+                'label' => $translator->trans('register.label.username')
             ])
             ->add('mail', EmailType::class, [
-                'label' => "email"
+                'label' => $translator->trans('register.label.mail')
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'required' => true,
-                'first_options' => ['label' => "Votre mot de passe"],
-                'second_options' => ['label' => "Confirmation du mot de passe"],
+                'first_options' => ['label' => $translator->trans('register.label.password')],
+                'second_options' => ['label' => $translator->trans('register.label.password_confirmation')],
             ])
             ->add('register', SubmitType::class, [
-                'label' => "S'inscrire",
+                'label' => $translator->trans('register.confirm'),
                 'attr' => [
                     'style' => "margin-top:5px",
                     'class' => "btn btn-success"
@@ -131,7 +133,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
         }
         return $this->render('index/dataform.html.twig', [
             "dataForm" => $userForm->createView(),
-            "formName" => "Inscription"
+            "formName" => $translator->trans('header.signIn')
         ]);
     }
 
