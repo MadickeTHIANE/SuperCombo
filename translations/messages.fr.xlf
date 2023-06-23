@@ -101,7 +101,7 @@
         <source>blog.comment.delete</source>
         <target>Supprimer le commentaire</target>
       </trans-unit>
-      <trans-unit id="WU4pQoA" resname="blog.comment.write">
+      <trans-unit id="VN7dWky" resname="blog.comment.write">
         <source>blog.comment.write</source>
         <target>Ecrire un commentaire </target>
       </trans-unit>
@@ -213,11 +213,11 @@
         <source>article.tag</source>
         <target>Articles</target>
       </trans-unit>
-      <trans-unit id="W12cLaV" resname="edit">
+      <trans-unit id="JiEhxTc" resname="edit">
         <source>edit</source>
         <target>Modifier</target>
       </trans-unit>
-      <trans-unit id="i7QTzVQ" resname="delete">
+      <trans-unit id="YZdZVQP" resname="delete">
         <source>delete</source>
         <target>Supprimer</target>
       </trans-unit>
@@ -248,6 +248,46 @@
       <trans-unit id="NBbXJct" resname="video.add">
         <source>video.add</source>
         <target>Ajouter une vidéo</target>
+      </trans-unit>
+      <trans-unit id="UCu8OCh" resname="admin_register.label.username">
+        <source>admin_register.label.username</source>
+        <target>__admin_register.label.username</target>
+      </trans-unit>
+      <trans-unit id="DcbT.kI" resname="admin_register.label.password">
+        <source>admin_register.label.password</source>
+        <target>__admin_register.label.password</target>
+      </trans-unit>
+      <trans-unit id="XpTiRJ3" resname="admin_register.label.password_confirmation">
+        <source>admin_register.label.password_confirmation</source>
+        <target>__admin_register.label.password_confirmation</target>
+      </trans-unit>
+      <trans-unit id="TRjxubo" resname="admin_register.label.matricule">
+        <source>admin_register.label.matricule</source>
+        <target>__admin_register.label.matricule</target>
+      </trans-unit>
+      <trans-unit id="orEz2AD" resname="admin_register.label.register">
+        <source>admin_register.label.register</source>
+        <target>__admin_register.label.register</target>
+      </trans-unit>
+      <trans-unit id="J1gU.Dg" resname="register.label.username">
+        <source>register.label.username</source>
+        <target>__register.label.username</target>
+      </trans-unit>
+      <trans-unit id="H_Sf8pr" resname="register.label.mail">
+        <source>register.label.mail</source>
+        <target>__register.label.mail</target>
+      </trans-unit>
+      <trans-unit id="AoAgaTW" resname="register.label.password">
+        <source>register.label.password</source>
+        <target>__register.label.password</target>
+      </trans-unit>
+      <trans-unit id="yt7NDof" resname="register.label.password_confirmation">
+        <source>register.label.password_confirmation</source>
+        <target>__register.label.password_confirmation</target>
+      </trans-unit>
+      <trans-unit id="ilR_sOU" resname="register.confirm">
+        <source>register.confirm</source>
+        <target>__register.confirm</target>
       </trans-unit>
     </body>
   </file>
