@@ -18,7 +18,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class SecurityController extends AbstractController
+/**
+ * @Route(
+ *     "/{_locale}",
+ *     defaults={
+ *         "_locale": "fr",
+ *     },
+ *     requirements={
+ *         "_locale": "fr|en",
+ *     }
+ * )
+ */class SecurityController extends AbstractController
 {
     /**
      * @Security("is_granted('ROLE_SUPERADMIN')")
