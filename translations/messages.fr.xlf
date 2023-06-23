@@ -251,47 +251,47 @@
       </trans-unit>
       <trans-unit id="UCu8OCh" resname="admin_register.label.username">
         <source>admin_register.label.username</source>
-        <target>__admin_register.label.username</target>
+        <target>Nom de l'utilisateur</target>
       </trans-unit>
       <trans-unit id="DcbT.kI" resname="admin_register.label.password">
         <source>admin_register.label.password</source>
-        <target>__admin_register.label.password</target>
+        <target>Mot de passe</target>
       </trans-unit>
       <trans-unit id="XpTiRJ3" resname="admin_register.label.password_confirmation">
         <source>admin_register.label.password_confirmation</source>
-        <target>__admin_register.label.password_confirmation</target>
+        <target>Confirmation du mot de passe</target>
       </trans-unit>
       <trans-unit id="TRjxubo" resname="admin_register.label.matricule">
         <source>admin_register.label.matricule</source>
-        <target>__admin_register.label.matricule</target>
+        <target>Matricule de l'utilisateur</target>
       </trans-unit>
       <trans-unit id="orEz2AD" resname="admin_register.label.register">
         <source>admin_register.label.register</source>
-        <target>__admin_register.label.register</target>
+        <target>Inscrire</target>
       </trans-unit>
       <trans-unit id="J1gU.Dg" resname="register.label.username">
         <source>register.label.username</source>
-        <target>__register.label.username</target>
+        <target>Pseudo</target>
       </trans-unit>
       <trans-unit id="H_Sf8pr" resname="register.label.mail">
         <source>register.label.mail</source>
-        <target>__register.label.mail</target>
+        <target>Email</target>
       </trans-unit>
       <trans-unit id="AoAgaTW" resname="register.label.password">
         <source>register.label.password</source>
-        <target>__register.label.password</target>
+        <target>Votre mot de passe</target>
       </trans-unit>
       <trans-unit id="yt7NDof" resname="register.label.password_confirmation">
         <source>register.label.password_confirmation</source>
-        <target>__register.label.password_confirmation</target>
+        <target>Confirmation de votre mot de passe</target>
       </trans-unit>
       <trans-unit id="ilR_sOU" resname="register.confirm">
         <source>register.confirm</source>
-        <target>__register.confirm</target>
+        <target>S'inscrire</target>
       </trans-unit>
       <trans-unit id="bw9HdSe" resname="admin_register.label.role">
         <source>admin_register.label.role</source>
-        <target>__admin_register.label.role</target>
+        <target>Rôle(s)</target>
       </trans-unit>
     </body>
   </file>

@@ -5,190 +5,6 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="XCH6jgZ" resname="article.tag">
-        <source>article.tag</source>
-        <target>Posts</target>
-      </trans-unit>
-      <trans-unit id="JiEhxTc" resname="edit">
-        <source>edit</source>
-        <target>Edit</target>
-      </trans-unit>
-      <trans-unit id="YZdZVQP" resname="delete">
-        <source>delete</source>
-        <target>Delete</target>
-      </trans-unit>
-      <trans-unit id="1kNN5ZC" resname="article.show">
-        <source>article.show</source>
-        <target>Show</target>
-      </trans-unit>
-      <trans-unit id="ARmG8Ow" resname="article.add">
-        <source>article.add</source>
-        <target>Add an article</target>
-      </trans-unit>
-      <trans-unit id="MJ2rLcB" resname="blog.topic.delete">
-        <source>blog.topic.delete</source>
-        <target>Delete this topic</target>
-      </trans-unit>
-      <trans-unit id="6B_H8Ax" resname="slide.tag">
-        <source>slide.tag</source>
-        <target>Slides</target>
-      </trans-unit>
-      <trans-unit id="s5AEk_2" resname="slide.add">
-        <source>slide.add</source>
-        <target>Add a slide</target>
-      </trans-unit>
-      <trans-unit id="J5Lpr9G" resname="video.tag">
-        <source>video.tag</source>
-        <target>Videos</target>
-      </trans-unit>
-      <trans-unit id="NBbXJct" resname="video.add">
-        <source>video.add</source>
-        <target>Add a video</target>
-      </trans-unit>
-      <trans-unit id="wE7vp5h" resname="header.search">
-        <source>header.search</source>
-        <target>Search</target>
-      </trans-unit>
-      <trans-unit id="8RXs6Cp" resname="article.read">
-        <source>article.read</source>
-        <target>Read article</target>
-      </trans-unit>
-      <trans-unit id="2USGLh2" resname="blog.tag">
-        <source>blog.tag</source>
-        <target>Chat</target>
-      </trans-unit>
-      <trans-unit id="n57MOWZ" resname="blog.topic">
-        <source>blog.topic</source>
-        <target>Topic:</target>
-      </trans-unit>
-      <trans-unit id="xGhFnru" resname="blog.creation_date">
-        <source>blog.creation_date</source>
-        <target>Created on</target>
-      </trans-unit>
-      <trans-unit id="EodBXeu" resname="blog.author">
-        <source>blog.author</source>
-        <target>by</target>
-      </trans-unit>
-      <trans-unit id="S5VZiib" resname="blog.topic.update">
-        <source>blog.topic.update</source>
-        <target>Edit Entry</target>
-      </trans-unit>
-      <trans-unit id="Zolg.3w" resname="blog.comment.update">
-        <source>blog.comment.update</source>
-        <target>Edit comment </target>
-      </trans-unit>
-      <trans-unit id="f3QBB3n" resname="blog.comment.delete">
-        <source>blog.comment.delete</source>
-        <target>Delete comment</target>
-      </trans-unit>
-      <trans-unit id="VN7dWky" resname="blog.comment.write">
-        <source>blog.comment.write</source>
-        <target>Write a comment </target>
-      </trans-unit>
-      <trans-unit id="dhd.fUW" resname="blog.auth_required">
-        <source>blog.auth_required</source>
-        <target>Please log in or sign up to add a ticket</target>
-      </trans-unit>
-      <trans-unit id="H1iSc0X" resname="blog.go">
-        <source>blog.go</source>
-        <target>Go</target>
-      </trans-unit>
-      <trans-unit id="T30pIth" resname="blog.topic.create">
-        <source>blog.topic.create</source>
-        <target>Create a new topic </target>
-      </trans-unit>
-      <trans-unit id="qp6bXJB" resname="see">
-        <source>see</source>
-        <target>See</target>
-      </trans-unit>
-      <trans-unit id="l.zvR8g" resname="index.tag">
-        <source>index.tag</source>
-        <target>Home</target>
-      </trans-unit>
-      <trans-unit id="CTGSw1M" resname="index.headline_videos">
-        <source>index.headline_videos</source>
-        <target>Trending Videos</target>
-      </trans-unit>
-      <trans-unit id="v_TPtkG" resname="legal.tag">
-        <source>legal.tag</source>
-        <target>Legal</target>
-      </trans-unit>
-      <trans-unit id="pR_XBwE" resname="legal.tel">
-        <source>legal.tel</source>
-        <target>Phone: </target>
-      </trans-unit>
-      <trans-unit id="fNXpu.u" resname="legal.mail">
-        <source>legal.mail</source>
-        <target>Email: </target>
-      </trans-unit>
-      <trans-unit id="HaH6aOK" resname="legal.credits.title">
-        <source>legal.credits.title</source>
-        <target>Credits</target>
-      </trans-unit>
-      <trans-unit id="e0FaQGL" resname="legal.credits.conc-prod">
-        <source>legal.credits.conc-prod</source>
-        <target>Design and Production:</target>
-      </trans-unit>
-      <trans-unit id="IuJlOR3" resname="legal.credits.descritption">
-        <source>legal.credits.descritption</source>
-        <target>This site was realized with Symfony by Madické Thiane.</target>
-      </trans-unit>
-      <trans-unit id="thCefjV" resname="media.tag">
-        <source>media.tag</source>
-        <target>Pictures</target>
-      </trans-unit>
-      <trans-unit id="RWK7K_l" resname="media.show">
-        <source>media.show</source>
-        <target>Show</target>
-      </trans-unit>
-      <trans-unit id="We7.acI" resname="media.edit">
-        <source>media.edit</source>
-        <target>Edit</target>
-      </trans-unit>
-      <trans-unit id="EptTLlw" resname="media.delete">
-        <source>media.delete</source>
-        <target>Delete</target>
-      </trans-unit>
-      <trans-unit id="xhCMxn1" resname="media.add">
-        <source>media.add</source>
-        <target>Add image</target>
-      </trans-unit>
-      <trans-unit id="hg8cFfT" resname="privacy.tag">
-        <source>privacy.tag</source>
-        <target>Privacy Policy</target>
-      </trans-unit>
-      <trans-unit id="clw.aox" resname="search.tag">
-        <source>search.tag</source>
-        <target>Search</target>
-      </trans-unit>
-      <trans-unit id="Grrylbx" resname="search.result.display">
-        <source>search.result.display</source>
-        <target>Here are the results of the word search</target>
-      </trans-unit>
-      <trans-unit id="T0Dbbmd" resname="search.articles">
-        <source>search.articles</source>
-        <target>Posts</target>
-      </trans-unit>
-      <trans-unit id="hacLlci" resname="search.result.no_article">
-        <source>search.result.no_article</source>
-        <target>No articles match your search</target>
-      </trans-unit>
-      <trans-unit id="sjNKAzW" resname="search.result.article_link">
-        <source>search.result.article_link</source>
-        <target>Link to article</target>
-      </trans-unit>
-      <trans-unit id="o_0jn_B" resname="search.blog">
-        <source>search.blog</source>
-        <target>Chat</target>
-      </trans-unit>
-      <trans-unit id="IGCqulO" resname="search.result.no_discussion">
-        <source>search.result.no_discussion</source>
-        <target>No articles match your search</target>
-      </trans-unit>
-      <trans-unit id="zwINL5B" resname="search.result.discussion_link">
-        <source>search.result.discussion_link</source>
-        <target>Link to topic</target>
-      </trans-unit>
       <trans-unit id="gKvxm5K" resname="index.headline">
         <source>index.headline</source>
         <target state="translated">Headline</target>
@@ -207,7 +23,7 @@
       </trans-unit>
       <trans-unit id="2QsBojR" resname="header.forum">
         <source>header.forum</source>
-        <target state="translated">Forum</target>
+        <target state="translated">Blog</target>
       </trans-unit>
       <trans-unit id="xGFcefF" resname="header.signIn">
         <source>header.signIn</source>
@@ -249,49 +65,233 @@
         <source>header.admin.signIn</source>
         <target state="translated">Admin Registration</target>
       </trans-unit>
+      <trans-unit id="wE7vp5h" resname="header.search">
+        <source>header.search</source>
+        <target state="translated">Search</target>
+      </trans-unit>
+      <trans-unit id="8RXs6Cp" resname="article.read">
+        <source>article.read</source>
+        <target state="translated">Read article</target>
+      </trans-unit>
+      <trans-unit id="2USGLh2" resname="blog.tag">
+        <source>blog.tag</source>
+        <target state="translated">Chat</target>
+      </trans-unit>
+      <trans-unit id="n57MOWZ" resname="blog.topic">
+        <source>blog.topic</source>
+        <target state="translated">Topic:</target>
+      </trans-unit>
+      <trans-unit id="xGhFnru" resname="blog.creation_date">
+        <source>blog.creation_date</source>
+        <target state="translated">Created on</target>
+      </trans-unit>
+      <trans-unit id="EodBXeu" resname="blog.author">
+        <source>blog.author</source>
+        <target state="translated">by</target>
+      </trans-unit>
+      <trans-unit id="S5VZiib" resname="blog.topic.update">
+        <source>blog.topic.update</source>
+        <target state="translated">Edit Entry</target>
+      </trans-unit>
+      <trans-unit id="Zolg.3w" resname="blog.comment.update">
+        <source>blog.comment.update</source>
+        <target state="translated">Edit comment </target>
+      </trans-unit>
+      <trans-unit id="f3QBB3n" resname="blog.comment.delete">
+        <source>blog.comment.delete</source>
+        <target state="translated">Delete comment</target>
+      </trans-unit>
+      <trans-unit id="VN7dWky" resname="blog.comment.write">
+        <source>blog.comment.write</source>
+        <target state="translated">Write a comment </target>
+      </trans-unit>
+      <trans-unit id="dhd.fUW" resname="blog.auth_required">
+        <source>blog.auth_required</source>
+        <target state="translated">Please log in or sign up to add a ticket</target>
+      </trans-unit>
+      <trans-unit id="H1iSc0X" resname="blog.go">
+        <source>blog.go</source>
+        <target state="translated">Go</target>
+      </trans-unit>
+      <trans-unit id="T30pIth" resname="blog.topic.create">
+        <source>blog.topic.create</source>
+        <target state="translated">Create a new topic </target>
+      </trans-unit>
+      <trans-unit id="qp6bXJB" resname="see">
+        <source>see</source>
+        <target state="translated">See</target>
+      </trans-unit>
+      <trans-unit id="l.zvR8g" resname="index.tag">
+        <source>index.tag</source>
+        <target state="translated">Home</target>
+      </trans-unit>
+      <trans-unit id="CTGSw1M" resname="index.headline_videos">
+        <source>index.headline_videos</source>
+        <target state="translated">Trending Videos</target>
+      </trans-unit>
+      <trans-unit id="v_TPtkG" resname="legal.tag">
+        <source>legal.tag</source>
+        <target state="translated">Legal</target>
+      </trans-unit>
+      <trans-unit id="pR_XBwE" resname="legal.tel">
+        <source>legal.tel</source>
+        <target state="translated">Phone: </target>
+      </trans-unit>
+      <trans-unit id="fNXpu.u" resname="legal.mail">
+        <source>legal.mail</source>
+        <target state="translated">Email: </target>
+      </trans-unit>
+      <trans-unit id="HaH6aOK" resname="legal.credits.title">
+        <source>legal.credits.title</source>
+        <target state="translated">Credits</target>
+      </trans-unit>
+      <trans-unit id="e0FaQGL" resname="legal.credits.conc-prod">
+        <source>legal.credits.conc-prod</source>
+        <target state="translated">Design and Production:</target>
+      </trans-unit>
+      <trans-unit id="IuJlOR3" resname="legal.credits.descritption">
+        <source>legal.credits.descritption</source>
+        <target state="final">This site was realized with Symfony by Madické Thiane.</target>
+      </trans-unit>
+      <trans-unit id="thCefjV" resname="media.tag">
+        <source>media.tag</source>
+        <target state="translated">Pictures</target>
+      </trans-unit>
+      <trans-unit id="RWK7K_l" resname="media.show">
+        <source>media.show</source>
+        <target state="translated">Show</target>
+      </trans-unit>
+      <trans-unit id="We7.acI" resname="media.edit">
+        <source>media.edit</source>
+        <target state="translated">Edit</target>
+      </trans-unit>
+      <trans-unit id="EptTLlw" resname="media.delete">
+        <source>media.delete</source>
+        <target state="translated">Delete</target>
+      </trans-unit>
+      <trans-unit id="xhCMxn1" resname="media.add">
+        <source>media.add</source>
+        <target state="translated">Add image</target>
+      </trans-unit>
+      <trans-unit id="hg8cFfT" resname="privacy.tag">
+        <source>privacy.tag</source>
+        <target state="translated">Privacy Policy</target>
+      </trans-unit>
+      <trans-unit id="clw.aox" resname="search.tag">
+        <source>search.tag</source>
+        <target state="translated">Search</target>
+      </trans-unit>
+      <trans-unit id="Grrylbx" resname="search.result.display">
+        <source>search.result.display</source>
+        <target state="translated">Here are the results of the word search</target>
+      </trans-unit>
+      <trans-unit id="T0Dbbmd" resname="search.articles">
+        <source>search.articles</source>
+        <target state="translated">Posts</target>
+      </trans-unit>
+      <trans-unit id="hacLlci" resname="search.result.no_article">
+        <source>search.result.no_article</source>
+        <target state="translated">No articles match your search</target>
+      </trans-unit>
+      <trans-unit id="sjNKAzW" resname="search.result.article_link">
+        <source>search.result.article_link</source>
+        <target state="translated">Link to article</target>
+      </trans-unit>
+      <trans-unit id="o_0jn_B" resname="search.blog">
+        <source>search.blog</source>
+        <target state="translated">Chat</target>
+      </trans-unit>
+      <trans-unit id="IGCqulO" resname="search.result.no_discussion">
+        <source>search.result.no_discussion</source>
+        <target state="translated">No articles match your search</target>
+      </trans-unit>
+      <trans-unit id="zwINL5B" resname="search.result.discussion_link">
+        <source>search.result.discussion_link</source>
+        <target state="translated">Link to topic</target>
+      </trans-unit>
+      <trans-unit id="XCH6jgZ" resname="article.tag">
+        <source>article.tag</source>
+        <target state="translated">Posts</target>
+      </trans-unit>
+      <trans-unit id="JiEhxTc" resname="edit">
+        <source>edit</source>
+        <target state="translated">Edit</target>
+      </trans-unit>
+      <trans-unit id="YZdZVQP" resname="delete">
+        <source>delete</source>
+        <target state="translated">Delete</target>
+      </trans-unit>
+      <trans-unit id="1kNN5ZC" resname="article.show">
+        <source>article.show</source>
+        <target state="translated">Show</target>
+      </trans-unit>
+      <trans-unit id="ARmG8Ow" resname="article.add">
+        <source>article.add</source>
+        <target state="translated">Add an article</target>
+      </trans-unit>
+      <trans-unit id="MJ2rLcB" resname="blog.topic.delete">
+        <source>blog.topic.delete</source>
+        <target state="translated">Delete this topic</target>
+      </trans-unit>
+      <trans-unit id="6B_H8Ax" resname="slide.tag">
+        <source>slide.tag</source>
+        <target state="translated">Slides</target>
+      </trans-unit>
+      <trans-unit id="s5AEk_2" resname="slide.add">
+        <source>slide.add</source>
+        <target state="translated">Add a slide</target>
+      </trans-unit>
+      <trans-unit id="J5Lpr9G" resname="video.tag">
+        <source>video.tag</source>
+        <target state="translated">Videos</target>
+      </trans-unit>
+      <trans-unit id="NBbXJct" resname="video.add">
+        <source>video.add</source>
+        <target state="translated">Add a video</target>
+      </trans-unit>
       <trans-unit id="UCu8OCh" resname="admin_register.label.username">
         <source>admin_register.label.username</source>
-        <target>__admin_register.label.username</target>
+        <target state="translated">Username</target>
       </trans-unit>
       <trans-unit id="DcbT.kI" resname="admin_register.label.password">
         <source>admin_register.label.password</source>
-        <target>__admin_register.label.password</target>
+        <target state="translated">Password</target>
       </trans-unit>
       <trans-unit id="XpTiRJ3" resname="admin_register.label.password_confirmation">
         <source>admin_register.label.password_confirmation</source>
-        <target>__admin_register.label.password_confirmation</target>
+        <target state="translated">Password confirmation</target>
       </trans-unit>
       <trans-unit id="TRjxubo" resname="admin_register.label.matricule">
         <source>admin_register.label.matricule</source>
-        <target>__admin_register.label.matricule</target>
+        <target state="translated">User number</target>
       </trans-unit>
       <trans-unit id="orEz2AD" resname="admin_register.label.register">
         <source>admin_register.label.register</source>
-        <target>__admin_register.label.register</target>
+        <target state="translated">Register</target>
       </trans-unit>
       <trans-unit id="J1gU.Dg" resname="register.label.username">
         <source>register.label.username</source>
-        <target>__register.label.username</target>
+        <target state="translated">Pseudo</target>
       </trans-unit>
       <trans-unit id="H_Sf8pr" resname="register.label.mail">
         <source>register.label.mail</source>
-        <target>__register.label.mail</target>
+        <target state="translated">Mail</target>
       </trans-unit>
       <trans-unit id="AoAgaTW" resname="register.label.password">
         <source>register.label.password</source>
-        <target>__register.label.password</target>
+        <target state="translated">Your password</target>
       </trans-unit>
       <trans-unit id="yt7NDof" resname="register.label.password_confirmation">
         <source>register.label.password_confirmation</source>
-        <target>__register.label.password_confirmation</target>
+        <target state="translated">Confirm your password</target>
       </trans-unit>
       <trans-unit id="ilR_sOU" resname="register.confirm">
         <source>register.confirm</source>
-        <target>__register.confirm</target>
+        <target state="translated">Sign up</target>
       </trans-unit>
       <trans-unit id="bw9HdSe" resname="admin_register.label.role">
         <source>admin_register.label.role</source>
-        <target>__admin_register.label.role</target>
+        <target state="translated">Role(s)</target>
       </trans-unit>
     </body>
   </file>
