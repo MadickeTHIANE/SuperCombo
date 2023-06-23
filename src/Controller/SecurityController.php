@@ -55,9 +55,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
             ->add('roles', ChoiceType::class, [
                 'label' => $translator->trans('admin_register.label.role'),
                 'choices' => [
-                    'Role : USER' => 'ROLE_USER',
-                    'Role : ADMIN' => 'ROLE_ADMIN',
-                    'Role : SUPERADMIN' => 'ROLE_SUPERADMIN',
+                    'USER' => 'ROLE_USER',
+                    'ADMIN' => 'ROLE_ADMIN',
+                    'SUPERADMIN' => 'ROLE_SUPERADMIN',
                 ],
                 'expanded' => true,
                 'multiple' => true,
