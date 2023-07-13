@@ -357,6 +357,10 @@
         <source>form.topic</source>
         <target>Sujet</target>
       </trans-unit>
+      <trans-unit id="huSwyQL" resname="login.remember_me">
+        <source>login.remember_me</source>
+        <target>Se souvenir de moi</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
