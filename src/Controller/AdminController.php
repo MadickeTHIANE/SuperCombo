@@ -28,6 +28,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 /**
@@ -127,7 +128,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/add/video", name = "add_video")
      */
-    public function addVideo(Request $request, EntityManagerInterface $entityManager)
+    public function addVideo(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator)
     {
         $user = $this->getUser();
         $video = new Video;
@@ -141,7 +142,7 @@ class AdminController extends AbstractController
             return $this->redirect($this->generateUrl('index'));
         }
         return $this->render('index/dataform.html.twig', [
-            "formName" => "Ajouter une vidéo",
+            "formName" => $translator->trans('video.add'),
             "dataForm" => $videoForm->createView()
         ]);
     }
@@ -149,7 +150,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/add/image", name = "add_image")
      */
-    public function addImage(Request $request, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface)
+    public function addImage(Request $request, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface, TranslatorInterface $translator)
     {
         $user = $this->getUser();
         $media = new Media();
@@ -190,7 +191,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute("admin_media_index");
         }
         return $this->render('index/dataform.html.twig', [
-            "formName" => "Ajouter une image",
+            "formName" => $translator->trans('media.add'),
             "dataForm" => $mediaForm->createView()
         ]);
     }
@@ -198,7 +199,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/add/slide", name = "add_slide")
      */
-    public function addSlide(Request $request, EntityManagerInterface $entityManager)
+    public function addSlide(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator)
     {
         $slide = new Slide;
         $slideForm = $this->createForm(SlideType::class, $slide);
@@ -210,7 +211,7 @@ class AdminController extends AbstractController
             return $this->redirect($this->generateUrl('admin_slide_index'));
         }
         return $this->render('index/dataform.html.twig', [
-            "formName" => "Ajouter une slide",
+            "formName" => $translator->trans('slide.add'),
             "dataForm" => $slideForm->createView()
         ]);
     }
